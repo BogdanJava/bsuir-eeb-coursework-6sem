@@ -1,5 +1,10 @@
 package by.bsuir.eeb.rsoicoursework.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
 /**
  * @author Bogdan Shishkin
  * project: rsoi-coursework
@@ -12,5 +17,18 @@ package by.bsuir.eeb.rsoicoursework.model;
  * todo: implement this class
  */
 
+@Data
+@NoArgsConstructor
+@Entity
+@Table(name = "account")
 public class Account {
+
+    @Id
+    @GeneratedValue
+    @Column
+    private long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

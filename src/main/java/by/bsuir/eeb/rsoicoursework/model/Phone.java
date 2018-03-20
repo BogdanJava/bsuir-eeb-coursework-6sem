@@ -29,4 +29,11 @@ public class Phone {
 
     @Column(name = "number")
     private String number;
+
+    @Column
+    private String type;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

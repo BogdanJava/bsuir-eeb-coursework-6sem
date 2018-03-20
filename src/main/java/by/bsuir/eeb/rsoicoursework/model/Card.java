@@ -28,4 +28,8 @@ public class Card {
 
     @Column(name = "csv")
     private String csv;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

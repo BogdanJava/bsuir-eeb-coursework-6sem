@@ -1,8 +1,11 @@
 package by.bsuir.eeb.rsoicoursework.model;
 
+import by.bsuir.eeb.rsoicoursework.model.enums.Gender;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Bogdan Shishkin
@@ -21,18 +24,33 @@ public class User {
     @GeneratedValue
     private long id;
 
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date birthday;
+
     @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToOne
+    @Column(name = "gender")
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    @Embedded
     private Address address;
 
-    @OneToOne
-    private Card card;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "passport_id")
+    private Passport passport;
 
-    @OneToOne
-    private Phone phone;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Card> cards;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Phone> phones;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Account> accounts;
 }

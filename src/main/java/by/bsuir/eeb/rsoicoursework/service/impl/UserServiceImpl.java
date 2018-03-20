@@ -2,6 +2,7 @@ package by.bsuir.eeb.rsoicoursework.service.impl;
 
 import by.bsuir.eeb.rsoicoursework.dao.UserDAO;
 import by.bsuir.eeb.rsoicoursework.model.User;
+import by.bsuir.eeb.rsoicoursework.model.dto.Page;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -55,8 +56,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllLimited(int from, int number) {
-        return userDAO.findAll(PageRequest.of(from, number)).getContent();
+    public List<User> getAllLimited(Page page) {
+        return userDAO.findAll(PageRequest.of(page.getFrom(), page.getLength())).getContent();
     }
 
 }

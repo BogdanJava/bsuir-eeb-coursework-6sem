@@ -1,7 +1,8 @@
 package by.bsuir.eeb.rsoicoursework.dao;
 
-import by.bsuir.eeb.rsoicoursework.model.Card;
 import by.bsuir.eeb.rsoicoursework.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -12,5 +13,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 public interface UserDAO extends JpaRepository<User, Long> {
-    User getUserByCard(Card card);
 }
