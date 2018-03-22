@@ -1,0 +1,25 @@
+<div class="container login-form">
+
+  <form class="form-signin" #form="ngForm" (ngSumbit)="submit(form)">
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <label for="email" class="sr-only">Email address</label>
+    <input [(ngModel)]="user.email" type="text" id="email" name="email" class="form-control"
+           placeholder="Email" required autofocus>
+    <span class="text-danger" *ngIf="submitted && email.invalid">
+            Please enter correct email
+    </span>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input [(ngModel)]="user.password" type="password" id="inputPassword" name="password"
+           class="form-control" placeholder="Password" required>
+    <span class="text-danger" *ngIf="submitted && password.invalid">
+            Please enter password
+    </span>
+    <div class="checkbox">
+      <label>
+        <input [(ngModel)]="rememberMe" type="checkbox" name="rememberMe" value="rememberMe"> Remember me
+      </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  </form>
+
+</div>
