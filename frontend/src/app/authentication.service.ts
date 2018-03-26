@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs/Observable";
-import {HttpClient} from "@angular/common/http";
 import "rxjs/add/operator/do";
+import {Http} from "@angular/http";
 
 const PROTOCOL = "http";
 const PORT = 8080;
@@ -11,12 +11,13 @@ export class AuthenticationService {
   baseUrl: string;
   authToken: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: Http) {
     this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/`;
   }
 
-  authenticate() {
-
+  //TODO доделать аутентификаци через токен
+  authenticate(): Observable<boolean> {
+    return null;
   }
 
 }
