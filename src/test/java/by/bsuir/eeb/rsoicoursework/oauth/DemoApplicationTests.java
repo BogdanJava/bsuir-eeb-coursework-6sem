@@ -1,4 +1,4 @@
-package by.bsuir.eeb.rsoicoursework.demo;
+package by.bsuir.eeb.rsoicoursework.oauth;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
