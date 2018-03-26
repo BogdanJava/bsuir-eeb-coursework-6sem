@@ -6,25 +6,30 @@ import {AppComponent} from './app.component';
 import {RouterModule} from "@angular/router";
 import {LoginComponent} from './login/login.component';
 import {FormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
 import {AuthenticationService} from "./authentication.service";
+import {HttpModule} from "@angular/http";
+import {HomeComponent} from './home/home.component';
+import {CookieService} from "./cookie.service";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
-    BrowserModule, FormsModule, HttpClientModule,
+    BrowserModule, FormsModule, HttpModule,
     RouterModule.forRoot([
       {path: "login", component: LoginComponent},
+      {path: "home", component: HomeComponent},
       {path: "**", redirectTo: "/login"}
     ])
   ],
   providers:
     [
-      AuthenticationService
+      AuthenticationService,
+      CookieService
     ],
   bootstrap: [AppComponent]
 })
