@@ -19,4 +19,5 @@ public interface UserService {
     User update(User user);
     List<User> getAll();
     List<User> getAllLimited(Page page);
+    User findByEmail(String email);
 }

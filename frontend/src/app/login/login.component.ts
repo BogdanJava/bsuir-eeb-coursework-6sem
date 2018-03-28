@@ -23,9 +23,7 @@ export class LoginComponent {
 
   login(form: NgForm): void {
     this.submitted = true;
-    console.log("kek1");
     if (form.valid) {
-      console.log("kek1");
       this.authService.authenticate(new User(this.email, this.password));
       if (this.authService.isAuthenticated()) {
         this.router.navigate(['/login']);

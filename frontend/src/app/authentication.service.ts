@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import "rxjs/add/operator/do";
-import {Headers, Http, RequestOptions, Response} from "@angular/http";
+import {Headers, Http, RequestOptions, Response, URLSearchParams} from "@angular/http";
 import {User} from "./model/user";
 import "rxjs/add/operator/map";
 import {CookieService} from "./cookie.service";
@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 
 const PROTOCOL = "http";
-const PORT = 8080;
+const PORT = 8081;
 
 @Injectable()
 export class AuthenticationService {
@@ -41,25 +41,24 @@ export class AuthenticationService {
   }*/
 
   authenticate(user: User) {
-    console.log("kek1");
     let params = new URLSearchParams();
     params.append('username', user.email);
     params.append('password', user.password);
     params.append('grant_type', 'password');
-    params.append('client_id', '521572835798923');
+    params.append('client_id', 'trusted');
     let headers = new Headers({
       'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-      'Authorization': 'Basic ' + btoa('521572835798923:124124i2141h2ki4b12kj4b21kj412')
+      'Authorization': 'Basic ' + btoa('trusted:secret')
     });
     let options = new RequestOptions({headers: headers});
-    this.http.post(this.baseUrl + '/oauth/token', params, options)
+    this.http.post(this.baseUrl + 'oauth/token', params, options)
       .map(
         response => {
           let res = response.json();
           return res.success;
         }).subscribe(
       data => this.saveToken(data),
-      err => alert('Invalid Credentials'));
+      err => console.log(err));
   }
 
   saveToken(token) {
