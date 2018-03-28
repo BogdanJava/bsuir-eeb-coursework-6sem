@@ -1,10 +1,11 @@
-package by.bsuir.eeb.rsoicoursework.security;
+package by.bsuir.eeb.rsoicoursework.security.filter;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureException;
+import by.bsuir.eeb.rsoicoursework.security.ResourceAccessResolver;
+import io.jsonwebtoken.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
@@ -16,12 +17,18 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Base64;
 
 @Component
 public class JwtFilter extends GenericFilterBean {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtFilter.class);
+
     @Autowired
     private ResourceAccessResolver accessResolver;
+
+    @Value("jwt.secret")
+    private String secret;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -43,14 +50,13 @@ public class JwtFilter extends GenericFilterBean {
                     response.sendError(HttpStatus.UNAUTHORIZED.value(), "Authentication header is missing or invalid");
                 } else {
                     final String token = authHeader.substring(7);
-
                     try {
-                        final Claims claims = Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token).getBody();
+                        final Claims claims = Jwts.parser().setSigningKey(Base64.getEncoder().encode(secret.getBytes())).parseClaimsJws(token).getBody();
                         request.setAttribute("claims", claims);
+                        filterChain.doFilter(request, response);
                     } catch (SignatureException | MalformedJwtException e) {
                         response.sendError(HttpStatus.UNAUTHORIZED.value(), "Invalid token");
                     }
-                    filterChain.doFilter(request, response);
                 }
             }
         }

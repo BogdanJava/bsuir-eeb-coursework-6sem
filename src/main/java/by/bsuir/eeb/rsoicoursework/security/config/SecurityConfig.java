@@ -1,5 +1,7 @@
-package by.bsuir.eeb.rsoicoursework.security;
+package by.bsuir.eeb.rsoicoursework.security.config;
 
+import io.jsonwebtoken.JwtParser;
+import io.jsonwebtoken.impl.DefaultJwtParser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,4 +14,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
+
 }

@@ -1,4 +1,4 @@
-package by.bsuir.eeb.rsoicoursework.security;
+package by.bsuir.eeb.rsoicoursework.security.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

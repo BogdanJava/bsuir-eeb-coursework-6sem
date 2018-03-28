@@ -1,6 +1,6 @@
 package by.bsuir.eeb.rsoicoursework.annotation;
 
-import by.bsuir.eeb.rsoicoursework.security.JwtFilter;
+import by.bsuir.eeb.rsoicoursework.security.filter.JwtFilter;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

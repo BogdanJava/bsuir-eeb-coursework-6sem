@@ -5,20 +5,18 @@ import by.bsuir.eeb.rsoicoursework.http.AuthToken;
 import by.bsuir.eeb.rsoicoursework.http.HttpResponseEntity;
 import by.bsuir.eeb.rsoicoursework.model.User;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import by.bsuir.eeb.rsoicoursework.security.SecurityTools;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-
 @FreeAccess
 @RestController
 @RequestMapping("/auth")
+@PropertySource("classpath:application.properties")
 public class AuthenticationController {
 
     @Autowired
@@ -26,6 +24,9 @@ public class AuthenticationController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private SecurityTools securityUtils;
 
     /**
      * todo: add credentials validation
@@ -57,9 +58,9 @@ public class AuthenticationController {
                     .body(new HttpResponseEntity("Incorrect password"));
         }
 
-        jwtToken = Jwts.builder().setSubject(credentials.getEmail()).claim("roles", "user").setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+        jwtToken = securityUtils.buildJwtToken(credentials);
 
         return ResponseEntity.ok(new AuthToken(jwtToken));
     }
+
 }
