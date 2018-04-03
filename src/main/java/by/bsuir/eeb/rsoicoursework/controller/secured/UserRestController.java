@@ -1,5 +1,6 @@
-package by.bsuir.eeb.rsoicoursework.controller;
+package by.bsuir.eeb.rsoicoursework.controller.secured;
 
+import by.bsuir.eeb.rsoicoursework.annotation.FreeAccess;
 import by.bsuir.eeb.rsoicoursework.model.User;
 import by.bsuir.eeb.rsoicoursework.model.dto.Page;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
@@ -24,24 +25,24 @@ public class UserRestController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
         return ResponseEntity.ok(userService.findById(id));
     }
 
-    @GetMapping
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<User>> getUsers(HttpServletRequest request) {
         Page page = Page.fromRequest(request);
 
         return ResponseEntity.ok(userService.getAllLimited(page));
     }
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<User> saveUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.save(user));
     }
 
-    @PutMapping
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity editUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.update(user));
     }

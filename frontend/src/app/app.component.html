@@ -9,6 +9,16 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#">Banking system</a>
+      <div class="dropdown" *ngIf="authService.isAuthenticated() && authenticatedUser != null">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+          {{this.authenticatedUser.firstName + ' ' + this.authenticatedUser.lastName}}
+          <span class="caret"></span></button>
+        <p-menu [model]="dropdownItems">
+          <button style="vertical-align: center" type="button" pButton
+                  icon="fa fa-list" (click)="menu.toggle($event)">
+          </button>
+        </p-menu>
+      </div>
     </div>
   </div>
 </nav>
@@ -18,5 +28,5 @@
 <hr>
 
 <footer>
-  <p>&copy; 2018 Company, Inc.</p>
+  <p>2018 BSUIR EBE</p>
 </footer>

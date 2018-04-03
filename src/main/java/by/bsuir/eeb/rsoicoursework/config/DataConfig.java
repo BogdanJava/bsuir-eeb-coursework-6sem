@@ -1,15 +1,11 @@
 package by.bsuir.eeb.rsoicoursework.config;
 
-import by.bsuir.eeb.rsoicoursework.model.Address;
-import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.hateoas.config.EnableEntityLinks;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -39,7 +35,7 @@ public class DataConfig {
 
     @Bean
     public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUsername(env.getProperty("spring.datasource.username"));
         dataSource.setPassword(env.getProperty("spring.datasource.password"));
         dataSource.setUrl(env.getProperty("spring.datasource.url"));
@@ -56,12 +52,12 @@ public class DataConfig {
         entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         entityManagerFactory.setDataSource(dataSource());
         entityManagerFactory.setPackagesToScan("by.bsuir.eeb.rsoicoursework.model");
-        entityManagerFactory.afterPropertiesSet();
 
         Properties jpaProperties = new Properties();
         jpaProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
         jpaProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-
+        jpaProperties.setProperty("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
+        jpaProperties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         entityManagerFactory.setJpaProperties(jpaProperties);
 
         return entityManagerFactory;

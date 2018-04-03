@@ -32,6 +32,7 @@ public class Passport {
     @Column
     private String passportId;
 
-    @OneToOne(mappedBy = "passport")
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 }

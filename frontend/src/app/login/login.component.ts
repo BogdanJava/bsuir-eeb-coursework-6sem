@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {User} from "../model/user";
 import {NgForm} from "@angular/forms";
+import {Router} from "@angular/router";
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
   selector: 'app-login',
@@ -8,26 +10,32 @@ import {NgForm} from "@angular/forms";
   styleUrls: ['./login.component.css'],
   moduleId: module.id
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  user: User = new User();
-  rememberMe: boolean = false;
-  submitted: boolean = false;
+  public email: string;
+  public password: string;
+  public errorMessage: string;
+  public submitted: boolean = false;
 
-  /**
-   * TODO доработать логику аутентификации, создать сервисы
-   * @param {NgForm} form
-   */
-  submit(form: NgForm): void {
-    this.submitted = true;
-    if(form.valid) {
-
-    }
+  constructor(private router: Router,
+              private authService: AuthenticationService) {
   }
 
-  constructor() { }
-
-  ngOnInit() {
+  login(form: NgForm) {
+    this.submitted = true;
+    if (form.valid) {
+      let user = new User();
+      user.email = this.email;
+      user.password = this.password;
+      this.authService.authenticate(user);
+      if (this.authService.isAuthenticated()) {
+        this.router.navigate(['/login']);
+      } else {
+        this.errorMessage = 'Failed to Authenticate';
+      }
+    } else {
+      this.errorMessage = 'Form Data Invalid';
+    }
   }
 
 }

@@ -6,6 +6,7 @@ import by.bsuir.eeb.rsoicoursework.model.dto.Page;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -30,8 +31,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public User save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userDAO.save(user);
     }
 
@@ -57,7 +62,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllLimited(Page page) {
-        return userDAO.findAll(PageRequest.of(page.getFrom(), page.getLength())).getContent();
+        return userDAO.findAll(new PageRequest(page.getFrom(), page.getLength())).getContent();
     }
 
+    @Override
+    public User findByEmail(String email) {
+        return userDAO.getByEmail(email);
+    }
 }

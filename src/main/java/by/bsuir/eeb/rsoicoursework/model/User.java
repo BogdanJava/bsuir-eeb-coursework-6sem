@@ -1,9 +1,11 @@
 package by.bsuir.eeb.rsoicoursework.model;
 
 import by.bsuir.eeb.rsoicoursework.model.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,6 +19,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "user")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
     @Id
@@ -27,6 +30,12 @@ public class User {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthday;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "first_name")
     private String firstName;
@@ -41,8 +50,7 @@ public class User {
     @Embedded
     private Address address;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "passport_id")
+    @OneToOne(mappedBy = "user")
     private Passport passport;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
