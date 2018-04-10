@@ -1,0 +1,2 @@
+add opacity to home.jpeg
+finish user details page and logic

@@ -20,4 +20,5 @@ public interface UserService {
     List<User> getAll();
     List<User> getAllLimited(Page page);
     User findByEmail(String email);
+    boolean isPasswordCorrect(long id, String password);
 }

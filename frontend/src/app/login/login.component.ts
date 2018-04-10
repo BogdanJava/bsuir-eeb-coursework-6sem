@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {User} from "../model/user";
-import {NgForm} from "@angular/forms";
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../authentication.service";
+import { Component } from '@angular/core';
+import { User } from "../model/user";
+import { NgForm } from "@angular/forms";
+import { Router } from "@angular/router";
+import { AuthenticationService } from "../authentication.service";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,10 @@ export class LoginComponent {
   public submitted: boolean = false;
 
   constructor(private router: Router,
-              private authService: AuthenticationService) {
+    private authService: AuthenticationService) {
+      if(authService.isAuthenticated()) {
+        router.navigate(['/home']);
+      }
   }
 
   login(form: NgForm) {
@@ -27,12 +30,15 @@ export class LoginComponent {
       let user = new User();
       user.email = this.email;
       user.password = this.password;
-      this.authService.authenticate(user);
-      if (this.authService.isAuthenticated()) {
-        this.router.navigate(['/login']);
-      } else {
-        this.errorMessage = 'Failed to Authenticate';
-      }
+      this.authService.authenticate(user).subscribe(
+        data => {
+          this.authService.saveToken(data);
+          this.router.navigate(['/home']);
+        },
+        err => {
+          console.log(err);
+          this.errorMessage = 'Failed to Authenticate';
+        });
     } else {
       this.errorMessage = 'Form Data Invalid';
     }

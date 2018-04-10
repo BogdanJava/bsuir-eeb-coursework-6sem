@@ -10,7 +10,7 @@ import {User} from "./model/user";
 })
 export class AppComponent implements OnInit {
 
-  dropdownItems: MenuItem[];
+  dropdownItems: any[];
   authenticatedUser: User = null;
 
   constructor(public authService: AuthenticationService) {
@@ -19,15 +19,11 @@ export class AppComponent implements OnInit {
     })
   }
 
+  logout() {
+    this.authService.logout();
+  }
 
   ngOnInit(): void {
-    this.dropdownItems = [
-      {
-        label: 'Log out', icon: 'fa-sign-out', command: () => {
-          console.log("logout");
-          this.authService.logout()
-        }
-      }
-    ];
   }
+  
 }

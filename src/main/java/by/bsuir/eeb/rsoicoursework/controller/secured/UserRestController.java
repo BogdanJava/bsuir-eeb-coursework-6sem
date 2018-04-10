@@ -1,9 +1,9 @@
 package by.bsuir.eeb.rsoicoursework.controller.secured;
 
-import by.bsuir.eeb.rsoicoursework.annotation.FreeAccess;
 import by.bsuir.eeb.rsoicoursework.model.User;
 import by.bsuir.eeb.rsoicoursework.model.dto.Page;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
+import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +45,14 @@ public class UserRestController {
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity editUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.update(user));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}?password={password}")
+    public ResponseEntity isPasswordCorrect(@PathVariable Long id, @PathVariable String password) {
+        return ResponseEntity.ok(ImmutableMap
+                .builder()
+                .put("correct", userService.isPasswordCorrect(id, password))
+                .build());
     }
 
 }

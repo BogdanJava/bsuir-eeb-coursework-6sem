@@ -69,4 +69,9 @@ public class UserServiceImpl implements UserService {
     public User findByEmail(String email) {
         return userDAO.getByEmail(email);
     }
+
+    @Override
+    public boolean isPasswordCorrect(long id, String password) {
+        return passwordEncoder.matches(password, userDAO.getPasswordById(id).getPassword());
+    }
 }

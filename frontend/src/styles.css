@@ -1,4 +1,606 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Lato|Raleway');
+/*
+    Main style
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  text-decoration: none;
+  list-style: none;
+}
+
 body {
-    padding-top: 10rem;
+  font-family: 'Raleway', sans-serif;
+}
+
+.logo {
+  background: #000000;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.graficlogo {
+  padding: 5px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+nav {
+  margin: auto;
+  height: fit-content;
+  padding: 5px 5px 0px 10px;
+}
+
+header nav {
+  border-bottom: 1px solid #999999;
+}
+
+.topnav {
+  font-size: 14px;
+  margin: 40px 0 40px 50px;
+  background-color: #FFF;
+}
+
+.topnav a {
+  color: #000;
+  text-align: center;
+  padding: 14px 16px; /*14 - top, 16 - left, right*/
+  font-size: 15px;
+  transition: background-color 0.2s;
+}
+
+.topnav a:hover {
+  background-color: #ff4d4d;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+.mw-100 {
+  padding-top: 30px;
+  width: 100%;
+}
+
+.advantages_container {
+  display: flex;
+  justify-content: center;
+}
+
+.advantages {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  flex-wrap: wrap;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.advantages_item {
+  width: 30%;
+}
+
+footer {
+  width: 100%;
+  height: auto;
+  background: #000;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 25px;
+}
+
+footer a {
+  color: #FFFFFF;
+  font-size: 14px;
+  margin-left: 10px;
+}
+footer p {
+  color: white;
+  padding-bottom: 10px;
+}
+footer nav a:hover {
+  border-bottom: 1px solid white;
+}
+
+.social img {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.social img:hover {
+  background: #ff4555;
+  border-radius: 50%;
+}
+
+.gallery {
+  width: 85%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto auto 50px;
+}
+
+.photo_item {
+  width: 24%;
+  margin: 0 0 5px 5px;
+}
+
+.home_bg {
+  box-sizing: border-box;
+  max-width: 100%;
+  opacity: 0.6;
+}
+
+.photo_item img:hover {
+  opacity: 1;
+}
+
+.blog-container {
+  background: #fafafa;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 4px 2px -2px;
+  font-weight: 100;
+  margin: 48px auto;
+  width: 50rem;
+}
+
+.blog-container a:hover {
+  border-color: #ff4d4d;
+  color: #ff4d4d;;
+}
+
+.blog-cover {
+  background-size: cover;
+  border-radius: 5px 5px 0 0;
+  height: 15rem;
+  box-shadow: inset rgba(0,0,0,0.2) 0 64px 64px 16px;
+}
+
+.blog-body {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.blog-title h1 a {
+  color: #333333;
+  font-weight: 100;
+}
+
+.blog-text p {
+  color: #4d4d4d;
+}
+
+.blog-tags ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+  padding-left: 0;
+}
+
+.blog-tags li + li {
+  margin-left: 0.5rem;
+}
+
+.blog-tags a {
+  border: 1px solid #999999;
+  border-radius: 3px;
+  color: #999999;
+  font-size: .75rem;
+  line-height: 1.5rem;
+  padding: 0 0.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  width: 5rem;
+}
+
+.blog-footer {
+  border-top: 1px solid #e6e6e6;
+  margin: 0 auto;
+  padding-bottom: 0.125rem;
+  width: 80%;
+}
+
+.blog-footer ul {
+  list-style: none;
+  display: flex;
+  flex: row wrap;
+  justify-content: flex-end;
+  padding-left: 0;
+}
+
+.blog-footer li {
+  color: #999999;
+  font-size: .75rem;
+  height: fit-content;
+  padding: 1px;
+  text-align: center;
+  position: relative;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.project {
+  padding-top: 30px;
+}
+
+.published-date {
+  border: 1px solid #999999;
+  border-radius: 3px;
+  padding: 0 0.5rem;
+}
+
+#map {
+  margin: 10px 50px 40px 50px;
+  height: 400px;
+}
+
+.form {
+  width: 50%;
+  margin: 50px auto 80px;
+}
+
+.form h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: -10px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+}
+
+.feedback-input {
+  color: #000;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 22px;
+  font-family: "Raleway", sans-serif;
+  background-color: #fff;
+  padding: 13px;
+  margin-bottom: 10px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 0 solid transparent;
+  border-bottom: 1px solid black;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  resize: vertical;
+}
+
+.button_submit {
+  float: left;
+  width: 100%;
+  border: 0px solid transparent;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 18px;
+  padding-top: 22px;
+  padding-bottom: 22px;
+  transition: all 0.6s;
+  margin-top: -4px;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.button_submit:hover {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000000;
+}
+
+.ease {
+  width: 0;
+  height: 74px;
+  background-color: #fbfbfb;
+  transition: .3s ease;
+}
+
+.about_container {
+  width: 80%;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.about_container img {
+  max-width: 100%;
+}
+
+.about_container p , h1{
+  margin-top: 40px;
+}
+
+.services {
+  width: 80%;
+  margin: 30px auto 50px;
+  text-align: center;
+}
+
+.services img {
+  max-width: 100%;
+  margin-bottom: 30px;
+}
+
+.services_container {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 50px 100px;
+}
+
+/*
+    768px and 420px width styles
+*/
+
+@media screen and (max-width: 768px){
+  .topnav a:not(:first-child) {
+    display: none;
+  }
+  .topnav a.icon {
+    float: right;
+    margin-top: -17px;
+    display: block;
+    color: black;
+  }
+  nav {
+    border-bottom: none;
+    height: 50px;
+  }
+  .topnav.responsive {
+    position: relative;
+  }
+  .topnav.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .advantages_item {
+    width: 45%;
+  }
+  .photo_item {
+    width: 45%;
+    margin-left: 10px;
+  }
+  .blog-container {
+    width: 28rem;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  nav {
+    border-bottom: none;
+  }
+  .advantages {
+    flex-direction: column;
+  }
+  .advantages_item {
+    width: 100%;
+  }
+  .photo_item {
+    width: 70%;
+    margin: 0 auto;
+  }
+  .project {
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .gallery {
+    width: auto;
+    margin: auto auto 20px;
+  }
+  .blog-container {
+    width: 20rem;
+  }
+  .services_container {
+    grid-template-columns: auto;
+  }
+}
+
+body {
+  background-color: #f2f2f2;
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #555;
+
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+
+  margin-top: 70px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  color: #333;
+}
+
+p {
+  line-height: 28px;
+  margin-bottom: 25px;
+}
+
+.centered {
+  text-align: center;
+}
+
+a {
+  color: #f85c37;
+}
+
+a:hover, a:focus {
+  color: #7b7b7b;
+  text-decoration: none;
+  outline: 0;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.navbar {
+  font-weight: 800;
+  font-size: 14px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.navbar-inverse {
+  background: #2d2d2d;
+  border-color: #2d2d2d;
+}
+
+.navbar-header {
+  float: none;
+}
+
+.navbar-inverse .navbar-nav > .active > a {
+  background-color: #7878;
+}
+
+.navbar-inverse .navbar-brand {
+  color: #999;
+  font-size: 22px;
+  letter-spacing: 1px;
+  font-weight: bolder;
+}
+
+#headerwrap {
+  background: url('assets/img/home.jpg');
+  margin-top: -10px;
+  padding-top: 20px;
+  text-align: center;
+  min-height: 500px;
+  width: 100%;
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#headerwrap h1 {
+  margin-top: 100px;
+  font-size: 70px;
+  font-weight: 300;
+  color: #000;
+  letter-spacing: 3px;
+}
+
+#headerwrap h2 {
+  color: black;
+  font-size: 40px;
+  opacity: 1 !important;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.w {
+  padding-top: 35px;
+}
+
+h4 {
+  font-size: 25px;
+}
+
+#dg {
+  background: #e0e0e0;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  text-align: center;
+}
+
+#dg h4 {
+  font-size: 40px;
+}
+
+.tilt {
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.tilt:hover {
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.wb {
+  padding-top: 35px;
+  margin-bottom: 0;
+}
+
+.wb h4 {
+  font-size: 35px;
+}
+
+#lg {
+  background: #ebebeb;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  text-align: center;
+}
+
+#lg h4 {
+  font-size: 45px;
+}
+
+#reddiv {
+  background: #ff7878;
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+#reddiv h4 {
+  color: white;
+  font-size: 45px;
+}
+
+#reddiv p {
+  color: white;
+}
+
+#footer {
+  background: #2d2d2d;
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+#footer i {
+  font-size: 30px;
+  color: #bdbdbd;
+  padding: 20px;
+}
+
+#footer i:hover {
+  color: #ff7878;
 }
