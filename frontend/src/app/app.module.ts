@@ -16,18 +16,22 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { ButtonModule, MenuModule } from "primeng/primeng";
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserService } from './user.service';
+import { RegistrationComponent } from './registration/registration.component';
+import { MyDatePickerModule } from 'mydatepicker';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    RegistrationComponent
   ],
   imports: [
-    BrowserModule, FormsModule, HttpModule, MenuModule, JwtModule, ButtonModule,
+    BrowserModule, FormsModule, HttpModule, MenuModule, JwtModule, ButtonModule, MyDatePickerModule,
     RouterModule.forRoot([
       { path: "login", component: LoginComponent },
+      { path: "signup", component: RegistrationComponent },
       { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
       { path: "profile", component: UserProfileComponent, canActivate: [AuthGuard] },
       { path: "**", redirectTo: "/login" }

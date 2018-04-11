@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author Bogdan Shishkin
@@ -23,14 +25,13 @@ public class Passport {
     @Column
     private long id;
 
+    @Size(min = 7, max = 7)
     @Column
     private String number;
 
+    @NotNull
     @Column
-    private String serial;
-
-    @Column
-    private String passportId;
+    private String givenBy;
 
     @OneToOne
     @JoinColumn(name = "user_id")

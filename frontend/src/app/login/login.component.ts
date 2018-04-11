@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { User } from "../model/user";
+import { User } from "../model/user.model";
 import { NgForm } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { AuthenticationService } from "../authentication.service";
 
 @Component({
@@ -18,10 +18,17 @@ export class LoginComponent {
   public submitted: boolean = false;
 
   constructor(private router: Router,
-    private authService: AuthenticationService) {
-      if(authService.isAuthenticated()) {
-        router.navigate(['/home']);
+    private authService: AuthenticationService,
+    private route: ActivatedRoute) {
+    this.route.params.subscribe(params => {
+      if (!params.error) {
+        if (authService.isAuthenticated()) {
+          router.navigate(['/home']);
+        }
+      } else {
+        this.errorMessage = params.error;
       }
+    })
   }
 
   login(form: NgForm) {

@@ -72,6 +72,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isPasswordCorrect(long id, String password) {
-        return passwordEncoder.matches(password, userDAO.getPasswordById(id).getPassword());
+        String encodedPassword = userDAO.getPasswordById(id).getPassword();
+        return passwordEncoder.matches(password, encodedPassword);
     }
 }

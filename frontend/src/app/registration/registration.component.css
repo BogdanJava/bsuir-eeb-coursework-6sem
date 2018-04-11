@@ -1,0 +1,8 @@
+.form-horizontal {
+    margin: 130px auto 80px auto;
+    max-width: 40%;
+}
+
+.form-horizontal h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+}

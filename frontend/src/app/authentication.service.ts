@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import "rxjs/add/operator/do";
 import { Headers, Http, RequestOptions, Response } from "@angular/http";
-import { User } from "./model/user";
+import { User } from "./model/user.model";
 import "rxjs/add/operator/map";
 import { CookieService } from "./cookie.service";
 import { Router } from "@angular/router";

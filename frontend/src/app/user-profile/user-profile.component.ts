@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
-import { User } from '../model/user';
+import { User } from '../model/user.model';
 import { UserService } from '../user.service';
 import { CookieService } from '../cookie.service';
 import { JwtService } from '../jwt.service';
