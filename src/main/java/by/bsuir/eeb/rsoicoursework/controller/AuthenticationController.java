@@ -40,7 +40,7 @@ public class AuthenticationController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/login")
     public ResponseEntity login(@RequestBody User credentials) {
-        String jwtToken;
+        AuthToken jwtToken;
 
         if (credentials.getEmail() == null || credentials.getPassword() == null) {
             return ResponseEntity.badRequest().body(new HttpResponseEntity("Bad credentials"));
@@ -58,9 +58,9 @@ public class AuthenticationController {
                     .body(new HttpResponseEntity("Incorrect password"));
         }
 
-        jwtToken = securityUtils.buildJwtToken(credentials);
+        jwtToken = securityUtils.buildJwtToken(user);
 
-        return ResponseEntity.ok(new AuthToken(jwtToken));
+        return ResponseEntity.ok(jwtToken);
     }
 
 }

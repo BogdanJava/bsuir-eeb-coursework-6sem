@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
@@ -27,7 +28,7 @@ public class JwtFilter extends GenericFilterBean {
     @Autowired
     private ResourceAccessResolver accessResolver;
 
-    @Value("jwt.secret")
+    @Value("${jwt.secret}")
     private String secret;
 
     @Override
@@ -47,15 +48,17 @@ public class JwtFilter extends GenericFilterBean {
                 filterChain.doFilter(request, response);
             } else {
                 if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                    response.sendError(HttpStatus.UNAUTHORIZED.value(), "Authentication header is missing or invalid");
+                    response.sendError(HttpStatus.FORBIDDEN.value(), "Authentication header is missing or invalid");
                 } else {
                     final String token = authHeader.substring(7);
                     try {
-                        final Claims claims = Jwts.parser().setSigningKey(Base64.getEncoder().encode(secret.getBytes())).parseClaimsJws(token).getBody();
+                        final Claims claims = Jwts.parser()
+                                .setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes()))
+                                .parseClaimsJws(token).getBody();
                         request.setAttribute("claims", claims);
                         filterChain.doFilter(request, response);
                     } catch (SignatureException | MalformedJwtException e) {
-                        response.sendError(HttpStatus.UNAUTHORIZED.value(), "Invalid token");
+                        response.sendError(HttpStatus.FORBIDDEN.value(), "Invalid token or signature");
                     }
                 }
             }

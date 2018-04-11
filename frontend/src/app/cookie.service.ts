@@ -15,7 +15,7 @@ export class CookieService {
         return c.substring(cookieName.length, c.length);
       }
     }
-    return '';
+    return null;
   }
 
   public deleteCookie(name) {

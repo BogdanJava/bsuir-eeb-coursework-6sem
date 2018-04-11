@@ -1,8 +1,12 @@
 package by.bsuir.eeb.rsoicoursework.security;
 
+import by.bsuir.eeb.rsoicoursework.http.AuthToken;
 import by.bsuir.eeb.rsoicoursework.model.User;
+import by.bsuir.eeb.rsoicoursework.service.UserService;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -14,20 +18,24 @@ import java.util.Date;
 @PropertySource("classpath:application.properties")
 public class SecurityTools {
 
-    @Value("jwt.clientId")
-    private String clientId;
-
-    @Value("jwt.secret")
+    @Value("${jwt.secret}")
     private String secret;
 
-    public String buildJwtToken(User credentials) {
-        return Jwts.builder()
+    @Autowired
+    private UserService userService;
+
+    public AuthToken buildJwtToken(User credentials) {
+        return new AuthToken(Jwts.builder()
+                .claim("id", credentials.getId())
                 .setSubject(credentials.getEmail())
-                .setIssuer(clientId)
-                .claim("roles", "user")
+                .setIssuer("localhost:8080")
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + 4320000L))
-                .signWith(SignatureAlgorithm.HS256, Base64.getEncoder().encode(secret.getBytes()))
-                .compact();
+                .setExpiration(new Date(new Date().getTime() + 1000 * 3600 * 240))
+                .signWith(SignatureAlgorithm.HS256, Base64.getEncoder().encodeToString(secret.getBytes()))
+                .compact());
+    }
+
+    public User getUserFromClaims(Claims claims) {
+        return userService.findByEmail(claims.getSubject());
     }
 }

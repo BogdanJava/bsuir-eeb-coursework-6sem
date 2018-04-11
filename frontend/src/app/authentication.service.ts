@@ -1,80 +1,82 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+
 import "rxjs/add/operator/do";
-import {Headers, Http, RequestOptions, Response, URLSearchParams} from "@angular/http";
-import {User} from "./model/user";
+import { Headers, Http, RequestOptions, Response } from "@angular/http";
+import { User } from "./model/user";
 import "rxjs/add/operator/map";
-import {CookieService} from "./cookie.service";
-import {Router} from "@angular/router";
-import {Observable} from "rxjs/Observable";
+import { CookieService } from "./cookie.service";
+import { Router } from "@angular/router";
+import { Observable } from "rxjs/Observable";
+import { JwtService } from "./jwt.service";
+import { Subject } from "rxjs/Subject";
+import { Observer } from 'rxjs/Observer';
 
 const PROTOCOL = "http";
-const PORT = 8081;
+const PORT = 8080;
 
 @Injectable()
 export class AuthenticationService {
+  user: User;
+  userObservable: Observable<User>;
+  userObserver: Observer<User>;
   baseUrl: string;
 
   constructor(private http: Http,
-              private cookieService: CookieService,
-              private router: Router) {
-    this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}/`;
+    private cookieService: CookieService,
+    private router: Router,
+    private jwtService: JwtService) {
+    this.userObservable = Observable.create((observer: Observer<User>) => {
+      this.userObserver = observer;
+    })
+    this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}`;
+    if (this.cookieService.getCookie("access_token") != null &&
+      this.cookieService.getCookie("access_token") != undefined) {
+      this.updateCurrentUser();
+    }
   }
 
-  /*authenticate(user: User): Observable<boolean> {
-    return this.http.request(new Request({
-      method: RequestMethod.Post,
-      url: this.baseUrl + "login",
-      body: {name: user.email, password: user.password}
-    })).map(response => {
-      let res = response.json();
-      this.authToken = res.success ? res.token : null;
-      return res.success;
+  private updateCurrentUser(): void {
+    this.getResource(`/api/users/${this.jwtService.getClaim('id')}`).subscribe(user => {
+      this.user = user;
+      console.log("user");
+      this.setNewUser(user);
     });
   }
 
-  get authenticated(): boolean {
-    return this.authToken != null;
+  public setNewUser(user: User) {
+    this.user = user;
+    this.userObserver.next(user);
   }
 
-  clear() {
-    this.authToken = null;
-  }*/
-
-  authenticate(user: User) {
-    let params = new URLSearchParams();
-    params.append('username', user.email);
-    params.append('password', user.password);
-    params.append('grant_type', 'password');
-    params.append('client_id', 'trusted');
-    let headers = new Headers({
-      'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-      'Authorization': 'Basic ' + btoa('trusted:secret')
-    });
-    let options = new RequestOptions({headers: headers});
-    this.http.post(this.baseUrl + 'oauth/token', params, options)
-      .map(
-        response => {
-          let res = response.json();
-          return res.success;
-        }).subscribe(
-      data => this.saveToken(data),
-      err => console.log(err));
+  authenticate(user: User): Observable<User> {
+    return this.http.post(this.baseUrl + '/auth/login', {
+      'email': user.email,
+      'password': user.password,
+      'secret': '3go3i4gho934bO(PF2y83fhfasflknvf8wyf3fasdf@_'
+    }).map(response => response.json());
   }
 
   saveToken(token) {
-    this.cookieService.setCookie("access_token", token.access_token, 30);
-    this.router.navigate(['/']);
+    this.cookieService.setCookie("access_token", token.jwtToken, 30);
+    this.updateCurrentUser();
   }
 
-  getResource(resourceUrl): Observable<User> {
-    let headers = new Headers({
-        'Content-type': "application/x-www/form/urlencoded; charset=utf-8",
-        'Authorization': 'Bearer ' + this.cookieService.getCookie('access_token')
-      }
-    );
-    let options = new RequestOptions({headers: headers});
-    return this.http.get(resourceUrl, options)
+  getAuthenticatedUser() {
+    return this.userObservable;
+  }
+
+  getResource(resourceUrl): Observable<any> {
+    return this.http.get(this.baseUrl + resourceUrl, this.getOptions())
       .map((res: Response) => res.json());
+  }
+
+  public getOptions(): RequestOptions {
+
+    let headers = new Headers({
+      'Content-type': "application/json; charset=utf-8",
+      'Authorization': 'Bearer ' + this.cookieService.getCookie('access_token')
+    });
+    return new RequestOptions({ headers: headers });
   }
 
   checkCredentials() {

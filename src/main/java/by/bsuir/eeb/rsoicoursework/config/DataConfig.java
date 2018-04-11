@@ -56,7 +56,8 @@ public class DataConfig {
         Properties jpaProperties = new Properties();
         jpaProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
         jpaProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-
+        jpaProperties.setProperty("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
+        jpaProperties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         entityManagerFactory.setJpaProperties(jpaProperties);
 
         return entityManagerFactory;
