@@ -93,23 +93,21 @@
   <div class="form-group" [class.has-error]="submitted && password.invalid">
     <label for="password" class="col-sm-3 control-label">Password</label>
     <div class="col-sm-9">
-      <input [(ngModel)]="this.user.password" #password="ngModel" name="password" class="form-control" id="password" placeholder="Password"
-        required>
+      <input [(ngModel)]="this.user.password" #password="ngModel" name="password" type="password" class="form-control" id="password" (input)="onPasswordInput()"
+        placeholder="Password" required>
     </div>
   </div>
 
   <div class="form-group" [class.has-error]="submitted && rePasswordInput.invalid">
     <label for="password" class="col-sm-3 control-label">Repeat password</label>
     <div class="col-sm-9">
-      <input [(ngModel)]="rePassword" #rePasswordInput="ngModel" name="rePassword" class="form-control" id="rePassword" placeholder="Repeat password"
-        required>
+      <input [(ngModel)]="rePassword" #rePasswordInput="ngModel" name="rePassword" type="password" class="form-control" id="rePassword"
+        placeholder="Repeat password" required>
     </div>
   </div>
 
   <div class="progress" *ngIf="this.user.password && this.user.password.length > 0">
-    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%" 
-    [class.progress-bar-danger]="checkPasswordStrength(password.value) == 'too short'" [style.width]
-      [class.progress-bar-warning]="checkPasswordStrength(password.value) == 'normal'" [class.progress-bar-success]="checkPasswordStrength(password.value) == 'strong'">
+    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
       {{this.passwordStrength}}
     </div>
   </div>
