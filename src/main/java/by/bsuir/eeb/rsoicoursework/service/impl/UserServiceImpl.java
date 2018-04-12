@@ -3,6 +3,7 @@ package by.bsuir.eeb.rsoicoursework.service.impl;
 import by.bsuir.eeb.rsoicoursework.dao.UserDAO;
 import by.bsuir.eeb.rsoicoursework.model.User;
 import by.bsuir.eeb.rsoicoursework.model.dto.Page;
+import by.bsuir.eeb.rsoicoursework.model.dto.PasswordChangeData;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -71,8 +72,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isPasswordCorrect(long id, String password) {
+    public boolean isOldPasswordCorrect(long id, String password) {
         String encodedPassword = userDAO.getPasswordById(id).getPassword();
         return passwordEncoder.matches(password, encodedPassword);
+    }
+
+    @Override
+    public boolean changePassword(PasswordChangeData passwordChangeData) {
+        if (isOldPasswordCorrect(passwordChangeData.getId(), passwordChangeData.getOldPassword())) {
+            User user = userDAO.getOne(passwordChangeData.getId());
+            user.setPassword(passwordEncoder.encode(passwordChangeData.getNewPassword()));
+            this.update(user);
+            return true;
+        } else return false;
+    }
+
+    @Override
+    public boolean emailAlreadyReserved(String email) {
+        return userDAO.getByEmail(email) != null;
     }
 }

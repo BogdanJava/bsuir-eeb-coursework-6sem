@@ -2,6 +2,7 @@ package by.bsuir.eeb.rsoicoursework.controller.secured;
 
 import by.bsuir.eeb.rsoicoursework.model.User;
 import by.bsuir.eeb.rsoicoursework.model.dto.Page;
+import by.bsuir.eeb.rsoicoursework.model.dto.PasswordChangeData;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,14 @@ public class UserRestController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}/{password}")
+    public ResponseEntity isPasswordCorrect(@PathVariable Long id, @PathVariable String password) {
+        return ResponseEntity.ok(ImmutableMap
+                .builder()
+                .put("correct", userService.isOldPasswordCorrect(id, password))
+                .build());
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
         return ResponseEntity.ok(userService.findById(id));
@@ -47,12 +56,9 @@ public class UserRestController {
         return ResponseEntity.ok(userService.update(user));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}?password={password}")
-    public ResponseEntity isPasswordCorrect(@PathVariable Long id, @PathVariable String password) {
-        return ResponseEntity.ok(ImmutableMap
-                .builder()
-                .put("correct", userService.isPasswordCorrect(id, password))
-                .build());
+    @RequestMapping(method = RequestMethod.PUT, value = "/changePass")
+    public ResponseEntity changePassword(@RequestBody PasswordChangeData passwordChangeData) {
+        return ResponseEntity.ok(ImmutableMap.of("success", userService.changePassword(passwordChangeData)));
     }
 
 }

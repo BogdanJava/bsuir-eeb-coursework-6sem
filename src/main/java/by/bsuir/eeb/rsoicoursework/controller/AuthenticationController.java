@@ -1,7 +1,6 @@
 package by.bsuir.eeb.rsoicoursework.controller;
 
 import by.bsuir.eeb.rsoicoursework.annotation.FreeAccess;
-import by.bsuir.eeb.rsoicoursework.http.AuthToken;
 import by.bsuir.eeb.rsoicoursework.http.HttpResponseEntity;
 import by.bsuir.eeb.rsoicoursework.model.User;
 import by.bsuir.eeb.rsoicoursework.security.SecurityTools;
@@ -14,13 +13,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -65,27 +62,24 @@ public class AuthenticationController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/login")
     public ResponseEntity login(@RequestBody User credentials) {
-        AuthToken jwtToken;
-
         if (credentials.getEmail() == null || credentials.getPassword() == null) {
             return ResponseEntity.badRequest().body(new HttpResponseEntity("Bad credentials"));
         }
-
         User user = userService.findByEmail(credentials.getEmail());
-
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new HttpResponseEntity("User with such email or username not found"));
         }
-
         if (!passwordEncoder.matches(credentials.getPassword(), user.getPassword())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new HttpResponseEntity("Incorrect password"));
         }
+        return ResponseEntity.ok(securityUtils.buildJwtToken(user));
+    }
 
-        jwtToken = securityUtils.buildJwtToken(user);
-
-        return ResponseEntity.ok(jwtToken);
+    @RequestMapping(method = RequestMethod.GET, value = "/checkEmailExists/{email}")
+    public Map<String, Boolean> checkEmailExists(@PathVariable String email) {
+        return ImmutableMap.of("exists", userService.emailAlreadyReserved(email));
     }
 
 }

@@ -40,11 +40,10 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthday;
 
-    @Email
-    @Column(name = "email")
+    @NotNull(message = "Incorrect email")
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Size(min = 5, max = 15)
     @Column(name = "password")
     private String password;
 
@@ -64,7 +63,7 @@ public class User {
     @Embedded
     private Address address;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Passport passport;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")

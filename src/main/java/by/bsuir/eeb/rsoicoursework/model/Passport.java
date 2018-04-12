@@ -25,7 +25,7 @@ public class Passport {
     @Column
     private long id;
 
-    @Size(min = 7, max = 7)
+    @NotNull
     @Column
     private String number;
 

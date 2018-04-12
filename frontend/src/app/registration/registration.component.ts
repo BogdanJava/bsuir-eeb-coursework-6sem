@@ -56,10 +56,16 @@ export class RegistrationComponent implements OnInit {
       this.user.gender = this.user.gender.toUpperCase();
       console.log(this.user);
       this.userService.signup(this.user).subscribe(result => {
+        console.log(result);
         if (result.errors) {
           this.errors = result.errors;
+          console.log("errors: " + this.errors);
         } else {
-          this.router.navigate(['/home', this.user]);
+          console.log('navigate');
+          this.authService.authenticate(this.user).subscribe(data => {
+            this.authService.saveToken(data);
+            this.router.navigate(['/home', result]);
+          })
         }
       });
     }

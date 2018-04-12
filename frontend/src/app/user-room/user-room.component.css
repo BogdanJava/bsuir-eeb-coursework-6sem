@@ -1,0 +1,21 @@
+.breadcrumb {
+  margin: 40px auto;  
+  padding: 0;
+  background-color: inherit;
+}
+
+.breadcrumb a {
+    color: black;
+}
+
+.breadcrumb a {
+    padding: 10px;
+}
+
+.breadcrumb a:hover {
+    background-color: #EC7676;
+}
+
+.container {
+    max-width: 40%;
+}

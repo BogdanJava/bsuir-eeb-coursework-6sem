@@ -18,6 +18,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserService } from './user.service';
 import { RegistrationComponent } from './registration/registration.component';
 import { MyDatePickerModule } from 'mydatepicker';
+import { UserRoomComponent } from './user-room/user-room.component';
+import { ContactInfoComponent } from './contact-info/contact-info.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { MyDatePickerModule } from 'mydatepicker';
     LoginComponent,
     HomeComponent,
     UserProfileComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    UserRoomComponent,
+    ContactInfoComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpModule, MenuModule, JwtModule, ButtonModule, MyDatePickerModule,
@@ -33,7 +37,13 @@ import { MyDatePickerModule } from 'mydatepicker';
       { path: "login", component: LoginComponent },
       { path: "signup", component: RegistrationComponent },
       { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
-      { path: "profile", component: UserProfileComponent, canActivate: [AuthGuard] },
+      {
+        path: "profile", component: UserRoomComponent, canActivate: [AuthGuard], children: [
+          { path: "details", component: UserProfileComponent },
+          { path: "contact", component: ContactInfoComponent },
+          { path: "**", redirectTo: "/profile/details" }
+        ]
+      },
       { path: "**", redirectTo: "/login" }
     ])
   ],

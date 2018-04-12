@@ -3,6 +3,7 @@ import { Http, Response } from "@angular/http";
 import { AuthenticationService } from "./authentication.service";
 import { User } from "./model/user.model";
 import { Observable } from "rxjs/Observable";
+import { PasswordChangeData } from './model/dto/passwordChangeData.dto';
 
 @Injectable()
 export class UserService {
@@ -24,8 +25,15 @@ export class UserService {
 
   checkPasswordIsCorrect(password: string, id: number): Observable<boolean> {
     return this.http
-      .put(this.baseUrl + `/api/users/${id}?password=${password}`, null, this.authService.getOptions())
+      .get(this.baseUrl + `/api/users/${id}/${password}`, this.authService.getOptions())
       .map((res: Response) => res.json().correct);
+  }
+
+  changePassword(id: number, oldPassword: string, newPassword: string): Observable<any> {
+    return this.http
+      .put(this.baseUrl + `/api/users/changePass`, new PasswordChangeData(id, oldPassword, newPassword),
+        this.authService.getOptions())
+      .map(res => res.json());
   }
 
   signup(user: User): Observable<any> {

@@ -17,4 +17,5 @@ public interface UserDAO extends JpaRepository<User, Long> {
 
     @Query("SELECT new User(u.id, u.password) FROM User u WHERE u.id = :id")
     User getPasswordById(@Param("id") long id);
+
 }

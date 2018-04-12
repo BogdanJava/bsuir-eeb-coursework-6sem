@@ -16,6 +16,9 @@ export class UserProfileComponent implements OnInit {
   oldPassword: string;
   newPassword: string;
   repeatedNewPassword: string;
+  passwordIncorrect = false;
+  passwordChanged = false;
+  passwordsNotMatch = false;
 
   constructor(private authService: AuthenticationService,
     private userService: UserService,
@@ -40,7 +43,6 @@ export class UserProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.user);
     this.userService.updateUser(this.user)
       .subscribe(user => {
         this.authService.setNewUser(user);
@@ -48,12 +50,21 @@ export class UserProfileComponent implements OnInit {
   }
 
   updatePassword() {
+    this.passwordsNotMatch = this.repeatedNewPassword != this.newPassword;
+    if(this.passwordsNotMatch) return;
     this.userService.checkPasswordIsCorrect(this.oldPassword, this.user.id)
       .subscribe(correct => {
         if (correct) {
-          // todo: implement logic
+          this.passwordIncorrect = null;
+          this.userService.changePassword(this.user.id, this.oldPassword, this.newPassword).subscribe(result => {
+            console.log(result);
+            this.passwordChanged = result.success;
+            console.log(this.passwordChanged);
+          });
+        } else {
+          this.passwordIncorrect = true;
         }
-      })
+      });
   }
 
 }
