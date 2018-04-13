@@ -10,7 +10,8 @@ export class UserService {
 
   baseUrl: string;
 
-  constructor(private http: Http, private authService: AuthenticationService) {
+  constructor(private http: Http,
+    private authService: AuthenticationService) {
     this.baseUrl = this.authService.baseUrl;
   }
 

@@ -20,6 +20,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { UserRoomComponent } from './user-room/user-room.component';
 import { ContactInfoComponent } from './contact-info/contact-info.component';
+import { PhoneService } from './phone.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ContactInfoComponent } from './contact-info/contact-info.component';
       CookieService,
       AuthGuard,
       JwtService,
-      UserService
+      UserService,
+      PhoneService
     ],
   bootstrap: [AppComponent]
 })

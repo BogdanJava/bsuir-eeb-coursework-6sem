@@ -1,0 +1,12 @@
+table {
+    text-align: center;
+}
+
+#phoneType {
+    padding: 0;
+    border: 0;
+}
+
+.alert {
+    margin: 10px auto;
+}

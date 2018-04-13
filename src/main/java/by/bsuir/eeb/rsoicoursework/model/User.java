@@ -1,6 +1,7 @@
 package by.bsuir.eeb.rsoicoursework.model;
 
 import by.bsuir.eeb.rsoicoursework.model.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -69,6 +70,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Card> cards;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Phone> phones;
 

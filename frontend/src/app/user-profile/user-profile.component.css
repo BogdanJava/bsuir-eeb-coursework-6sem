@@ -1,5 +1,6 @@
 .form-horizontal {
     margin: 0 auto;
+    max-width: 60%;
 }
 
 .form-horizontal h1, h2, h3, h4, h5, h6 {

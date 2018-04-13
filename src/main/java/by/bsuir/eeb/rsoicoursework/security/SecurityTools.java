@@ -1,6 +1,5 @@
 package by.bsuir.eeb.rsoicoursework.security;
 
-import by.bsuir.eeb.rsoicoursework.http.AuthToken;
 import by.bsuir.eeb.rsoicoursework.model.User;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
 import io.jsonwebtoken.Claims;
@@ -24,15 +23,15 @@ public class SecurityTools {
     @Autowired
     private UserService userService;
 
-    public AuthToken buildJwtToken(User credentials) {
-        return new AuthToken(Jwts.builder()
+    public String buildJwtToken(User credentials) {
+        return Jwts.builder()
                 .claim("id", credentials.getId())
                 .setSubject(credentials.getEmail())
                 .setIssuer("localhost:8080")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + 1000 * 3600 * 240))
                 .signWith(SignatureAlgorithm.HS256, Base64.getEncoder().encodeToString(secret.getBytes()))
-                .compact());
+                .compact();
     }
 
     public User getUserFromClaims(Claims claims) {

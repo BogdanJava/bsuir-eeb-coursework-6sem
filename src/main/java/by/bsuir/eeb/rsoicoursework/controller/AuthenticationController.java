@@ -1,7 +1,6 @@
 package by.bsuir.eeb.rsoicoursework.controller;
 
 import by.bsuir.eeb.rsoicoursework.annotation.FreeAccess;
-import by.bsuir.eeb.rsoicoursework.http.HttpResponseEntity;
 import by.bsuir.eeb.rsoicoursework.model.User;
 import by.bsuir.eeb.rsoicoursework.security.SecurityTools;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
@@ -63,18 +62,18 @@ public class AuthenticationController {
     @RequestMapping(method = RequestMethod.POST, value = "/login")
     public ResponseEntity login(@RequestBody User credentials) {
         if (credentials.getEmail() == null || credentials.getPassword() == null) {
-            return ResponseEntity.badRequest().body(new HttpResponseEntity("Bad credentials"));
+            return ResponseEntity.badRequest().body(ImmutableMap.of("message", "Bad credentials"));
         }
         User user = userService.findByEmail(credentials.getEmail());
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new HttpResponseEntity("User with such email or username not found"));
+                    .body(ImmutableMap.of("message", "User with such email or username not found"));
         }
         if (!passwordEncoder.matches(credentials.getPassword(), user.getPassword())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new HttpResponseEntity("Incorrect password"));
+                    .body(ImmutableMap.of("message", "Incorrect password"));
         }
-        return ResponseEntity.ok(securityUtils.buildJwtToken(user));
+        return ResponseEntity.ok(ImmutableMap.of("jwtToken", securityUtils.buildJwtToken(user)));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/checkEmailExists/{email}")

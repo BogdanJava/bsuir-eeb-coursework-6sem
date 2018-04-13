@@ -1,8 +1,10 @@
 package by.bsuir.eeb.rsoicoursework.controller.secured;
 
+import by.bsuir.eeb.rsoicoursework.model.Phone;
 import by.bsuir.eeb.rsoicoursework.model.User;
 import by.bsuir.eeb.rsoicoursework.model.dto.Page;
 import by.bsuir.eeb.rsoicoursework.model.dto.PasswordChangeData;
+import by.bsuir.eeb.rsoicoursework.service.PhoneService;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class UserRestController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PhoneService phoneService;
+
     @RequestMapping(method = RequestMethod.GET, value = "/{id}/{password}")
     public ResponseEntity isPasswordCorrect(@PathVariable Long id, @PathVariable String password) {
         return ResponseEntity.ok(ImmutableMap
@@ -41,9 +46,7 @@ public class UserRestController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<User>> getUsers(HttpServletRequest request) {
-        Page page = Page.fromRequest(request);
-
-        return ResponseEntity.ok(userService.getAllLimited(page));
+        return ResponseEntity.ok(userService.getAllLimited(Page.fromRequest(request)));
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -59,6 +62,16 @@ public class UserRestController {
     @RequestMapping(method = RequestMethod.PUT, value = "/changePass")
     public ResponseEntity changePassword(@RequestBody PasswordChangeData passwordChangeData) {
         return ResponseEntity.ok(ImmutableMap.of("success", userService.changePassword(passwordChangeData)));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{userId}/phones")
+    public ResponseEntity getUserPhones(@PathVariable long userId) {
+        List<Phone> phonesByUserId = phoneService.getByUserId(userId);
+        if (phonesByUserId == null) {
+            return ResponseEntity.badRequest().body(ImmutableMap.of("error", "No such user exists"));
+        } else {
+            return ResponseEntity.ok(phonesByUserId);
+        }
     }
 
 }

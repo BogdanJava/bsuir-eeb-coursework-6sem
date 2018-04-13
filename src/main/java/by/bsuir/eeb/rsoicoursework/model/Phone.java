@@ -1,5 +1,6 @@
 package by.bsuir.eeb.rsoicoursework.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,18 +22,13 @@ public class Phone {
     @GeneratedValue
     private long id;
 
-    @Column(name = "country_code")
-    private String countryCode;
-
-    @Column(name = "operator_code")
-    private String operatorCode;
-
     @Column(name = "number")
     private String number;
 
     @Column
     private String type;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
