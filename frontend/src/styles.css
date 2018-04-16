@@ -3,6 +3,11 @@
     Main style
 */
 
+html {
+  min-height: 100%;
+  position: relative;
+}
+
 * {
   margin: 0;
   padding: 0;

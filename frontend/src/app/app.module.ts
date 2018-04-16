@@ -21,6 +21,10 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { UserRoomComponent } from './user-room/user-room.component';
 import { ContactInfoComponent } from './contact-info/contact-info.component';
 import { PhoneService } from './phone.service';
+import { WorkflowComponent } from './workflow/workflow.component';
+import { WorkflowDefaultComponent } from './workflow/workflow-default/workflow-default.component';
+import { WorkflowAccountsComponent } from './workflow/workflow-accounts/workflow-accounts.component';
+import { WorkflowCardsComponent } from './workflow/workflow-cards/workflow-cards.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,11 @@ import { PhoneService } from './phone.service';
     UserProfileComponent,
     RegistrationComponent,
     UserRoomComponent,
-    ContactInfoComponent
+    ContactInfoComponent,
+    WorkflowComponent,
+    WorkflowDefaultComponent,
+    WorkflowAccountsComponent,
+    WorkflowCardsComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpModule, MenuModule, JwtModule, ButtonModule, MyDatePickerModule,
@@ -43,6 +51,13 @@ import { PhoneService } from './phone.service';
           { path: "details", component: UserProfileComponent },
           { path: "contact", component: ContactInfoComponent },
           { path: "**", redirectTo: "/profile/details" }
+        ]
+      },
+      {
+        path: "workflow", component: WorkflowComponent, canActivate: [AuthGuard], children: [
+          { path: "", component: WorkflowDefaultComponent },
+          { path: "cards", component: WorkflowCardsComponent },
+          { path: "accounts", component: WorkflowAccountsComponent }
         ]
       },
       { path: "**", redirectTo: "/login" }

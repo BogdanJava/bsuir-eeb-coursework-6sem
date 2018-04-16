@@ -1,0 +1,14 @@
+.sidebar-brand {
+    color: aliceblue;
+    margin-top: 20px;
+    border-bottom: 1px #CCC solid;
+}
+
+#sidebar-wrapper {
+    background-color: #06080896;
+}
+
+#sidebar-wrapper a {
+    color: rgb(255, 253, 253);
+    font-weight: 800;
+}

@@ -1,2 +1,2 @@
-add opacity to home.jpeg
-finish user details page and logic
+home page design
+add scrolling on tall pages
