@@ -30,6 +30,10 @@ public class User {
         this.id = id;
     }
 
+    public User(long id) {
+        this.id = id;
+    }
+
     @Id
     @Column
     @GeneratedValue

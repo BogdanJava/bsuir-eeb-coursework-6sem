@@ -1,6 +1,7 @@
 package by.bsuir.eeb.rsoicoursework.controller.secured;
 
 import by.bsuir.eeb.rsoicoursework.model.Phone;
+import by.bsuir.eeb.rsoicoursework.model.User;
 import by.bsuir.eeb.rsoicoursework.model.dto.PhoneDTO;
 import by.bsuir.eeb.rsoicoursework.service.PhoneService;
 import com.google.common.collect.ImmutableMap;
@@ -29,8 +30,10 @@ public class PhoneRestController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity editPhone(@RequestBody Phone phone) {
-        Phone updatedPhone = phoneService.update(phone);
+    public ResponseEntity editPhone(@RequestBody PhoneDTO phoneDTO) {
+        Phone fromDTO = phoneDTO.getPhone();
+        fromDTO.setUser(new User(phoneDTO.getUserId()));
+        Phone updatedPhone = phoneService.update(fromDTO);
         return updatedPhone != null ? ResponseEntity.ok(updatedPhone) :
                 ResponseEntity.badRequest().body(ImmutableMap.of("error", "No phone with such id found"));
     }

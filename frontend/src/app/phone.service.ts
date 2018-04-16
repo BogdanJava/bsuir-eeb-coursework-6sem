@@ -24,7 +24,7 @@ export class PhoneService {
     return this.http.post(this.baseUrl + '/api/phones', phoneDTO, this.authService.getOptions());
   }
 
-  editPhone(phone: Phone): Observable<Response> {
+  editPhone(phone: PhoneDTO): Observable<Response> {
     return this.http.put(this.baseUrl + '/api/phones', phone, this.authService.getOptions());
   }
 

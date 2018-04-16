@@ -13,10 +13,13 @@ import { PhoneDTO } from '../model/dto/phone.dto';
 export class ContactInfoComponent {
 
   deleteSuccess: boolean = null;
-  hasError: boolean = false;;
+  hasError: boolean = false;
   phones: any[] = null;
   newPhone: Phone = new Phone();
   userId: number = +this.jwtService.getClaim("id");
+  edited: boolean = false;
+  editPhone: any = new PhoneDTO(this.userId, new Phone());
+  added: boolean = false;
 
   constructor(private phoneServise: PhoneService,
     private jwtService: JwtService) {
@@ -40,6 +43,8 @@ export class ContactInfoComponent {
         this.hasError = false;
         let phone: Phone = result.json();
         this.phones.push({ index: this.phones.length + 1, phone: phone });
+        this.added = true;
+        setTimeout(() => { this.added = false; }, 3000);
       } else if (result.status == 404) {
         this.hasError = true;
       }
@@ -51,11 +56,31 @@ export class ContactInfoComponent {
       if (result.ok) {
         this.phones.splice(phone.index - 1);
         this.deleteSuccess = true;
+        setTimeout(() => { this.deleteSuccess = false; }, 3000);
         this.hasError = false;
       } else {
         this.deleteSuccess = false;
         this.hasError = true;
       }
     });
+  }
+
+  editSelectedPhone() {
+    console.log(this.editPhone);
+    this.editPhone.userId = this.userId;
+    this.phoneServise.editPhone(this.editPhone).map(_ => _.json()).subscribe(result => {
+      if (!result.error) {
+        this.edited = true;
+        setTimeout(() => {
+          this.edited = false;
+        }, 3000);
+      } else {
+        console.log('error: ' + result.error);
+      }
+    });
+  }
+
+  setEditPhone(phone: PhoneDTO) {
+    this.editPhone = phone;
   }
 }

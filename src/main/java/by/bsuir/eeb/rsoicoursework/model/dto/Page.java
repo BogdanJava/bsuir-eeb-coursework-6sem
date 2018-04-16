@@ -40,7 +40,6 @@ public class Page {
             from = Integer.parseInt(fromStr);
             length = Integer.parseInt(lengthStr);
         } else {
-            // set defaults
             from = 0;
             length = 10;
         }

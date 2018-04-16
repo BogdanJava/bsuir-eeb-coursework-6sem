@@ -2,6 +2,7 @@ package by.bsuir.eeb.rsoicoursework.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -15,6 +16,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "phone")
+@ToString(exclude = "user")
 public class Phone {
 
     @Id
