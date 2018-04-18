@@ -25,6 +25,7 @@ import { WorkflowComponent } from './workflow/workflow.component';
 import { WorkflowDefaultComponent } from './workflow/workflow-default/workflow-default.component';
 import { WorkflowAccountsComponent } from './workflow/workflow-accounts/workflow-accounts.component';
 import { WorkflowCardsComponent } from './workflow/workflow-cards/workflow-cards.component';
+import { CardsService } from './workflow/cards.service';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { WorkflowCardsComponent } from './workflow/workflow-cards/workflow-cards
       AuthGuard,
       JwtService,
       UserService,
-      PhoneService
+      PhoneService,
+      CardsService
     ],
   bootstrap: [AppComponent]
 })

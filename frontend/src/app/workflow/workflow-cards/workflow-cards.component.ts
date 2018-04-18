@@ -1,15 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { Card } from '../../model/card.model';
+import { CardsService } from '../cards.service';
 
 @Component({
   selector: 'app-workflow-cards',
   templateUrl: './workflow-cards.component.html',
   styleUrls: ['./workflow-cards.component.css']
 })
-export class WorkflowCardsComponent implements OnInit {
+export class WorkflowCardsComponent {
 
-  constructor() { }
+  cardList: Card[] = new Array<Card>();
 
-  ngOnInit() {
+  constructor(private cardsService: CardsService) {
+    this.cardsService.getAllCards().subscribe(
+      result => {
+        if (result.ok) {
+          this.cardList = result.json();
+        } else {
+          console.log('Not found');
+        }
+      }, err => {
+        console.log(err);
+      });
   }
 
 }

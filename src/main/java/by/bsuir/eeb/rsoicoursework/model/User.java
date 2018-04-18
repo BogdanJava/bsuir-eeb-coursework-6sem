@@ -71,6 +71,7 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Passport passport;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Card> cards;
 
@@ -78,6 +79,4 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Phone> phones;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Account> accounts;
 }

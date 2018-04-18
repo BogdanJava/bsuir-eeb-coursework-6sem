@@ -1,4 +1,4 @@
-<div id="wrapper" class="toggled">
+<div id="wrapper">
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li class="sidebar-brand">
@@ -12,6 +12,9 @@
   </div>
   <div id="page-content-wrapper">
     <div class="container-fluid">
+      <button class="btn" (click)="openSideBar()">
+        Show sidebar
+      </button>
       <router-outlet></router-outlet>
     </div>
   </div>

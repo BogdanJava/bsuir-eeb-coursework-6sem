@@ -23,5 +23,6 @@ public interface UserService {
     User findByEmail(String email);
     boolean isOldPasswordCorrect(long id, String password);
     boolean changePassword(PasswordChangeData passwordChangeData);
-    boolean emailAlreadyReserved(String email);
+    boolean isEmailAlreadyReserved(String email);
+    boolean exists(long id);
 }

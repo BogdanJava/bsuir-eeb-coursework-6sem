@@ -1,9 +1,11 @@
 package by.bsuir.eeb.rsoicoursework.model;
 
+import by.bsuir.eeb.rsoicoursework.model.enums.Currency;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author Bogdan Shishkin
@@ -13,8 +15,8 @@ import javax.persistence.*;
  */
 
 @Data
-@EqualsAndHashCode(of = {"id"})
 @Entity
+@NoArgsConstructor
 @Table(name = "card")
 public class Card {
 
@@ -26,10 +28,18 @@ public class Card {
     @Column(name = "card_number")
     private String cardNumber;
 
-    @Column(name = "csv")
+    @Column
     private String csv;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "card")
+    private Set<CardTransaction> cardTransactions;
+
 }

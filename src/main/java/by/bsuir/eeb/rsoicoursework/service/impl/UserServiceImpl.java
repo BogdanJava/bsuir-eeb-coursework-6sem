@@ -88,7 +88,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean emailAlreadyReserved(String email) {
+    public boolean isEmailAlreadyReserved(String email) {
         return userDAO.getByEmail(email) != null;
+    }
+
+    @Override
+    public boolean exists(long id) {
+        return userDAO.exists(id);
     }
 }

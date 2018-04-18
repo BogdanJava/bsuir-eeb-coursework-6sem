@@ -78,7 +78,7 @@ public class AuthenticationController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/checkEmailExists/{email}")
     public Map<String, Boolean> checkEmailExists(@PathVariable String email) {
-        return ImmutableMap.of("exists", userService.emailAlreadyReserved(email));
+        return ImmutableMap.of("exists", userService.isEmailAlreadyReserved(email));
     }
 
 }
