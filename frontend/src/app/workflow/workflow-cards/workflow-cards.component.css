@@ -23,3 +23,32 @@
     font-size: 64px;
     margin-top: -10%;
   }
+
+  .card {
+    border-radius: 20px;
+  
+  }
+
+  .card-list {
+
+  }
+
+  .card-list h3 {
+    text-align: center;
+  }
+
+  .card:hover {
+    background-color: #EC7676;
+    border: 1px solid;
+    border-color: #d0b4b4;
+  }
+
+  .card .glyphicon {
+    font-size: 900%;
+    display: block;
+    text-align: center;
+  }
+
+  .card p {
+    text-align: center;
+  }

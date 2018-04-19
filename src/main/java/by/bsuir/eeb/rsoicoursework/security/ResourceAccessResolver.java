@@ -31,16 +31,13 @@ public class ResourceAccessResolver {
 
         controllers.forEach(clazz -> {
             if (clazz.isAnnotationPresent(FreeAccess.class)) {
-                Arrays
-                        .stream(clazz.getMethods())
-                        .map(method -> {
-                            if (method.isAnnotationPresent(RequestMapping.class))
-                                return method.getAnnotation(RequestMapping.class).value();
-                            else return null;
-                        })
-                        .forEach(urls -> {
-                            addUrlsToSet(clazz, urls);
-                        });
+                Arrays.stream(clazz.getMethods()).map(method -> {
+                    if (method.isAnnotationPresent(RequestMapping.class))
+                        return method.getAnnotation(RequestMapping.class).value();
+                    else return null;
+                }).forEach(urls -> {
+                    addUrlsToSet(clazz, urls);
+                });
             }
         });
     }

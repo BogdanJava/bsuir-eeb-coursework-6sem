@@ -1,7 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
 import { AppComponent } from './app.component';
 import { RouterModule } from "@angular/router";
 import { LoginComponent } from './login/login.component';
@@ -12,7 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { CookieService } from "./cookie.service";
 import { AuthGuard } from "./auth.guard";
 import { JwtService } from "./jwt.service";
-import { JwtModule } from "@auth0/angular-jwt";
+import { JwtModule, JwtHelperService } from "@auth0/angular-jwt";
+import { JwtHelper } from "angular2-jwt";
 import { ButtonModule, MenuModule } from "primeng/primeng";
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserService } from './user.service';
@@ -26,6 +25,7 @@ import { WorkflowDefaultComponent } from './workflow/workflow-default/workflow-d
 import { WorkflowAccountsComponent } from './workflow/workflow-accounts/workflow-accounts.component';
 import { WorkflowCardsComponent } from './workflow/workflow-cards/workflow-cards.component';
 import { CardsService } from './workflow/cards.service';
+import { CardRegistrationComponent } from './workflow/workflow-cards/card-registration/card-registration.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,8 @@ import { CardsService } from './workflow/cards.service';
     WorkflowComponent,
     WorkflowDefaultComponent,
     WorkflowAccountsComponent,
-    WorkflowCardsComponent
+    WorkflowCardsComponent,
+    CardRegistrationComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpModule, MenuModule, JwtModule, ButtonModule, MyDatePickerModule,
@@ -58,7 +59,8 @@ import { CardsService } from './workflow/cards.service';
         path: "workflow", component: WorkflowComponent, canActivate: [AuthGuard], children: [
           { path: "", component: WorkflowDefaultComponent },
           { path: "cards", component: WorkflowCardsComponent },
-          { path: "accounts", component: WorkflowAccountsComponent }
+          { path: "accounts", component: WorkflowAccountsComponent },
+          { path: "cards/registration", component: CardRegistrationComponent }
         ]
       },
       { path: "**", redirectTo: "/login" }
@@ -72,9 +74,12 @@ import { CardsService } from './workflow/cards.service';
       JwtService,
       UserService,
       PhoneService,
-      CardsService
+      CardsService,
+      JwtHelperService,
+      JwtHelper
     ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  
 }

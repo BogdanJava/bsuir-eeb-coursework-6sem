@@ -6,6 +6,7 @@ import by.bsuir.eeb.rsoicoursework.exceptions.NotEnoughMoneyException;
 import by.bsuir.eeb.rsoicoursework.model.Card;
 import by.bsuir.eeb.rsoicoursework.model.CardTransaction;
 import by.bsuir.eeb.rsoicoursework.service.CardManagementService;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,14 @@ public class CardManagementServiceImpl implements CardManagementService {
 
     @Override
     public Card save(Card card) {
+        String cardNumber;
+        while (true) {
+            cardNumber = RandomStringUtils.randomNumeric(16);
+            if(cardDAO.findByCardNumber(cardNumber) == null) break;
+        }
+
+        card.setCsv(RandomStringUtils.randomNumeric(3));
+        card.setCardNumber(cardNumber);
         return cardDAO.save(card);
     }
 }

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CardDAO extends JpaRepository<Card, Long> {
     List<Card> getAllByUserId(long userId);
+    Card findByCardNumber(String cardNumber);
 }

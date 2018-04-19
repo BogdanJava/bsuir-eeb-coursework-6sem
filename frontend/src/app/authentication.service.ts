@@ -10,6 +10,8 @@ import { Observable } from "rxjs/Observable";
 import { JwtService } from "./jwt.service";
 import { Subject } from "rxjs/Subject";
 import { Observer } from 'rxjs/Observer';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelper } from 'angular2-jwt';
 
 const PROTOCOL = "http";
 const PORT = 8080;
@@ -24,7 +26,8 @@ export class AuthenticationService {
   constructor(private http: Http,
     private cookieService: CookieService,
     private router: Router,
-    private jwtService: JwtService) {
+    private jwtService: JwtService,
+    private jwtHelper: JwtHelper) {
     this.userObservable = Observable.create((observer: Observer<User>) => {
       this.userObserver = observer;
     })
@@ -43,7 +46,7 @@ export class AuthenticationService {
     });
   }
 
-  public setNewUser(user: User) {
+  setNewUser(user: User) {
     this.user = user;
     this.userObserver.next(user);
   }
@@ -70,7 +73,7 @@ export class AuthenticationService {
       .map((res: Response) => res.json());
   }
 
-  public getOptions(): RequestOptions {
+  getOptions(): RequestOptions {
 
     let headers = new Headers({
       'Content-type': "application/json; charset=utf-8",
@@ -86,10 +89,15 @@ export class AuthenticationService {
   }
 
   isAuthenticated(): boolean {
-    return this.cookieService.getCookie('access_token') != null;
+    let token = this.cookieService.getCookie('access_token');
+    if (token != null) {
+      if(this.jwtHelper.isTokenExpired(token)) return false;
+      return true;
+    } else {return false;}
   }
 
   logout() {
+    console.log('logout');
     this.cookieService.deleteCookie('access_token');
     this.router.navigate(['/login']);
   }

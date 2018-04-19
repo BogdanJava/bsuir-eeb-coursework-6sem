@@ -27,6 +27,7 @@ export class CardsService {
   }
 
   saveCard(card: Card): Observable<any> {
+    console.log('card: ' + card);
     return this.http.post(this.baseUrl + '/api/cards', { card: card, userId: this.userId },
       this.authService.getOptions());
   }

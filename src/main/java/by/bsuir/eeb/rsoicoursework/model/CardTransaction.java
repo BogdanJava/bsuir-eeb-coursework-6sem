@@ -25,6 +25,7 @@ public class CardTransaction {
     @Column
     private double diff;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "card_id")
     private Card card;

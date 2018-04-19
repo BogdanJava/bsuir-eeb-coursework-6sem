@@ -1,0 +1,86 @@
+<form (ngSubmit)="onSubmit(form)" #form="ngForm" class="form-horizontal">
+  <h1>New card</h1>
+  <hr>
+
+  <div class="form-group" [class.has-error]="submitted && currency.invalid">
+    <label for="currency" class="col-sm-3 control-label">Card's currency</label>
+    <div class="col-sm-9">
+      <select class="form-control" [(ngModel)]="this.card.currency" #currency="ngModel" name="currency" id="currency" required>
+        <option value="USD">USD</option>
+        <option value="BYN">BYN</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group" [class.has-error]="submitted && type.invalid">
+      <label for="type" class="col-sm-2 control-label">Card's type</label>
+      <div class="col-sm-1">
+          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(70, 70, 172)" *ngIf="card.type == 'classic'" ></span>
+          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(187, 187, 235)" *ngIf="card.type == 'silver'" ></span>
+          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(199, 186, 65)" *ngIf="card.type == 'gold'" ></span>
+          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(210, 239, 241)" *ngIf="card.type == 'platinum'" ></span>
+          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(17, 17, 34)" *ngIf="card.type == 'dark_matter'" ></span>
+      </div>      
+      <div class="col-sm-9">
+        <select class="form-control" [(ngModel)]="this.card.type" #type="ngModel" name="type" id="type" required>
+          <option value="classic">Classic</option>
+          <option value="silver">Silver</option>
+          <option value="gold">Gold</option>
+          <option value="platinum">Platinum</option>
+          <option value="dark_matter">Dark matter</option>
+        </select>
+      </div>
+    </div>
+
+  <div class="form-group" [class.has-error]="submitted && password.invalid">
+    <label for="password" class="col-sm-3 control-label">Password</label>
+    <div class="col-sm-9">
+      <input [(ngModel)]="this.card.password" #password="ngModel" name="password" type="password" class="form-control" id="password"
+        (input)="onPasswordInput()" placeholder="Password" required>
+    </div>
+  </div>
+
+  <div class="form-group" [class.has-error]="submitted && rePasswordInput.invalid">
+    <label for="rePassword" class="col-sm-3 control-label">Repeat password</label>
+    <div class="col-sm-9">
+      <input [(ngModel)]="rePassword" #rePasswordInput="ngModel" name="rePassword" type="password" class="form-control" id="rePassword"
+        placeholder="Repeat password" required>
+    </div>
+  </div>
+
+  <div class="alert alert-warning" *ngIf="passwordNoMatch">
+    Passwords don't match
+  </div>
+
+  <div class="progress" *ngIf="this.card.password && this.card.password.length > 0">
+    <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+      {{this.passwordStrength}}
+    </div>
+  </div>
+
+  <div class="form-group" style="margin: 30px 20%;">
+    <div class="col-sm-6">
+      <button class="btn btn-success btn-block" type="submit">Register card</button>
+    </div>
+    <div class="col-sm-6">
+      <button class="btn btn-danger btn-block" type="button" [routerLink]="['/workflow/cards']">Back</button>
+    </div>
+  </div>
+</form>
+
+<button type="button" style="display: none;" data-toggle="modal" data-target=".modal" id="modalButton"></button>
+<div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Registered</h4>
+      </div>
+      <div class="modal-body">
+        <p>Your new card has been successfully registered!&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="display: none;" data-dismiss="modal" id="closeModalButton">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 package by.bsuir.eeb.rsoicoursework.controller.secured;
 
 import by.bsuir.eeb.rsoicoursework.model.Card;
+import by.bsuir.eeb.rsoicoursework.model.dto.CardDTO;
 import by.bsuir.eeb.rsoicoursework.service.CardManagementService;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,9 @@ public class CardRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity addCard(@RequestBody() Card card, @RequestParam long userId) {
-        card.setUser(userService.findById(userId));
-        Card savedCard = cardManagementService.save(card);
+    public ResponseEntity addCard(@RequestBody CardDTO cardDTO) {
+        cardDTO.getCard().setUser(userService.findById(cardDTO.getUserId()));
+        Card savedCard = cardManagementService.save(cardDTO.getCard());
         return savedCard != null ? ResponseEntity.ok(savedCard) : ResponseEntity.notFound().build();
     }
 

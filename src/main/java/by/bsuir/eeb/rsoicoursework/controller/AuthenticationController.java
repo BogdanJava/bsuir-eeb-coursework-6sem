@@ -5,6 +5,7 @@ import by.bsuir.eeb.rsoicoursework.model.User;
 import by.bsuir.eeb.rsoicoursework.security.SecurityTools;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
 import com.google.common.collect.ImmutableMap;
+import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class AuthenticationController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private SecurityTools securityUtils;
+    private SecurityTools securityTools;
 
     @Autowired
     private Validator validator;
@@ -73,7 +74,7 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(ImmutableMap.of("message", "Incorrect password"));
         }
-        return ResponseEntity.ok(ImmutableMap.of("jwtToken", securityUtils.buildJwtToken(user)));
+        return ResponseEntity.ok(ImmutableMap.of("jwtToken", securityTools.buildJwtToken(user)));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/checkEmailExists/{email}")

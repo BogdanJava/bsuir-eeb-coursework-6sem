@@ -34,6 +34,12 @@ public class SecurityTools {
                 .compact();
     }
 
+    public Claims parseToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes()))
+                .parseClaimsJws(token).getBody();
+    }
+
     public User getUserFromClaims(Claims claims) {
         return userService.findByEmail(claims.getSubject());
     }

@@ -1,6 +1,7 @@
 package by.bsuir.eeb.rsoicoursework.security.filter;
 
 import by.bsuir.eeb.rsoicoursework.security.ResourceAccessResolver;
+import by.bsuir.eeb.rsoicoursework.security.SecurityTools;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,9 @@ public class JwtFilter extends GenericFilterBean {
     @Autowired
     private ResourceAccessResolver accessResolver;
 
+    @Autowired
+    private SecurityTools securityTools;
+
     @Value("${jwt.secret}")
     private String secret;
 
@@ -50,11 +54,8 @@ public class JwtFilter extends GenericFilterBean {
                 if (authHeader == null || !authHeader.startsWith("Bearer ")) {
                     response.sendError(HttpStatus.FORBIDDEN.value(), "Authentication header is missing or invalid");
                 } else {
-                    final String token = authHeader.substring(7);
                     try {
-                        final Claims claims = Jwts.parser()
-                                .setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes()))
-                                .parseClaimsJws(token).getBody();
+                        final Claims claims = securityTools.parseToken(authHeader.substring(7));
                         request.setAttribute("claims", claims);
                         filterChain.doFilter(request, response);
                     } catch (SignatureException | MalformedJwtException e) {
