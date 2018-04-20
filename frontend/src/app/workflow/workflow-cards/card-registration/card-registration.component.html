@@ -15,14 +15,14 @@
   <div class="form-group" [class.has-error]="submitted && type.invalid">
       <label for="type" class="col-sm-2 control-label">Card's type</label>
       <div class="col-sm-1">
-          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(70, 70, 172)" *ngIf="card.type == 'classic'" ></span>
-          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(187, 187, 235)" *ngIf="card.type == 'silver'" ></span>
-          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(199, 186, 65)" *ngIf="card.type == 'gold'" ></span>
-          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(210, 239, 241)" *ngIf="card.type == 'platinum'" ></span>
-          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(17, 17, 34)" *ngIf="card.type == 'dark_matter'" ></span>
+          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(70, 70, 172)" *ngIf="card.cardType == 'classic'" ></span>
+          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(187, 187, 235)" *ngIf="card.cardType == 'silver'" ></span>
+          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(199, 186, 65)" *ngIf="card.cardType == 'gold'" ></span>
+          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(210, 239, 241)" *ngIf="card.cardType == 'platinum'" ></span>
+          <span class="glyphicon glyphicon-credit-card" aria-hidden="true" style="color: rgb(17, 17, 34)" *ngIf="card.cardType == 'dark_matter'" ></span>
       </div>      
       <div class="col-sm-9">
-        <select class="form-control" [(ngModel)]="this.card.type" #type="ngModel" name="type" id="type" required>
+        <select class="form-control" [(ngModel)]="this.card.cardType" #type="ngModel" name="type" id="type" required>
           <option value="classic">Classic</option>
           <option value="silver">Silver</option>
           <option value="gold">Gold</option>

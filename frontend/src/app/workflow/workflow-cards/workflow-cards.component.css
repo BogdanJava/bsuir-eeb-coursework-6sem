@@ -26,11 +26,12 @@
 
   .card {
     border-radius: 20px;
-  
-  }
-
-  .card-list {
-
+    cursor: pointer;
+    margin: 2px;
+    margin-top: 20px;
+    border: 1px solid inherit;
+    padding: 5px;
+    background-color: #ddd;
   }
 
   .card-list h3 {
@@ -39,16 +40,20 @@
 
   .card:hover {
     background-color: #EC7676;
-    border: 1px solid;
     border-color: #d0b4b4;
   }
 
   .card .glyphicon {
-    font-size: 900%;
+    font-size: 700%;
     display: block;
     text-align: center;
   }
 
   .card p {
     text-align: center;
+    margin: 3px;
+  }
+
+  .card-add {
+    color: rgb(47, 116, 70);
   }

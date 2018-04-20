@@ -69,6 +69,8 @@ export class CardRegistrationComponent implements OnInit {
     this.submitted = true;
     if (form.valid) {
       this.passwordNoMatch = this.card.password !== this.rePassword;
+      if(this.passwordNoMatch) return;
+      this.card.cardType = this.card.cardType.toUpperCase();
       this.cardsService.saveCard(this.card).subscribe(result => {
         if (result.ok) {
           document.getElementById('modalButton').click();

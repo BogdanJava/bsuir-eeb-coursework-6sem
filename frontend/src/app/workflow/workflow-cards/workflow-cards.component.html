@@ -9,12 +9,23 @@
 </div>
 <div *ngIf="cardList.length != 0">
   <h1>Cards list</h1>
-  <div class="container" *ngFor="let card of cardList">
+  <h2>Your cards. Click to see details</h2>
+  <div class="container">
+    <hr>
+    <div *ngFor="let card of cardList">
+      <div class="col-sm-4">
+        <div class="card" [routerLink]="[card.id]">
+          <h3>{{card.cardType}} #{{card.id}}</h3>
+          <span class="glyphicon glyphicon-credit-card" id="card{{card.id}}"></span>
+          <p>{{card.cardNumber}}</p>
+        </div>
+      </div>
+    </div>
     <div class="col-sm-4">
-      <div class="card">
-        <h3>{{card.cardType}} #{{card.id}}</h3>
-        <span class="glyphicon glyphicon-credit-card"></span>
-        <p>{{card.cardNumber}}</p>
+      <div class="card" [routerLink]="['registration']">
+        <h3>Add a new one</h3>
+        <span class="glyphicon glyphicon-plus card-add"></span>
+        <p>New card</p>
       </div>
     </div>
   </div>

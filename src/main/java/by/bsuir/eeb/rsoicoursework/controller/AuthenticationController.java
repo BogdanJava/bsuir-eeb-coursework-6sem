@@ -43,7 +43,7 @@ public class AuthenticationController {
 
     /**
      * @param credentials User data that was sent from Client
-     * @return Just now registered ${@link User} or collection of errors
+     * @return Just now registered ${@link User} or list of errors
      */
     @RequestMapping(method = RequestMethod.POST, value = "/signup")
     public ResponseEntity signUp(@RequestBody User credentials) {

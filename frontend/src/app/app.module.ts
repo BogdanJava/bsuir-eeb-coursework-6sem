@@ -26,6 +26,7 @@ import { WorkflowAccountsComponent } from './workflow/workflow-accounts/workflow
 import { WorkflowCardsComponent } from './workflow/workflow-cards/workflow-cards.component';
 import { CardsService } from './workflow/cards.service';
 import { CardRegistrationComponent } from './workflow/workflow-cards/card-registration/card-registration.component';
+import { CardDetailsComponent } from './workflow/workflow-cards/card-details/card-details.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { CardRegistrationComponent } from './workflow/workflow-cards/card-regist
     WorkflowDefaultComponent,
     WorkflowAccountsComponent,
     WorkflowCardsComponent,
-    CardRegistrationComponent
+    CardRegistrationComponent,
+    CardDetailsComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpModule, MenuModule, JwtModule, ButtonModule, MyDatePickerModule,
@@ -60,7 +62,8 @@ import { CardRegistrationComponent } from './workflow/workflow-cards/card-regist
           { path: "", component: WorkflowDefaultComponent },
           { path: "cards", component: WorkflowCardsComponent },
           { path: "accounts", component: WorkflowAccountsComponent },
-          { path: "cards/registration", component: CardRegistrationComponent }
+          { path: "cards/registration", component: CardRegistrationComponent },
+          { path: "cards/:cardId", component: CardDetailsComponent }
         ]
       },
       { path: "**", redirectTo: "/login" }
@@ -81,5 +84,5 @@ import { CardRegistrationComponent } from './workflow/workflow-cards/card-regist
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  
+
 }

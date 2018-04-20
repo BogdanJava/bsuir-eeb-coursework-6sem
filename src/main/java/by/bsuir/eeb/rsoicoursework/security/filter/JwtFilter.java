@@ -2,12 +2,12 @@ package by.bsuir.eeb.rsoicoursework.security.filter;
 
 import by.bsuir.eeb.rsoicoursework.security.ResourceAccessResolver;
 import by.bsuir.eeb.rsoicoursework.security.SecurityTools;
+import by.bsuir.eeb.rsoicoursework.security.config.UserContextHolder;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
@@ -19,7 +19,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Base64;
 
 @Component
 public class JwtFilter extends GenericFilterBean {
@@ -44,7 +43,7 @@ public class JwtFilter extends GenericFilterBean {
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
         final String authHeader = request.getHeader("authorization");
 
-        if (accessResolver.isProtectedUrl(request.getRequestURI())) {
+        if (!accessResolver.isProtectedResource(request.getRequestURI())) {
             filterChain.doFilter(request, response);
         } else {
             if (request.getMethod().equalsIgnoreCase("options")) {
@@ -57,8 +56,9 @@ public class JwtFilter extends GenericFilterBean {
                     try {
                         final Claims claims = securityTools.parseToken(authHeader.substring(7));
                         request.setAttribute("claims", claims);
+                        UserContextHolder.setUserId((Integer)claims.get("id"));
                         filterChain.doFilter(request, response);
-                    } catch (SignatureException | MalformedJwtException e) {
+                    } catch (RuntimeException e) {
                         response.sendError(HttpStatus.FORBIDDEN.value(), "Invalid token or signature");
                     }
                 }

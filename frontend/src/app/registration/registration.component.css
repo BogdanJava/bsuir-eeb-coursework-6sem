@@ -10,3 +10,7 @@
 .form-group label {
     text-align: left;
 }
+
+.container {
+    margin-bottom: -5%;
+}

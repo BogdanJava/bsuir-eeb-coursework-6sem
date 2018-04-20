@@ -18,8 +18,8 @@ export class CardsService {
     this.userId = jwtService.getClaim('id');
   }
 
-  getCard(): Observable<any> {
-    return this.http.get(this.baseUrl + `/api/cards/${this.userId}`, this.authService.getOptions());
+  getCard(cardId: number): Observable<any> {
+    return this.http.get(this.baseUrl + `/api/cards/${cardId}`, this.authService.getOptions());
   }
 
   getAllCards(): Observable<any> {
@@ -27,7 +27,6 @@ export class CardsService {
   }
 
   saveCard(card: Card): Observable<any> {
-    console.log('card: ' + card);
     return this.http.post(this.baseUrl + '/api/cards', { card: card, userId: this.userId },
       this.authService.getOptions());
   }

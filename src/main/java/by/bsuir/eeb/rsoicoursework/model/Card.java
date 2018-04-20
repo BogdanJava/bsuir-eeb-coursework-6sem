@@ -3,6 +3,7 @@ package by.bsuir.eeb.rsoicoursework.model;
 import by.bsuir.eeb.rsoicoursework.model.enums.CardType;
 import by.bsuir.eeb.rsoicoursework.model.enums.Currency;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -17,6 +18,7 @@ import java.util.Set;
  * email: bogdanshishkin1998@gmail.com
  */
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Data
 @Entity
 @NoArgsConstructor

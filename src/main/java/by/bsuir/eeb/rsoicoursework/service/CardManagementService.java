@@ -12,4 +12,5 @@ public interface CardManagementService {
     List<Card> getCardsByUserId(long userId);
     Double calculateCardBalance(long cardId);
     Card save(Card card);
+    long getUserIdByCardId(long cardId);
 }

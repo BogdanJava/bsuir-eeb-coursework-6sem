@@ -2,6 +2,7 @@ package by.bsuir.eeb.rsoicoursework.controller.secured;
 
 import by.bsuir.eeb.rsoicoursework.model.Card;
 import by.bsuir.eeb.rsoicoursework.model.dto.CardDTO;
+import by.bsuir.eeb.rsoicoursework.security.config.UserContextHolder;
 import by.bsuir.eeb.rsoicoursework.service.CardManagementService;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,16 @@ public class CardRestController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public ResponseEntity getCard(@PathVariable long id) {
-        Card card = cardManagementService.getCardById(id);
+    @RequestMapping(method = RequestMethod.GET, value = "/{cardId}")
+    public ResponseEntity getCard(@PathVariable long cardId) {
+        if(UserContextHolder.getUserId() != cardManagementService.getUserIdByCardId(cardId)) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        Card card = cardManagementService.getCardById(cardId);
         return card != null ? ResponseEntity.ok(card) : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity addCard(@RequestBody CardDTO cardDTO) {
+        if(UserContextHolder.getUserId() != cardDTO.getUserId()) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         cardDTO.getCard().setUser(userService.findById(cardDTO.getUserId()));
         Card savedCard = cardManagementService.save(cardDTO.getCard());
         return savedCard != null ? ResponseEntity.ok(savedCard) : ResponseEntity.notFound().build();
@@ -34,6 +37,7 @@ public class CardRestController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity getAllCards(@RequestParam long userId) {
+        if(UserContextHolder.getUserId() != userId) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         boolean exists = userService.exists(userId);
         return exists ? ResponseEntity.ok(cardManagementService.getCardsByUserId(userId)) : ResponseEntity.notFound().build();
     }

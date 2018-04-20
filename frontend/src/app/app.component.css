@@ -17,3 +17,15 @@ body {
 li:hover {
   background: #999;
 }
+
+.nav-button {
+  height: 50px;
+  background-color: inherit;
+  font-family: 'Raleway', sans-serif;
+  color: #9d9d9d;
+  font-weight: 800;
+}
+
+.nav-button:hover {
+  color: #fff;
+}

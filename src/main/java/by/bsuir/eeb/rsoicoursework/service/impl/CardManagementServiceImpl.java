@@ -58,9 +58,13 @@ public class CardManagementServiceImpl implements CardManagementService {
             cardNumber = RandomStringUtils.randomNumeric(16);
             if(cardDAO.findByCardNumber(cardNumber) == null) break;
         }
-
         card.setCsv(RandomStringUtils.randomNumeric(3));
         card.setCardNumber(cardNumber);
         return cardDAO.save(card);
+    }
+
+    @Override
+    public long getUserIdByCardId(long cardId) {
+        return getCardById(cardId).getUser().getId();
     }
 }

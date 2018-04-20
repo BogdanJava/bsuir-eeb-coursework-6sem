@@ -31,31 +31,36 @@ public class ResourceAccessResolver {
 
         controllers.forEach(clazz -> {
             if (clazz.isAnnotationPresent(FreeAccess.class)) {
-                Arrays.stream(clazz.getMethods()).map(method -> {
-                    if (method.isAnnotationPresent(RequestMapping.class))
-                        return method.getAnnotation(RequestMapping.class).value();
-                    else return null;
-                }).forEach(urls -> {
-                    addUrlsToSet(clazz, urls);
-                });
+                setControllerURLs(clazz, freeAccessURLs);
             }
         });
     }
 
-    private void addUrlsToSet(Class<?> clazz, String[] urls) {
+    private void setControllerURLs(Class clazz, Set<String> urlsSet) {
+        Arrays.stream(clazz.getMethods()).map(method -> {
+            if (method.isAnnotationPresent(RequestMapping.class))
+                return method.getAnnotation(RequestMapping.class).value();
+            else return null;
+        }).forEach(urls -> {
+            addUrlsToSet(clazz, urls, urlsSet);
+        });
+    }
+
+    private void addUrlsToSet(Class<?> clazz, String[] urls, Set<String> set) {
         if (urls != null) {
             Arrays.stream(urls).forEach(url -> {
                 String rootMapping = "";
                 if (clazz.isAnnotationPresent(RequestMapping.class)) {
                     rootMapping = clazz.getAnnotation(RequestMapping.class).value()[0];
                 }
-                freeAccessURLs.add(rootMapping + url);
+                set.add(rootMapping + url);
             });
         }
     }
 
-    public boolean isProtectedUrl(String url) {
-        return freeAccessURLs.contains(url);
+
+    public boolean isProtectedResource(String url) {
+        return !freeAccessURLs.contains(url);
     }
 
 }

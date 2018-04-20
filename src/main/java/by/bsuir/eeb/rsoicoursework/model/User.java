@@ -35,21 +35,19 @@ public class User {
     }
 
     @Id
-    @Column
     @GeneratedValue
     private long id;
 
     @NotNull
     @Past
-    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthday;
 
     @NotNull(message = "Incorrect email")
-    @Column(name = "email", unique = true)
+    @Column(unique = true)
     private String email;
 
-    @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @NotNull
@@ -61,7 +59,6 @@ public class User {
     private String lastName;
 
     @NotNull
-    @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     private Gender gender;
 

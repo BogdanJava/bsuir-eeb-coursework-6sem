@@ -21,22 +21,19 @@
             <a [routerLink]="['/workflow']">Workflow</a>
           </li>
           <li>
-            <!-- Single button -->
-            <div class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{this.authenticatedUser.firstName + ' ' + this.authenticatedUser.lastName}}
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <a [routerLink]="['/profile']">My profile</a>
-                </li>
-                <li role="separator" class="divider"></li>
-                <li>
-                  <a [routerLink]="['/login']" (click)="logout()">Logout</a>
-                </li>
-              </ul>
-            </div>
+            <button type="button" class="btn nav-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{this.authenticatedUser.firstName + ' ' + this.authenticatedUser.lastName}}
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a [routerLink]="['/profile']">My profile</a>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li>
+                <a [routerLink]="['/login']" (click)="logout()">Logout</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
