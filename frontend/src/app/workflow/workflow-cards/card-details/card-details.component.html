@@ -1,3 +1,16 @@
-<p>
-  card-details works!
-</p>
+<div class="container" *ngIf="card">
+  <h1>Card №{{card.id}}</h1>
+  <hr>
+  <div class="row">
+    <div class="col-sm-6">Card number</div>
+    <div class="col-sm-6">{{card.cardNumber}}</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">Card type</div>
+    <div class="col-sm-6">{{card.cardType}}</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">Card currency</div>
+    <div class="col-sm-6">{{card.currency}}</div>
+  </div>
+</div>
