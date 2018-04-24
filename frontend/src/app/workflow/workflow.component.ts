@@ -9,6 +9,7 @@ export class WorkflowComponent implements OnInit {
 
   isOpen: boolean = false;
   wrapperDiv = null;
+  arrow = null;
 
   constructor() { }
 
@@ -18,12 +19,15 @@ export class WorkflowComponent implements OnInit {
   openSideBar() {
     if (!this.wrapperDiv) {
       this.wrapperDiv = document.getElementById('wrapper');
+      this.arrow = document.getElementById('arrow');
     }
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
       this.wrapperDiv.className = "toggled";
+      this.arrow.className = "glyphicon glyphicon-chevron-left";
     } else {
       this.wrapperDiv.className = "";
+      this.arrow.className = "glyphicon glyphicon-chevron-right";
     }
   }
 

@@ -1,7 +1,20 @@
-<div class="jumbotron">
+<div id="accounts">
   <h1>Account management</h1>
-
-  <p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-  </p>
+  <hr>
+  <div id="row" class="row centered">
+    <div class="col-sm-6">
+      <a class="btn btn-default btn-circle" [routerLink]="['deposits']">
+        <span id="card-icon" class="glyphicon glyphicon-usd card-main-area"  aria-hidden="true">
+        </span>
+        <p class="card-text">Deposits</p>
+      </a>
+    </div>
+    <div class="col-sm-6">
+      <a class="btn btn-default btn-circle" [routerLink]="['credits']">
+        <span id="card-icon" class="glyphicon glyphicon-briefcase card-main-area" aria-hidden="true">
+        </span>
+        <p class="card-text">Credits</p>
+      </a>
+    </div>
+  </div>
 </div>

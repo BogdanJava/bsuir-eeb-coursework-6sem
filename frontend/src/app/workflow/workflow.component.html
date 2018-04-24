@@ -7,13 +7,14 @@
       <li>
         <a [routerLink]="['accounts']">Accounts</a>
         <a [routerLink]="['cards']">Cards</a>
+        <a [routerLink]="['transactions']">Transactions</a>
       </li>
     </ul>
   </div>
   <div id="page-content-wrapper">
     <div class="container-fluid">
       <button class="btn" (click)="openSideBar()">
-        Show sidebar
+        <span id="arrow" class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
       </button>
       <router-outlet></router-outlet>
     </div>

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -16,13 +17,11 @@ public class CardTransaction {
     @GeneratedValue
     private long id;
 
-    @Column
+    @Temporal(TemporalType.DATE)
+    private Date date;
+
     private String name;
-
-    @Column
     private String description;
-
-    @Column
     private double diff;
 
     @JsonIgnore

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,11 +26,12 @@ public class CardManagementServiceImpl implements CardManagementService {
     private TransactionDAO transactionDAO;
 
     @Override
-    public CardTransaction balanceOperation(CardTransaction transaction) throws NotEnoughMoneyException {
+    public CardTransaction executeBalanceOperation(CardTransaction transaction) throws NotEnoughMoneyException {
         double balance = calculateCardBalance(transaction.getCard().getId());
-        if (balance < transaction.getDiff()) {
+        if (transaction.getDiff() < 0 && balance < Math.abs(transaction.getDiff())) {
             throw new NotEnoughMoneyException();
         }
+        transaction.setDate(new Date());
         return transactionDAO.save(transaction);
     }
 
@@ -44,11 +47,10 @@ public class CardManagementServiceImpl implements CardManagementService {
 
     @Override
     public Double calculateCardBalance(long cardId) {
-        return transactionDAO.getAllByCardId(cardId)
-                .stream()
+        return transactionDAO.getAllByCardId(cardId).stream()
                 .map(CardTransaction::getDiff)
                 .reduce((diff1, diff2) -> diff1 + diff2)
-                .orElse(null);
+                .orElse(0.00);
     }
 
     @Override
@@ -56,7 +58,7 @@ public class CardManagementServiceImpl implements CardManagementService {
         String cardNumber;
         while (true) {
             cardNumber = RandomStringUtils.randomNumeric(16);
-            if(cardDAO.findByCardNumber(cardNumber) == null) break;
+            if (cardDAO.findByCardNumber(cardNumber) == null) break;
         }
         card.setCsv(RandomStringUtils.randomNumeric(3));
         card.setCardNumber(cardNumber);
@@ -66,5 +68,15 @@ public class CardManagementServiceImpl implements CardManagementService {
     @Override
     public long getUserIdByCardId(long cardId) {
         return getCardById(cardId).getUser().getId();
+    }
+
+    @Override
+    public List<CardTransaction> getAllTransactions(long cardId) {
+        return transactionDAO.getAllByCardId(cardId);
+    }
+
+    @Override
+    public CardTransaction getTransaction(long transactionId) {
+        return transactionDAO.getOne(transactionId);
     }
 }

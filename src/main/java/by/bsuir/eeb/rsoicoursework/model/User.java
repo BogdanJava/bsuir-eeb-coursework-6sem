@@ -4,6 +4,7 @@ import by.bsuir.eeb.rsoicoursework.model.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "id"}))
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@EqualsAndHashCode(exclude = {"phones", "cards", "passport"})
 public class User {
 
     public User(long id, String password) {
@@ -74,6 +76,13 @@ public class User {
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Account> accounts;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Phone> phones;
 
+    public String getFullName() {
+        return String.join(" ", firstName, lastName);
+    }
 }

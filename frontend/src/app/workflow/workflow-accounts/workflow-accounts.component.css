@@ -1,0 +1,39 @@
+#row {
+    width: 90%;
+    margin: 4% auto;
+    margin-bottom: 0;
+}
+
+.active-block {
+    background-color: rgb(99, 91, 91);
+}
+
+.active-block p {
+    max-width: 200px;
+}
+
+.active-block:hover {
+    background-color: rgb(173, 158, 158);
+    border: 1px solid rgb(173, 158, 158);
+}
+
+#row > a {
+    display: block;
+    margin: 0 auto;
+}
+
+.btn-circle {
+    margin: 0 auto;
+}
+
+#accounts {
+    max-width: 70%;
+    display: block;
+    margin: 2% auto -5% auto;    
+}
+
+#accounts > h1 {
+    display: block;
+    margin: 3% auto;
+    max-width: 90%;
+}

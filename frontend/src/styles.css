@@ -610,3 +610,63 @@ h4 {
 #footer i:hover {
   color: #ff7878;
 }
+
+.btn-circle {
+  width: 300px;
+  height: 300px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 120px;
+  line-height: 1.42;
+  border-radius: 150px;
+  display: block;
+  margin: 5% auto;
+}
+
+.btn-circle:hover {
+    background-color: #EC7676;
+}
+
+.card-main-area {
+  height: 50%;
+  margin-top: 20%;
+}
+
+.card-text {
+  font-size: 50px !important;
+  margin-top: -10%;
+}
+
+.card {
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 2px;
+  margin-top: 20px;
+  border: 1px solid inherit;
+  padding: 5px;
+  background-color: #ddd;
+}
+
+.card-list h3 {
+  text-align: center;
+}
+
+.card:hover {
+  background-color: #EC7676;
+  border-color: #d0b4b4;
+}
+
+.card .glyphicon {
+  font-size: 700%;
+  display: block;
+  text-align: center;
+}
+
+.card p {
+  text-align: center;
+  margin: 3px;
+}
+
+.card-add {
+  color: rgb(47, 116, 70);
+}

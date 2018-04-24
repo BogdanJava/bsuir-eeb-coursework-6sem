@@ -1,8 +1,10 @@
 package by.bsuir.eeb.rsoicoursework.config;
 
+import by.bsuir.eeb.rsoicoursework.aspect.FirstTransactionAspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -26,6 +28,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
+@EnableAspectJAutoProxy
 @EnableJpaRepositories(basePackages = "by.bsuir.eeb.rsoicoursework.dao")
 public class DataConfig {
 
@@ -75,5 +78,10 @@ public class DataConfig {
     public Validator validator() {
         ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         return validatorFactory.getValidator();
+    }
+
+    @Bean
+    public FirstTransactionAspect firstTransactionAspect() {
+        return new FirstTransactionAspect();
     }
 }

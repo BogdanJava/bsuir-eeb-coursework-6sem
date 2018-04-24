@@ -79,6 +79,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean changePassword(PasswordChangeData passwordChangeData) {
+        if (passwordChangeData.getOldPassword() == null || passwordChangeData.getNewPassword() == null) return false;
         if (isOldPasswordCorrect(passwordChangeData.getId(), passwordChangeData.getOldPassword())) {
             User user = userDAO.getOne(passwordChangeData.getId());
             user.setPassword(passwordEncoder.encode(passwordChangeData.getNewPassword()));

@@ -2,9 +2,9 @@
   <h1>Cards management</h1>
   <h3>You don't have any cards yet! Get one right now</h3>
   <a [routerLink]="['registration']" class="btn btn-default btn-circle">
-    <span id="card-icon" class="glyphicon glyphicon-credit-card" aria-hidden="true">
+    <span id="card-icon" class="glyphicon glyphicon-credit-card card-main-area" aria-hidden="true">
     </span>
-    <p id="text">Get</p>
+    <p class="card-text">Get</p>
   </a>
 </div>
 <div *ngIf="cardList.length != 0">

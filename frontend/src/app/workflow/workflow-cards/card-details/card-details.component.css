@@ -1,0 +1,15 @@
+.container {
+    max-width: 70%;
+}
+
+table {
+    margin: 0 auto;
+}
+
+.form-group > label {
+    text-align: left;
+}
+
+.form-group {
+    margin-left: 5px;
+}

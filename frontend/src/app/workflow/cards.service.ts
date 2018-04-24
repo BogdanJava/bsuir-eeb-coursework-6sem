@@ -31,4 +31,16 @@ export class CardsService {
       this.authService.getOptions());
   }
 
+  getCardBalance(cardId: number): Observable<any> {
+    return this.http.get(this.baseUrl + `/api/cards/balance/${cardId}`, this.authService.getOptions());
+  }
+
+  getAllTransactions(cardId: number): Observable<any> {
+    return this.http.get(this.baseUrl + `/api/cards/${cardId}/transactions`, this.authService.getOptions());
+  }
+
+  getTransactionById(transactionId: number): Observable<any> {
+    return this.http.get(this.baseUrl + `/api/cards/transaction/${transactionId}`, this.authService.getOptions());
+  }
+
 }

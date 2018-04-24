@@ -2,6 +2,7 @@ package by.bsuir.eeb.rsoicoursework.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "phone")
 @ToString(exclude = "user")
+@EqualsAndHashCode(exclude = {"user"})
 public class Phone {
 
     @Id

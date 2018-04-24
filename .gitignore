@@ -27,3 +27,4 @@ nbdist/
 ### Custom ###
 frontend/node_modules
 .mvn
+*.pdf
