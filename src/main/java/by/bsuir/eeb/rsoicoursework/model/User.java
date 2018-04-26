@@ -82,6 +82,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Phone> phones;
 
+    @Transient
     public String getFullName() {
         return String.join(" ", firstName, lastName);
     }
