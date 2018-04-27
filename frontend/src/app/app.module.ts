@@ -32,6 +32,8 @@ import { TransactionDetailsComponent } from './workflow/workflow-cards/transacti
 import { DepositsComponent } from './workflow/workflow-accounts/deposits/deposits.component';
 import { WorkflowTransactionsComponent } from './workflow/workflow-transactions/workflow-transactions.component';
 import { CreditsComponent } from './workflow/workflow-accounts/credits/credits.component';
+import { MobilePaymentComponent } from './workflow/workflow-transactions/mobile-payment/mobile-payment.component';
+import { MoneyTransferComponent } from './workflow/workflow-transactions/money-transfer/money-transfer.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { CreditsComponent } from './workflow/workflow-accounts/credits/credits.c
     TransactionDetailsComponent,
     DepositsComponent,
     WorkflowTransactionsComponent,
-    CreditsComponent
+    CreditsComponent,
+    MobilePaymentComponent,
+    MoneyTransferComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpModule, MenuModule, JwtModule, ButtonModule, MyDatePickerModule,
@@ -71,12 +75,14 @@ import { CreditsComponent } from './workflow/workflow-accounts/credits/credits.c
         path: "workflow", component: WorkflowComponent, canActivate: [AuthGuard], children: [
           { path: "", component: WorkflowDefaultComponent, canActivateChild: [AuthGuard] },
           { path: "cards", component: WorkflowCardsComponent, canActivateChild: [AuthGuard] },
+          { path: "cards/registration", component: CardRegistrationComponent, canActivateChild: [AuthGuard] },
           { path: "accounts/deposits", component: DepositsComponent, canActivateChild: [AuthGuard] },
           { path: "accounts/credits", component: CreditsComponent, canActivateChild: [AuthGuard] },
           { path: "accounts", component: WorkflowAccountsComponent, canActivateChild: [AuthGuard] },
+          { path: "cards/:cardId", component: CardDetailsComponent, canActivateChild: [AuthGuard] },
           { path: "transactions", component: WorkflowTransactionsComponent, canActivateChild: [AuthGuard] },
-          { path: "cards/registration", component: CardRegistrationComponent, canActivateChild: [AuthGuard] },
-          { path: "cards/:cardId", component: CardDetailsComponent, canActivateChild: [AuthGuard] }
+          { path: "transactions/mobile", component: MobilePaymentComponent, canActivate: [AuthGuard]},
+          { path: "transactions/transfer", component: MoneyTransferComponent, canActivate: [AuthGuard]}
         ]
       },
       { path: "**", redirectTo: "/login" }

@@ -1,6 +1,8 @@
-<div class="jumbotron" *ngIf="cardList.length == 0">
-  <h1>Cards management</h1>
-  <h3>You don't have any cards yet! Get one right now</h3>
+<div class="container" *ngIf="cardList.length == 0">
+  <div class="page-label">
+    <h1>Cards management</h1>
+    <p>You don't have any cards yet! Get one right now</p>
+  </div>
   <a [routerLink]="['registration']" class="btn btn-default btn-circle">
     <span id="card-icon" class="glyphicon glyphicon-credit-card card-main-area" aria-hidden="true">
     </span>
@@ -8,8 +10,10 @@
   </a>
 </div>
 <div *ngIf="cardList.length != 0">
-  <h1>Cards list</h1>
-  <h2>Your cards. Click to see details</h2>
+  <div class="page-label">
+    <h1>Cards list</h1>
+    <p>Your cards. Click to see details</p>
+  </div>
   <div class="container">
     <hr>
     <div *ngFor="let card of cardList">

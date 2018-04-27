@@ -1,0 +1,14 @@
+.transaction {
+    display: block;
+    margin: 0 auto;
+    max-width: 60%;
+    height: 300px;
+}
+
+.transaction .btn {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+

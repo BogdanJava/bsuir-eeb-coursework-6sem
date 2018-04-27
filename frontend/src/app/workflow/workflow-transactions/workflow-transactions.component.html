@@ -1,1 +1,21 @@
-<p>transactions work</p>
+<div class="container">
+    <div class="page-label">
+        <h1>Transactions</h1>
+        <p>There's a list of currently possible transactions</p>
+    </div>
+    <hr>
+    <div class="col-sm-6">
+        <div class="transaction">
+            <h2><span class="glyphicon glyphicon-phone"></span> Mobile phone payment</h2>
+            <p>You can pay for one of your mobile phones</p>
+            <a class="btn btn-primary" [routerLink]="['mobile']">View page</a>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="transaction">
+            <h2><span class="glyphicon glyphicon-usd"></span> Transfer money</h2>
+            <p>Send money from one of your cards to an account or another card</p>
+            <a class="btn btn-primary" [routerLink]="['transfer']">View page</a>
+        </div>
+    </div>
+</div>
