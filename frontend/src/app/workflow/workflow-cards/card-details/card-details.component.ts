@@ -34,6 +34,7 @@ export class CardDetailsComponent implements OnInit, OnDestroy {
         console.log(err);
       });
       this.cardsService.getCardBalance(this.cardId).subscribe(result => {
+        console.log(result);
         if(result.ok) {
           this.balance = result.json().balance;
         }

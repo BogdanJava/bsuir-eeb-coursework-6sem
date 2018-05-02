@@ -1,6 +1,5 @@
 package by.bsuir.eeb.rsoicoursework.service.impl;
 
-import by.bsuir.eeb.rsoicoursework.dao.CardDAO;
 import by.bsuir.eeb.rsoicoursework.model.CardTransaction;
 import by.bsuir.eeb.rsoicoursework.service.TransactionPDFService;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -8,7 +7,6 @@ import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
