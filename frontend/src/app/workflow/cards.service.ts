@@ -4,6 +4,7 @@ import { JwtService } from '../jwt.service';
 import { Observable } from 'rxjs/Observable';
 import { Http } from '@angular/http';
 import { Card } from '../model/card.model';
+import { CardTransaction } from '../model/transaction.model';
 
 @Injectable()
 export class CardsService {
@@ -41,6 +42,14 @@ export class CardsService {
 
   getTransactionById(transactionId: number): Observable<any> {
     return this.http.get(this.baseUrl + `/api/cards/transaction/${transactionId}`, this.authService.getOptions());
+  }
+
+  saveTransaction(transaction: CardTransaction): Observable<any> {
+    return this.http.post(this.baseUrl + '/api/cards/transactions', transaction, this.authService.getOptions());
+  }
+
+  isPasswordCorrect(password: string, cardId: number): Observable<any> {
+    return this.http.get(this.baseUrl + `/api/cards/${cardId}/isPasswordCorrect?password=${password}`, this.authService.getOptions());
   }
 
 }
