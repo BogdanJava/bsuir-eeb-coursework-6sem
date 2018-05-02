@@ -1,0 +1,18 @@
+.container {
+    max-width: 50%;
+}
+
+label {
+    text-align: left !important;
+}
+
+button {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+}
+
+#buttons {
+    max-width: 60%;
+    margin: 0 auto;
+}

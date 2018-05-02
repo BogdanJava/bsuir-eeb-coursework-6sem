@@ -36,7 +36,6 @@ public class JwtFilter extends GenericFilterBean {
     @Value("${jwt.secret}")
     private String secret;
 
-    //todo retrieve token from cookies
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {

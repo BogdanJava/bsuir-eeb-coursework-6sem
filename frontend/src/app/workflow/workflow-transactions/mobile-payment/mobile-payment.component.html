@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Mobile payment</h1>
+  </div>
+  <hr>
+  <form class="form-horizontal" *ngIf="cards" (ngSubmit)="onSubmit()" >
+
+      <div class="form-group">
+          <label for="card" class="col-sm-3 control-label">Your card</label>
+          <div class="col-sm-9">
+            <select class="form-control" name="selectedCard" (change)="onCardChange()" #cardSelect id="cardSelect" required>
+              <option value="" selected disabled hidden>Select your card</option>
+              <option *ngFor="let card of cards" value="{{card.id}}">{{card.cardNumber}}</option>
+            </select>
+          </div>
+        </div>
+
+    <div class="form-group" *ngIf="cardCurrentSum">
+      <label for="balance" class="col-sm-3 form-control-static">Balance</label>
+      <div class="col-sm-9">
+        <p class="form-control-static">{{cardCurrentSum}} {{selectedCard.currency}}</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone" class="col-sm-3 control-label">Phone</label>
+      <div class="col-sm-9">
+        <input [(ngModel)]="phone" class="form-control" name="phone" placeholder="Phone number" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="sum" class="col-sm-3 control-label">Sum</label>
+      <div class="col-sm-9">
+        <input [(ngModel)]="transaction.diff" class="form-control" name="sum" placeholder="Sum" required>
+      </div>
+    </div>
+    <div class="row" id="buttons">
+      <div class="col-sm-6">
+        <button type="submit" class="btn btn-primary">Execute transaction</button>
+      </div>
+      <div class="col-sm-6">
+        <button type="button" class="btn btn-danger" (click)="goBack()">Back</button>
+      </div>
+    </div>
+
+
+    <div class="alert alert-danger" *ngIf="transactionSuccess == false">
+      Failed to execute transaction
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="transactionSuccess">
+      Transaction success
+    </div>
+  </form>
+</div>

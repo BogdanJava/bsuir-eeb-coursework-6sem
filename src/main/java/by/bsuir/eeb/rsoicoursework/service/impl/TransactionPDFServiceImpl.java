@@ -14,7 +14,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class TransactionPDFServiceImpl implements TransactionPDFService {
@@ -27,6 +29,17 @@ public class TransactionPDFServiceImpl implements TransactionPDFService {
 
     @Override
     public InputStream createDocumentFromTransaction(CardTransaction transaction) throws IOException {
+        File transactionsDir = new File("transactions");
+        if(!transactionsDir.exists()) transactionsDir.mkdir();
+        File userDir = new File("transactions/" + transaction.getCard().getUser().getId());
+        if (!userDir.exists()) userDir.mkdir();
+        File file = new File("transactions/" + transaction.getCard().getUser().getId() + "/" + transaction.getId() + ".pdf");
+        if (!file.exists()) {
+            file.createNewFile();
+        } else {
+            return new FileInputStream(file);
+        }
+
         PDDocument document = new PDDocument();
 
         PDDocumentInformation info = new PDDocumentInformation();
@@ -55,17 +68,32 @@ public class TransactionPDFServiceImpl implements TransactionPDFService {
         contentStream.newLine();
         contentStream.showText("Date: " + transaction.getDate());
         contentStream.newLine();
+        contentStream.showText("Type: " + transaction.getTransactionType());
+        contentStream.newLine();
         contentStream.showText("Card number: " + transaction.getCard().getCardNumber());
         contentStream.newLine();
         contentStream.showText("User name: " + transaction.getCard().getUser().getFullName());
         contentStream.newLine();
+        List<String> words = Arrays.asList(transaction.getDescription().split(" "));
+        int currentWord = 7;
+        if (words.size() < 7) {
+            contentStream.showText("Description: " + String.join(" ", words.subList(0, words.size())));
+        } else {
+            contentStream.showText("Description: " + String.join(" ", words.subList(0, 7)));
+            while (currentWord + 7 <= words.size()) {
+                contentStream.newLine();
+                contentStream.showText(String.join(" ", words.subList(currentWord, currentWord + 7)));
+                currentWord = currentWord + 7;
+            }
+            contentStream.newLine();
+            contentStream.showText(String.join(" ", words.subList(currentWord, words.size())));
+        }
+
+
         contentStream.endText();
         contentStream.close();
 
-        File file = new File(transaction.getId() + ".pdf");
-        if (!file.exists()) {
-            file.createNewFile();
-        }
+
         document.save(file);
         document.close();
         return new FileInputStream(file);

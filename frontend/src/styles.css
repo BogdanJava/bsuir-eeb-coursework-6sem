@@ -670,3 +670,19 @@ h4 {
 .card-add {
   color: rgb(47, 116, 70);
 }
+  
+.page-label {
+  padding: 4px;
+  text-align: center;
+}
+
+.page-label h1 {
+  font-size: 50px;
+  font-weight: 700;
+}
+
+.page-label p {
+  font-size: 20px;
+  font-weight: 200;
+}
+

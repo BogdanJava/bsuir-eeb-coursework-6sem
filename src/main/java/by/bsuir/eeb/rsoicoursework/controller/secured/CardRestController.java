@@ -1,6 +1,8 @@
 package by.bsuir.eeb.rsoicoursework.controller.secured;
 
+import by.bsuir.eeb.rsoicoursework.exceptions.NotEnoughMoneyException;
 import by.bsuir.eeb.rsoicoursework.model.Card;
+import by.bsuir.eeb.rsoicoursework.model.CardTransaction;
 import by.bsuir.eeb.rsoicoursework.model.dto.CardDTO;
 import by.bsuir.eeb.rsoicoursework.security.ResourceAccessResolver;
 import by.bsuir.eeb.rsoicoursework.service.CardManagementService;
@@ -77,5 +79,22 @@ public class CardRestController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         return ResponseEntity.ok(cardManagementService.getTransaction(transactionId));
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/transactions")
+    public ResponseEntity saveTransaction(@RequestBody CardTransaction transaction) {
+        try {
+            this.cardManagementService.executeBalanceOperation(transaction);
+            return ResponseEntity.ok().build();
+        } catch (NotEnoughMoneyException e) {
+            return ResponseEntity.badRequest().body(ImmutableMap.of("error", e.getMessage()));
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{cardId}/isPasswordCorrect")
+    public ResponseEntity isPasswordCorrect(@RequestParam String password, @PathVariable long cardId) {
+        boolean passwordCorrect = this.cardManagementService.isPasswordCorrect(cardId, password);
+        ImmutableMap<String, Boolean> result = ImmutableMap.of("passwordCorrect", passwordCorrect);
+        return ResponseEntity.ok(result);
     }
 }

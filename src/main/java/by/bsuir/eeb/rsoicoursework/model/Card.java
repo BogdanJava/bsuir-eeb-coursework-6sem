@@ -51,7 +51,7 @@ public class Card {
     private User user;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "card")
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
     private Set<CardTransaction> cardTransactions;
 
 }
