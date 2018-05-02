@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Bogdan Shishkin
@@ -53,4 +54,7 @@ public class Account {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Set<AccountTransaction> accountTransactions;
 }

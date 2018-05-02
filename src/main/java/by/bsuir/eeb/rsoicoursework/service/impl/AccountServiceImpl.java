@@ -37,6 +37,6 @@ public class AccountServiceImpl implements AccountService {
         if(sum < 0) throw new AccountActionException("Sum can't be negative value");
 
         account = accountDAO.getOne(account.getId());
-        //todo implement
+
     }
 }
