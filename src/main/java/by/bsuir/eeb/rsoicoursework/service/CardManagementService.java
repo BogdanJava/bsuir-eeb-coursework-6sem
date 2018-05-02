@@ -7,7 +7,7 @@ import by.bsuir.eeb.rsoicoursework.model.CardTransaction;
 import java.util.List;
 
 public interface CardManagementService {
-    CardTransaction executeBalanceOperation(CardTransaction cardTransaction) throws NotEnoughMoneyException;
+    void executeBalanceOperation(CardTransaction cardTransaction) throws NotEnoughMoneyException;
     Card getCardById(long cardId);
     List<Card> getCardsByUserId(long userId);
     Double calculateCardBalance(long cardId);
@@ -15,4 +15,5 @@ public interface CardManagementService {
     long getUserIdByCardId(long cardId);
     List<CardTransaction> getAllTransactions(long cardId);
     CardTransaction getTransaction(long transactionId);
+    boolean isPasswordCorrect(long cardId, String password);
 }

@@ -50,7 +50,7 @@ public class MockUserServiceTest {
 
         when(userService.getAllLimited(page))
                 .thenReturn(users.subList(0, 2));
-        when(userService.findByEmail("bogdanshishkin1998@gmail.com")).thenReturn(users.get(1));
+        when(userService.findByEmail(users.get(1).getEmail())).thenReturn(users.get(1));
         when(userService.getAll()).thenReturn(users);
 
         assertEquals(userService.findByEmail("bogdanshishkin1998@gmail.com")

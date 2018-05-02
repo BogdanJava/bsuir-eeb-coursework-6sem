@@ -5,9 +5,9 @@ import by.bsuir.eeb.rsoicoursework.model.enums.AccountType;
 import by.bsuir.eeb.rsoicoursework.model.enums.Currency;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author Bogdan Shishkin
@@ -43,6 +43,12 @@ public class Account {
 
     @Column(name = "interest_rate")
     private double interestRate;
+
+    private double startSum;
+
+    @Column(name = "date")
+    @Temporal(TemporalType.DATE)
+    private Date openDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
