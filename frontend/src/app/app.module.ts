@@ -34,6 +34,7 @@ import { WorkflowTransactionsComponent } from './workflow/workflow-transactions/
 import { CreditsComponent } from './workflow/workflow-accounts/credits/credits.component';
 import { MobilePaymentComponent } from './workflow/workflow-transactions/mobile-payment/mobile-payment.component';
 import { MoneyTransferComponent } from './workflow/workflow-transactions/money-transfer/money-transfer.component';
+import { AccountService } from './workflow/workflow-accounts/account.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { MoneyTransferComponent } from './workflow/workflow-transactions/money-t
     WorkflowTransactionsComponent,
     CreditsComponent,
     MobilePaymentComponent,
-    MoneyTransferComponent
+    MoneyTransferComponent,
   ],
   imports: [
     BrowserModule, FormsModule, HttpModule, MenuModule, JwtModule, ButtonModule, MyDatePickerModule,
@@ -98,7 +99,8 @@ import { MoneyTransferComponent } from './workflow/workflow-transactions/money-t
       PhoneService,
       CardsService,
       JwtHelperService,
-      JwtHelper
+      JwtHelper,
+      AccountService
     ],
   bootstrap: [AppComponent]
 })

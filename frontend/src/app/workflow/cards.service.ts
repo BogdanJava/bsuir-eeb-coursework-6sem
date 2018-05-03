@@ -27,6 +27,10 @@ export class CardsService {
     return this.http.get(this.baseUrl + `/api/cards?userId=${this.userId}`, this.authService.getOptions());
   }
 
+  getAllCardsByCurrency(currency: string): Observable<any> {
+    return this.http.get(this.baseUrl + `/api/cards/currency?userId=${this.userId}&currency=${currency}`, this.authService.getOptions());
+  }
+
   saveCard(card: Card): Observable<any> {
     return this.http.post(this.baseUrl + '/api/cards', { card: card, userId: this.userId },
       this.authService.getOptions());

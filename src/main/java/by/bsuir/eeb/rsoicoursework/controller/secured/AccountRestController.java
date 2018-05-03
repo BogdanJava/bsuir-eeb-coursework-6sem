@@ -1,7 +1,7 @@
 package by.bsuir.eeb.rsoicoursework.controller.secured;
 
 import by.bsuir.eeb.rsoicoursework.model.Account;
-import by.bsuir.eeb.rsoicoursework.service.AccountService;
+import by.bsuir.eeb.rsoicoursework.service.AccountManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
 
     @Autowired
-    private AccountService accountService;
+    private AccountManagementService accountService;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createAccount(@RequestBody Account account) {

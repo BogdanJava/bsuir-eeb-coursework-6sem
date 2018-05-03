@@ -620,7 +620,7 @@ h4 {
   line-height: 1.42;
   border-radius: 150px;
   display: block;
-  margin: 5% auto;
+  margin: 5% auto 0 auto;
 }
 
 .btn-circle:hover {

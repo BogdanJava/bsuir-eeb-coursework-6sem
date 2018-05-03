@@ -1,0 +1,13 @@
+.card-text {
+    font-size: 30px !important;
+}
+
+label {
+    text-align: left !important;
+    padding-left: 30px;
+}
+.alert {
+    margin-top: 20px;
+    margin-bottom: 0;
+    text-align: center;
+}
