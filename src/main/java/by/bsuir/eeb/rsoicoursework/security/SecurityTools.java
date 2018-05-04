@@ -20,6 +20,9 @@ public class SecurityTools {
     @Value("${jwt.secret}")
     private String secret;
 
+    @Value("${server.issuer}")
+    private String issuer;
+
     @Autowired
     private UserService userService;
 
@@ -27,7 +30,7 @@ public class SecurityTools {
         return Jwts.builder()
                 .claim("id", credentials.getId())
                 .setSubject(credentials.getEmail())
-                .setIssuer("localhost:8080")
+                .setIssuer(issuer)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + 1000 * 3600 * 240))
                 .signWith(SignatureAlgorithm.HS256, Base64.getEncoder().encodeToString(secret.getBytes()))

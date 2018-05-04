@@ -4,15 +4,17 @@ import by.bsuir.eeb.rsoicoursework.exceptions.NotEnoughMoneyException;
 import by.bsuir.eeb.rsoicoursework.model.Card;
 import by.bsuir.eeb.rsoicoursework.model.CardTransaction;
 import by.bsuir.eeb.rsoicoursework.model.dto.CardDTO;
+import by.bsuir.eeb.rsoicoursework.model.enums.Currency;
 import by.bsuir.eeb.rsoicoursework.security.ResourceAccessResolver;
 import by.bsuir.eeb.rsoicoursework.service.CardManagementService;
-import by.bsuir.eeb.rsoicoursework.service.TransactionPDFService;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+//todo replace all auth in methods with aspect advice @Before and throw some exception
 
 @RestController
 @RequestMapping("/api/cards")
@@ -53,6 +55,15 @@ public class CardRestController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         boolean exists = userService.exists(userId);
         return exists ? ResponseEntity.ok(cardManagementService.getCardsByUserId(userId)) : ResponseEntity.notFound().build();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/currency")
+    public ResponseEntity getAllCardsByType( @RequestParam Currency currency, @RequestParam long userId) {
+        if (!accessResolver.checkUserSpecificResourceAccess(userId))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        boolean exists = userService.exists(userId);
+        return exists ? ResponseEntity.ok(cardManagementService.getCardsByUserIdAndCurrency(userId, currency)) :
+                ResponseEntity.notFound().build();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/balance/{cardId}")

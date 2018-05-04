@@ -30,11 +30,18 @@ export class DepositsComponent implements OnInit {
 
   constructor(private accountService: AccountService,
     private cardService: CardsService) {
-    this.newAccount = new Account();
-    this.newAccount.accountType = "DEPOSIT";
-    cardService.getAllCards().subscribe(result => {
+    this.accountService.getAllAccounts().subscribe(result => {
       if (result.ok) {
-        this.cards = result.json();
+        this.deposits = result.json();
+        if (this.deposits.length == 0) {
+          this.newAccount = new Account();
+          this.newAccount.accountType = "DEPOSIT";
+          cardService.getAllCards().subscribe(result => {
+            if (result.ok) {
+              this.cards = result.json();
+            }
+          });
+        }
       }
     });
   }

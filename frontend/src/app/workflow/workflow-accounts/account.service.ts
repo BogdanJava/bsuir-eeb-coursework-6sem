@@ -22,4 +22,8 @@ export class AccountService {
     return this.http.post(this.baseUrl + '/api/accounts', account, this.authService.getOptions());
   }
 
+  getAllAccounts(): Observable<any> {
+    return this.http.get(this.baseUrl + `/api/accounts?userId=${this.userId}`, this.authService.getOptions());
+  }
+
 }

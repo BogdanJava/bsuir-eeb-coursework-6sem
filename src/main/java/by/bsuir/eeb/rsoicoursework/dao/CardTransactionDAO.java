@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface TransactionDAO extends JpaRepository<CardTransaction, Long> {
+public interface CardTransactionDAO extends JpaRepository<CardTransaction, Long> {
     List<CardTransaction> getAllByCardId(long cardId);
 }

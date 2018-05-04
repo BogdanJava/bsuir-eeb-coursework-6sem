@@ -1,10 +1,13 @@
 package by.bsuir.eeb.rsoicoursework.service.impl;
 
 import by.bsuir.eeb.rsoicoursework.dao.CardDAO;
-import by.bsuir.eeb.rsoicoursework.dao.TransactionDAO;
+import by.bsuir.eeb.rsoicoursework.dao.CardTransactionDAO;
+import by.bsuir.eeb.rsoicoursework.dao.UserDAO;
 import by.bsuir.eeb.rsoicoursework.exceptions.NotEnoughMoneyException;
 import by.bsuir.eeb.rsoicoursework.model.Card;
 import by.bsuir.eeb.rsoicoursework.model.CardTransaction;
+import by.bsuir.eeb.rsoicoursework.model.User;
+import by.bsuir.eeb.rsoicoursework.model.enums.Currency;
 import by.bsuir.eeb.rsoicoursework.model.enums.TransactionType;
 import by.bsuir.eeb.rsoicoursework.service.CardManagementService;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -24,10 +27,13 @@ public class CardManagementServiceImpl implements CardManagementService {
     private CardDAO cardDAO;
 
     @Autowired
-    private TransactionDAO transactionDAO;
+    private CardTransactionDAO transactionDAO;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserDAO userDAO;
 
     @Override
     public void executeBalanceOperation(CardTransaction transaction) throws NotEnoughMoneyException {
@@ -100,5 +106,15 @@ public class CardManagementServiceImpl implements CardManagementService {
     public boolean isPasswordCorrect(long cardId, String password) {
         Card card = cardDAO.getOne(cardId);
         return passwordEncoder.matches(password, card.getPassword());
+    }
+
+    @Override
+    public List<Card> getCardsByUserIdAndCurrency(long userId, Currency currency) {
+        return cardDAO.getAllByUserIdAndCurrency(userId, currency);
+    }
+
+    @Override
+    public User getUserByCardId(long cardId) {
+        return cardDAO.getOne(cardId).getUser();
     }
 }

@@ -3,6 +3,7 @@ package by.bsuir.eeb.rsoicoursework.model;
 import by.bsuir.eeb.rsoicoursework.model.enums.AccountStatus;
 import by.bsuir.eeb.rsoicoursework.model.enums.AccountType;
 import by.bsuir.eeb.rsoicoursework.model.enums.Currency;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -39,22 +40,25 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private AccountStatus accountStatus;
 
-    @Column(name = "recount_period")
-    private int sumRecountPeriod;
-
     @Column(name = "interest_rate")
     private double interestRate;
 
-    private double startSum;
-
-    @Column(name = "date")
+    @Column(name = "open_date")
     @Temporal(TemporalType.DATE)
     private Date openDate;
+
+    @Column(name = "close_date")
+    @Temporal(TemporalType.DATE)
+    private Date closeDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Set<AccountTransaction> accountTransactions;
+
+    @Transient
+    private Card card;
 }

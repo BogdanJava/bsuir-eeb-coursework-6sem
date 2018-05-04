@@ -1,20 +1,44 @@
 <div class="container">
   <div class="page-label">
     <h1>Deposits</h1>
-    <p *ngIf="!deposits">You don't have any deposits yet</p>
+    <p *ngIf="!deposits || deposits.length == 0">You don't have any deposits yet</p>
     <p *ngIf="deposits && deposits.length > 0">Your deposits</p>
   </div>
   <hr>
-  <a class="btn btn-default btn-circle" data-toggle="modal" data-target="#newAccount">
-    <span id="card-icon" class="glyphicon glyphicon-briefcase card-main-area" aria-hidden="true">
-    </span>
-    <p class="card-text">Open an account</p>
-  </a>
+  <div *ngIf="!deposits || deposits.length == 0">
+    <a class="btn btn-default btn-circle" data-toggle="modal" data-target="#newAccount">
+      <span id="card-icon" class="glyphicon glyphicon-briefcase card-main-area" aria-hidden="true">
+      </span>
+      <p class="card-text">Open an account</p>
+    </a>
+  </div>
+  <div *ngIf="deposits && deposits.length > 0">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td>Id</td>
+          <td>Currency</td>
+          <td>Interest rate</td>
+          <td>Open date</td>
+          <td>Status</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let account of deposits">
+          <td>{{account.id}}</td>
+          <td>{{account.currency}}</td>
+          <td>{{account.interestRate}}</td>
+          <td>{{account.openDate}}</td>
+          <td>{{account.accountStatus}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary"data-toggle="modal" data-target="#newAccount">Open an account</button>
+  </div>
 
 </div>
 
-
-<div class="modal fade" id="newAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="newAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" *ngIf="newAccount != null">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -95,7 +119,7 @@
               You don't have cards with {{currencySelect.value}} currency
             </div>
             <div class="alert alert-info" *ngIf="this.cardCurrentSum < newAccount.startSum ">
-                You don't have enough money on this card
+              You don't have enough money on this card
             </div>
           </div>
         </form>
