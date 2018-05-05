@@ -5,6 +5,7 @@ import by.bsuir.eeb.rsoicoursework.model.enums.AccountType;
 import by.bsuir.eeb.rsoicoursework.model.enums.Currency;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "account")
+@EqualsAndHashCode(exclude = {"accountTransactions"})
 public class Account {
 
     @Id
@@ -61,4 +63,7 @@ public class Account {
 
     @Transient
     private Card card;
+
+    @Transient
+    private double startSum;
 }

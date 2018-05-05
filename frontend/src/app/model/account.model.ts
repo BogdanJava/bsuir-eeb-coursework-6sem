@@ -11,4 +11,5 @@ export class Account {
     public openDate: any;
     public closeDate: any;
     public card: Card = new Card();
+    public balance: number;
 }

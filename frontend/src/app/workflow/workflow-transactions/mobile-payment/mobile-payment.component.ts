@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CardTransaction } from '../../../model/transaction.model';
 import { CardsService } from '../../cards.service';
 import { Card } from '../../../model/card.model';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -21,7 +19,7 @@ export class MobilePaymentComponent implements OnInit {
   sumIncorrect: boolean = false;
   transactionSuccess: boolean = null;
   cardSelectElement: any;
-  
+
   constructor(private cardService: CardsService,
     private _location: Location) {
     cardService.getAllCards().subscribe(result => {

@@ -10,7 +10,7 @@ import by.bsuir.eeb.rsoicoursework.model.enums.Currency;
 import java.util.List;
 
 public interface CardManagementService {
-    void executeBalanceOperation(CardTransaction cardTransaction) throws NotEnoughMoneyException;
+    void executeTransaction(CardTransaction cardTransaction) throws NotEnoughMoneyException;
     Card getCardById(long cardId);
     List<Card> getCardsByUserId(long userId);
     Double calculateCardBalance(long cardId);

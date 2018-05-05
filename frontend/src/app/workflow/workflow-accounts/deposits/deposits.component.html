@@ -18,8 +18,10 @@
         <tr>
           <td>Id</td>
           <td>Currency</td>
+          <td>Balance</td>
           <td>Interest rate</td>
           <td>Open date</td>
+          <td>Close date</td>
           <td>Status</td>
         </tr>
       </thead>
@@ -27,8 +29,10 @@
         <tr *ngFor="let account of deposits">
           <td>{{account.id}}</td>
           <td>{{account.currency}}</td>
-          <td>{{account.interestRate}}</td>
+          <td>{{account.balance}}</td>
+          <td>{{account.interestRate}}%</td>
           <td>{{account.openDate}}</td>
+          <td>{{account.closeDate}}</td>
           <td>{{account.accountStatus}}</td>
         </tr>
       </tbody>
@@ -38,7 +42,7 @@
 
 </div>
 
-<div class="modal fade" id="newAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" *ngIf="newAccount != null">
+<div class="modal fade" id="newAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

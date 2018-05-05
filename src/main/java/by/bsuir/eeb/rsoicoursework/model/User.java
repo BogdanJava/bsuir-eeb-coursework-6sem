@@ -24,7 +24,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "id"}))
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@EqualsAndHashCode(exclude = {"phones", "cards", "passport"})
+@EqualsAndHashCode(exclude = {"phones", "cards", "passport", "accounts"})
 public class User {
 
     public User(long id, String password) {

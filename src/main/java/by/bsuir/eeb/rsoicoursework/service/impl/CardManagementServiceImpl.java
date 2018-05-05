@@ -32,11 +32,8 @@ public class CardManagementServiceImpl implements CardManagementService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserDAO userDAO;
-
     @Override
-    public void executeBalanceOperation(CardTransaction transaction) throws NotEnoughMoneyException {
+    public void executeTransaction(CardTransaction transaction) throws NotEnoughMoneyException {
         double balance = calculateCardBalance(transaction.getCard().getId());
         if (transaction.getDiff() < 0 && balance < Math.abs(transaction.getDiff())) {
             throw new NotEnoughMoneyException();

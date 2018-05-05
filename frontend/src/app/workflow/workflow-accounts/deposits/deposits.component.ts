@@ -5,6 +5,8 @@ import { Card } from '../../../model/card.model';
 import { CardsService } from '../../cards.service';
 import { NgForm } from '@angular/forms';
 import { IMyDpOptions } from 'mydatepicker';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -19,7 +21,7 @@ export class DepositsComponent implements OnInit {
   };
 
   deposits: Account[] = null;
-  newAccount: Account;
+  newAccount: Account = new Account();
   cards: Card[];
 
   cardCurrentSum: number;
@@ -30,12 +32,18 @@ export class DepositsComponent implements OnInit {
 
   constructor(private accountService: AccountService,
     private cardService: CardsService) {
+    this.newAccount.accountType = "DEPOSIT";
     this.accountService.getAllAccounts().subscribe(result => {
       if (result.ok) {
         this.deposits = result.json();
+        this.deposits.forEach(deposit => {
+          this.accountService.getAccountBalance(deposit.id).subscribe(result => {
+            if (result.ok) {
+              deposit.balance = result.json().balance;
+            }
+          });
+        });
         if (this.deposits.length == 0) {
-          this.newAccount = new Account();
-          this.newAccount.accountType = "DEPOSIT";
           cardService.getAllCards().subscribe(result => {
             if (result.ok) {
               this.cards = result.json();
@@ -80,7 +88,9 @@ export class DepositsComponent implements OnInit {
       else {
         console.log(this.newAccount);
         this.accountService.openAccount(this.newAccount).subscribe(result => {
-          console.log(result);
+          if (result.ok) {
+            window.location.reload();
+          }
         });
       }
     }

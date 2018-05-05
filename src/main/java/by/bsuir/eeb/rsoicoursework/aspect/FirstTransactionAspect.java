@@ -6,14 +6,17 @@ import by.bsuir.eeb.rsoicoursework.model.Account;
 import by.bsuir.eeb.rsoicoursework.model.AccountTransaction;
 import by.bsuir.eeb.rsoicoursework.model.Card;
 import by.bsuir.eeb.rsoicoursework.model.CardTransaction;
+import by.bsuir.eeb.rsoicoursework.model.enums.TransactionType;
 import by.bsuir.eeb.rsoicoursework.service.CardManagementService;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 
 @Aspect
+@Transactional
 public class FirstTransactionAspect {
 
     @Autowired
@@ -31,7 +34,7 @@ public class FirstTransactionAspect {
             cardTransaction.setName("Init transaction");
             cardTransaction.setDescription("Initial transaction after creating a new card. " +
                     "You have start balance 1000" + card.getCurrency());
-            cardManagementService.executeBalanceOperation(cardTransaction);
+            cardManagementService.executeTransaction(cardTransaction);
         }
     }
 
@@ -39,10 +42,18 @@ public class FirstTransactionAspect {
     public void addFirstAccountTransaction(Account account) {
         if (account != null) {
             AccountTransaction initTransaction = new AccountTransaction();
-            initTransaction.setDiff(0);
+            initTransaction.setDiff(account.getStartSum());
             initTransaction.setAccount(account);
             initTransaction.setDate(new Date());
             accountTransactionDAO.save(initTransaction);
+            CardTransaction cardTransaction = new CardTransaction();
+            cardTransaction.setCard(account.getCard());
+            cardTransaction.setName("Account payment");
+            cardTransaction.setDate(initTransaction.getDate());
+            cardTransaction.setDiff(-account.getStartSum());
+            cardTransaction.setTransactionType(TransactionType.OTHER);
+            cardTransaction.setDescription("Payment for an account operation");
+            cardManagementService.executeTransaction(cardTransaction);
         }
     }
 }

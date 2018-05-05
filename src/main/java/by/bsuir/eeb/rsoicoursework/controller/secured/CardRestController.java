@@ -95,7 +95,7 @@ public class CardRestController {
     @RequestMapping(method = RequestMethod.POST, value = "/transactions")
     public ResponseEntity saveTransaction(@RequestBody CardTransaction transaction) {
         try {
-            this.cardManagementService.executeBalanceOperation(transaction);
+            this.cardManagementService.executeTransaction(transaction);
             return ResponseEntity.ok().build();
         } catch (NotEnoughMoneyException e) {
             return ResponseEntity.badRequest().body(ImmutableMap.of("error", e.getMessage()));
