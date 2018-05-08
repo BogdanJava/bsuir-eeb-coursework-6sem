@@ -57,6 +57,7 @@ public class AuthenticationController {
                                     .map(ConstraintViolation::getMessage)
                                     .collect(Collectors.toList())));
         }
+        credentials.getPassport().setUser(credentials);
         return ResponseEntity.ok(userService.save(credentials));
     }
 

@@ -33,7 +33,7 @@ export class DepositsComponent implements OnInit {
   constructor(private accountService: AccountService,
     private cardService: CardsService) {
     this.newAccount.accountType = "DEPOSIT";
-    this.accountService.getAllAccounts().subscribe(result => {
+    this.accountService.getAllAccounts(this.newAccount.accountType).subscribe(result => {
       if (result.ok) {
         this.deposits = result.json();
         this.deposits.forEach(deposit => {

@@ -6,6 +6,7 @@ import by.bsuir.eeb.rsoicoursework.model.Account;
 import by.bsuir.eeb.rsoicoursework.model.AccountTransaction;
 import by.bsuir.eeb.rsoicoursework.model.Card;
 import by.bsuir.eeb.rsoicoursework.model.CardTransaction;
+import by.bsuir.eeb.rsoicoursework.model.enums.AccountType;
 import by.bsuir.eeb.rsoicoursework.model.enums.TransactionType;
 import by.bsuir.eeb.rsoicoursework.service.CardManagementService;
 import org.aspectj.lang.annotation.After;
@@ -40,7 +41,7 @@ public class FirstTransactionAspect {
 
     @After("execution(* by.bsuir.eeb.rsoicoursework.service.AccountManagementService.createAccount(..)) && args(account)")
     public void addFirstAccountTransaction(Account account) {
-        if (account != null) {
+        if (account != null && account.getAccountType().equals(AccountType.DEPOSIT)) {
             AccountTransaction initTransaction = new AccountTransaction();
             initTransaction.setDiff(account.getStartSum());
             initTransaction.setAccount(account);

@@ -1,3 +1,133 @@
-<p>
-  credits works!
-</p>
+<div class="container">
+  <div class="page-label">
+    <h1>Credits</h1>
+    <p *ngIf="!credits || credits.length == 0">You don't have any credits yet</p>
+    <p *ngIf="credits && credits.length > 0">Your credits</p>
+  </div>
+  <hr>
+  <div *ngIf="!credits || credits.length == 0">
+    <a class="btn btn-default btn-circle" data-toggle="modal" data-target="#newAccount">
+      <span id="card-icon" class="glyphicon glyphicon-briefcase card-main-area" aria-hidden="true">
+      </span>
+      <p class="card-text">Open an account</p>
+    </a>
+  </div>
+  <div *ngIf="credits && credits.length > 0">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td>Id</td>
+          <td>Currency</td>
+          <td>Balance</td>
+          <td>Interest rate</td>
+          <td>Open date</td>
+          <td>Close date</td>
+          <td>Status</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let account of credits">
+          <td>{{account.id}}</td>
+          <td>{{account.currency}}</td>
+          <td>{{account.balance}}</td>
+          <td>{{account.interestRate}}%</td>
+          <td>{{account.openDate}}</td>
+          <td>{{account.closeDate}}</td>
+          <td>{{account.accountStatus}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary"data-toggle="modal" data-target="#newAccount">Open an account</button>
+  </div>
+
+</div>
+
+<div class="modal fade" id="newAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Open an account</h4>
+      </div>
+      <div class="modal-body">
+        <form #form="ngForm" id="form" class="form-horizontal" (ngSubmit)="onSubmit(form)">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Account type</label>
+            <div class="col-sm-9">
+              <p class="form-control-static">{{newAccount.accountType}}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Currency</label>
+            <div class="col-sm-9">
+              <select class="form-control" [(ngModel)]="newAccount.currency" id="currencySelect" (change)="onCurrencyChange()" name="currency"
+                required>
+                <option value="BYN">BYN</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" *ngIf="newAccount.currency">
+            <label class="col-sm-3 control-label">Interest rate</label>
+            <div class="col-sm-9">
+              <p class="form-control-static" *ngIf="newAccount.currency == 'USD'">3%</p>
+              <p class="form-control-static" *ngIf="newAccount.currency == 'BYN'">10%</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Recount period</label>
+            <div class="col-sm-9">
+              <p class="form-control-static">1 month</p>
+            </div>
+          </div>
+          <div class="form-group" *ngIf="newAccount.currency">
+            <label for="card" class="col-sm-3 control-label">Your card</label>
+            <div class="col-sm-9">
+              <select class="form-control" name="newAccount.card" (change)="onCardChange()" #cardSelect id="cardSelect" required>
+                <option value="" selected disabled hidden>Select your card</option>
+                <option *ngFor="let card of cards" value="{{card.id}}">{{card.cardNumber}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" [class.has-error]="submitted && birthday.invalid">
+            <label for="creditEndDate" class="col-sm-3 control-label">Up to (money retrieving date)</label>
+            <div class='col-sm-9'>
+              <my-date-picker name="mydate" id="creditEndDate" #creditEndDate="ngModel" [options]="myDatePickerOptions" [(ngModel)]="newAccount.closeDate"
+                required></my-date-picker>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="cardCurrentSum">
+            <label for="balance" class="col-sm-3 form-control-static">Balance</label>
+            <div class="col-sm-9">
+              <p class="form-control-static">{{cardCurrentSum}} {{newAccount.card.currency}}</p>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="newAccount.currency">
+            <label class="col-sm-3 control-label">Credit sum</label>
+            <div class="col-sm-9">
+              <input [(ngModel)]="newAccount.startSum" name="startSum" class="form-control">
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Open</button>
+            <button type="button" id="closeButton" class="btn btn-default" data-dismiss="modal">Close</button>
+            <div class="alert alert-danger" *ngIf="formInvalid">
+              Form is invalid
+            </div>
+            <div class="alert alert-warning" *ngIf="cards && cards.length == 0">
+              You don't have cards with {{currencySelect.value}} currency
+            </div>
+            <div class="alert alert-info" *ngIf="this.cardCurrentSum < newAccount.startSum ">
+              You don't have enough money on this card
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

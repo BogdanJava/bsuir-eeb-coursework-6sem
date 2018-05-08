@@ -22,8 +22,8 @@ export class AccountService {
     return this.http.post(this.baseUrl + '/api/accounts', account, this.authService.getOptions());
   }
 
-  getAllAccounts(): Observable<any> {
-    return this.http.get(this.baseUrl + `/api/accounts?userId=${this.userId}`, this.authService.getOptions());
+  getAllAccounts(accountType: string): Observable<any> {
+    return this.http.get(this.baseUrl + `/api/accounts?userId=${this.userId}&type=${accountType}`, this.authService.getOptions());
   }
 
   getAccountBalance(accountId: number): Observable<any> {

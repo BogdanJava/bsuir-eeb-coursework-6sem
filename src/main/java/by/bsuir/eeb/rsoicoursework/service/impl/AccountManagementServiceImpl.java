@@ -32,14 +32,20 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 
     @Override
     public List<Account> getAllUserAccounts(long userId, AccountType accountType) {
-        if(accountType.equals(AccountType.ALL)) return accountDAO.getAllByUserId(userId);
+        if (accountType.equals(AccountType.ALL)) return accountDAO.getAllByUserId(userId);
         return accountDAO.getAllByUserIdAndAccountType(userId, accountType);
     }
 
     @Override
     public void createAccount(Account account) {
         account.setAccountStatus(AccountStatus.OPEN);
-        account.setInterestRate(account.getCurrency() == Currency.BYN ? 10 : 3);
+        int interestRate;
+        if (account.getAccountType().equals(AccountType.DEPOSIT)) {
+            interestRate = account.getCurrency() == Currency.BYN ? 10 : 3;
+        } else {
+            interestRate = account.getCurrency() == Currency.BYN ? 15 : 5;
+        }
+        account.setInterestRate(interestRate);
         accountDAO.save(account);
     }
 
