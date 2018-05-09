@@ -1,0 +1,58 @@
+<div class="container" *ngIf="credit">
+  <div class="page-label">
+    <h1>Credit #{{credit.id}}</h1>
+    <p>Credit details</p>
+  </div>
+  <hr>
+  <div class="row row-colored">
+    <div class="col-sm-3">
+      <p class="title">Currency</p>
+    </div>
+    <div class="col-sm-9">
+      <p class="content">{{credit.currency}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <p class="title">Status</p>
+    </div>
+    <div class="col-sm-9">
+      <p class="content" id="status">
+        {{credit.accountStatus}}</p>
+    </div>
+  </div>
+  <div class="row row-colored">
+    <div class="col-sm-3">
+      <p class="title">Interest rate</p>
+    </div>
+    <div class="col-sm-9">
+      <p class="content">{{credit.interestRate}}%</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <p class="title">Open date</p>
+    </div>
+    <div class="col-sm-9">
+      <p class="content">{{credit.openDate}}</p>
+    </div>
+  </div>
+  <div class="row row-colored">
+    <div class="col-sm-3">
+      <p class="title">Close date</p>
+    </div>
+    <div class="col-sm-9">
+      <p class="content">{{credit.closeDate}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <p class="title">Summary</p>
+    </div>
+    <div class="col-sm-9">
+      <p class="content">
+        {{credit.balance}} + {{interestRate}}({{credit.interestRate}}%)
+      </p>
+    </div>
+  </div>
+</div>

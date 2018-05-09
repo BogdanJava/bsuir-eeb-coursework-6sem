@@ -3,12 +3,15 @@ package by.bsuir.eeb.rsoicoursework.controller.secured;
 import by.bsuir.eeb.rsoicoursework.model.Account;
 import by.bsuir.eeb.rsoicoursework.model.enums.AccountType;
 import by.bsuir.eeb.rsoicoursework.security.ResourceAccessResolver;
+import by.bsuir.eeb.rsoicoursework.security.config.UserContextHolder;
 import by.bsuir.eeb.rsoicoursework.service.AccountManagementService;
 import by.bsuir.eeb.rsoicoursework.service.CardManagementService;
+import by.bsuir.eeb.rsoicoursework.service.UserService;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,14 +22,14 @@ public class AccountRestController {
     private AccountManagementService accountService;
 
     @Autowired
-    private CardManagementService cardManagementService;
+    private UserService userService;
 
     @Autowired
     private ResourceAccessResolver accessResolver;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createAccount(@RequestBody Account account) {
-        account.setUser(cardManagementService.getUserByCardId(account.getCard().getId()));
+        account.setUser(userService.findById(UserContextHolder.getUserId()));
         if (!accessResolver.checkUserSpecificResourceAccess(account.getUser().getId()))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         accountService.createAccount(account);
@@ -46,6 +49,18 @@ public class AccountRestController {
         if (!accessResolver.checkUserSpecificResourceAccess(accountService.getById(accountId).getUser().getId())) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-        return ResponseEntity.ok(ImmutableMap.of("balance", accountService.getAccountBalance(accountId)));
+        double balance = accountService.getAccountBalance(accountId);
+        // simplified interest rate growth
+        double interestRate = balance * accountService.getById(accountId).getInterestRate() / 100;
+        return ResponseEntity.ok(ImmutableMap.of("balance", balance,
+                "interestRate", interestRate));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{accountId}")
+    public ResponseEntity getAccountById(@PathVariable long accountId) {
+        if (!accessResolver.checkUserSpecificResourceAccess(accountService.getById(accountId).getUser().getId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        return ResponseEntity.ok(accountService.getById(accountId));
     }
 }

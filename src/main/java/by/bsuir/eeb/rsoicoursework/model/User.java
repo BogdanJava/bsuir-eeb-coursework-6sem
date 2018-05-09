@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -25,6 +26,7 @@ import java.util.Set;
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = {"email", "id"}))
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @EqualsAndHashCode(exclude = {"phones", "cards", "passport", "accounts"})
+@ToString(exclude = {"phones", "cards", "passport", "accounts"})
 public class User {
 
     public User(long id, String password) {

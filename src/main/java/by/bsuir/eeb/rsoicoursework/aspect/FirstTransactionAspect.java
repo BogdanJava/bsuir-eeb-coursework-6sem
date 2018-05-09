@@ -41,20 +41,22 @@ public class FirstTransactionAspect {
 
     @After("execution(* by.bsuir.eeb.rsoicoursework.service.AccountManagementService.createAccount(..)) && args(account)")
     public void addFirstAccountTransaction(Account account) {
-        if (account != null && account.getAccountType().equals(AccountType.DEPOSIT)) {
+        if (account != null) {
             AccountTransaction initTransaction = new AccountTransaction();
             initTransaction.setDiff(account.getStartSum());
             initTransaction.setAccount(account);
             initTransaction.setDate(new Date());
             accountTransactionDAO.save(initTransaction);
-            CardTransaction cardTransaction = new CardTransaction();
-            cardTransaction.setCard(account.getCard());
-            cardTransaction.setName("Account payment");
-            cardTransaction.setDate(initTransaction.getDate());
-            cardTransaction.setDiff(-account.getStartSum());
-            cardTransaction.setTransactionType(TransactionType.OTHER);
-            cardTransaction.setDescription("Payment for an account operation");
-            cardManagementService.executeTransaction(cardTransaction);
+            if (account.getAccountType().equals(AccountType.DEPOSIT)) {
+                CardTransaction cardTransaction = new CardTransaction();
+                cardTransaction.setCard(account.getCard());
+                cardTransaction.setName("Account payment");
+                cardTransaction.setDate(initTransaction.getDate());
+                cardTransaction.setDiff(-account.getStartSum());
+                cardTransaction.setTransactionType(TransactionType.OTHER);
+                cardTransaction.setDescription("Payment for an account operation");
+                cardManagementService.executeTransaction(cardTransaction);
+            }
         }
     }
 }

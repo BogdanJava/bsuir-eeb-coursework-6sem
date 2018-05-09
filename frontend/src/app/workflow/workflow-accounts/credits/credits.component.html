@@ -23,6 +23,7 @@
           <td>Open date</td>
           <td>Close date</td>
           <td>Status</td>
+          <td>Actions</td>
         </tr>
       </thead>
       <tbody>
@@ -34,6 +35,9 @@
           <td>{{account.openDate}}</td>
           <td>{{account.closeDate}}</td>
           <td>{{account.accountStatus}}</td>
+          <td>
+            <a class="btn btn-success" [routerLink]="['payoff', account.id]">Pay off</a>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -62,7 +66,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label">Currency</label>
             <div class="col-sm-9">
-              <select class="form-control" [(ngModel)]="newAccount.currency" id="currencySelect" (change)="onCurrencyChange()" name="currency"
+              <select class="form-control" [(ngModel)]="newAccount.currency" id="currencySelect" name="currency"
                 required>
                 <option value="BYN">BYN</option>
                 <option value="USD">USD</option>
@@ -72,8 +76,8 @@
           <div class="form-group" *ngIf="newAccount.currency">
             <label class="col-sm-3 control-label">Interest rate</label>
             <div class="col-sm-9">
-              <p class="form-control-static" *ngIf="newAccount.currency == 'USD'">3%</p>
-              <p class="form-control-static" *ngIf="newAccount.currency == 'BYN'">10%</p>
+              <p class="form-control-static" *ngIf="newAccount.currency == 'USD'">5%</p>
+              <p class="form-control-static" *ngIf="newAccount.currency == 'BYN'">15%</p>
             </div>
           </div>
           <div class="form-group">
@@ -82,27 +86,12 @@
               <p class="form-control-static">1 month</p>
             </div>
           </div>
-          <div class="form-group" *ngIf="newAccount.currency">
-            <label for="card" class="col-sm-3 control-label">Your card</label>
-            <div class="col-sm-9">
-              <select class="form-control" name="newAccount.card" (change)="onCardChange()" #cardSelect id="cardSelect" required>
-                <option value="" selected disabled hidden>Select your card</option>
-                <option *ngFor="let card of cards" value="{{card.id}}">{{card.cardNumber}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group" [class.has-error]="submitted && birthday.invalid">
-            <label for="creditEndDate" class="col-sm-3 control-label">Up to (money retrieving date)</label>
+          <div class="form-group" [class.has-error]="submitted && creditEndDate.invalid">
+            <label for="creditEndDate" class="col-sm-3 control-label">Up to (account closing date)</label>
             <div class='col-sm-9'>
-              <my-date-picker name="mydate" id="creditEndDate" #creditEndDate="ngModel" [options]="myDatePickerOptions" [(ngModel)]="newAccount.closeDate"
+              <my-date-picker name="mydate" id="creditEndDate" #creditEndDate="ngModel" [options]="myDatePickerOptions" 
+              [(ngModel)]="newAccount.closeDate"
                 required></my-date-picker>
-            </div>
-          </div>
-
-          <div class="form-group" *ngIf="cardCurrentSum">
-            <label for="balance" class="col-sm-3 form-control-static">Balance</label>
-            <div class="col-sm-9">
-              <p class="form-control-static">{{cardCurrentSum}} {{newAccount.card.currency}}</p>
             </div>
           </div>
 
@@ -118,12 +107,6 @@
             <button type="button" id="closeButton" class="btn btn-default" data-dismiss="modal">Close</button>
             <div class="alert alert-danger" *ngIf="formInvalid">
               Form is invalid
-            </div>
-            <div class="alert alert-warning" *ngIf="cards && cards.length == 0">
-              You don't have cards with {{currencySelect.value}} currency
-            </div>
-            <div class="alert alert-info" *ngIf="this.cardCurrentSum < newAccount.startSum ">
-              You don't have enough money on this card
             </div>
           </div>
         </form>

@@ -58,7 +58,7 @@ public class CardRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/currency")
-    public ResponseEntity getAllCardsByType( @RequestParam Currency currency, @RequestParam long userId) {
+    public ResponseEntity getAllCardsByCurrency(@RequestParam Currency currency, @RequestParam long userId) {
         if (!accessResolver.checkUserSpecificResourceAccess(userId))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         boolean exists = userService.exists(userId);

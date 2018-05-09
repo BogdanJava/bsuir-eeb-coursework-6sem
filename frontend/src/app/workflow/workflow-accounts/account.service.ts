@@ -30,4 +30,8 @@ export class AccountService {
     return this.http.get(this.baseUrl + `/api/accounts/balance/${accountId}`, this.authService.getOptions());
   }
 
+  getAccountById(accountId: number): Observable<any> {
+    return this.http.get(this.baseUrl + `/api/accounts/${accountId}`, this.authService.getOptions());
+  }
+
 }

@@ -4,6 +4,7 @@ import by.bsuir.eeb.rsoicoursework.model.enums.AccountStatus;
 import by.bsuir.eeb.rsoicoursework.model.enums.AccountType;
 import by.bsuir.eeb.rsoicoursework.model.enums.Currency;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ import java.util.Set;
 @Entity
 @Table(name = "account")
 @EqualsAndHashCode(exclude = {"accountTransactions"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Account {
 
     @Id

@@ -1,0 +1,44 @@
+.row {
+    margin: 0 auto;
+    display: block;
+}
+
+.row-colored {
+    background-color: #b1afbd;
+}
+
+hr {
+    margin-top: -20px;
+    margin-bottom: 30px;
+}
+
+.status-open {
+    background-color: rgb(89, 179, 89);
+    border-radius: 15px;
+}
+
+.status-closed {
+    background-color: rgb(179, 89, 104);
+    border-radius: 15px;
+}
+
+.container {
+    max-width: 50%;
+}
+
+.title {
+    text-align: left;    
+    margin: 15px auto 15px 2px;
+}
+
+.content {
+    text-align: right;
+    margin: 15px 2px 15px auto;
+}
+
+p.content, p.title {
+    font-size: 140%;
+    padding: 10px;
+    width: fit-content;
+}
+

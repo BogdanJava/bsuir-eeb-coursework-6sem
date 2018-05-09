@@ -1,7 +1,6 @@
 package by.bsuir.eeb.rsoicoursework.service;
 
 import by.bsuir.eeb.rsoicoursework.model.Phone;
-
 import java.util.List;
 
 public interface PhoneService {

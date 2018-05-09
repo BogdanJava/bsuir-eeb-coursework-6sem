@@ -35,6 +35,7 @@ import { CreditsComponent } from './workflow/workflow-accounts/credits/credits.c
 import { MobilePaymentComponent } from './workflow/workflow-transactions/mobile-payment/mobile-payment.component';
 import { MoneyTransferComponent } from './workflow/workflow-transactions/money-transfer/money-transfer.component';
 import { AccountService } from './workflow/workflow-accounts/account.service';
+import { PayoffComponent } from './workflow/workflow-accounts/credits/payoff/payoff.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { AccountService } from './workflow/workflow-accounts/account.service';
     CreditsComponent,
     MobilePaymentComponent,
     MoneyTransferComponent,
+    PayoffComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpModule, MenuModule, JwtModule, ButtonModule, MyDatePickerModule,
@@ -67,23 +69,24 @@ import { AccountService } from './workflow/workflow-accounts/account.service';
       { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
       {
         path: "profile", component: UserRoomComponent, canActivate: [AuthGuard], children: [
-          { path: "details", component: UserProfileComponent, canActivateChild: [AuthGuard] },
-          { path: "contact", component: ContactInfoComponent, canActivateChild: [AuthGuard] },
+          { path: "details", component: UserProfileComponent, canActivate: [AuthGuard] },
+          { path: "contact", component: ContactInfoComponent, canActivate: [AuthGuard] },
           { path: "**", redirectTo: "/profile/details" }
         ]
       },
       {
         path: "workflow", component: WorkflowComponent, canActivate: [AuthGuard], children: [
-          { path: "", component: WorkflowDefaultComponent, canActivateChild: [AuthGuard] },
-          { path: "cards", component: WorkflowCardsComponent, canActivateChild: [AuthGuard] },
-          { path: "cards/registration", component: CardRegistrationComponent, canActivateChild: [AuthGuard] },
-          { path: "accounts/deposits", component: DepositsComponent, canActivateChild: [AuthGuard] },
-          { path: "accounts/credits", component: CreditsComponent, canActivateChild: [AuthGuard] },
-          { path: "accounts", component: WorkflowAccountsComponent, canActivateChild: [AuthGuard] },
-          { path: "cards/:cardId", component: CardDetailsComponent, canActivateChild: [AuthGuard] },
-          { path: "transactions", component: WorkflowTransactionsComponent, canActivateChild: [AuthGuard] },
-          { path: "transactions/mobile", component: MobilePaymentComponent, canActivate: [AuthGuard]},
-          { path: "transactions/transfer", component: MoneyTransferComponent, canActivate: [AuthGuard]}
+          { path: "", component: WorkflowDefaultComponent, canActivate: [AuthGuard] },
+          { path: "cards", component: WorkflowCardsComponent, canActivate: [AuthGuard] },
+          { path: "cards/registration", component: CardRegistrationComponent, canActivate: [AuthGuard] },
+          { path: "accounts/deposits", component: DepositsComponent, canActivate: [AuthGuard] },
+          { path: "accounts/credits", component: CreditsComponent, canActivate: [AuthGuard] },
+          { path: "accounts/credits/payoff/:accountId", component: PayoffComponent, canActivate: [AuthGuard] },
+          { path: "accounts", component: WorkflowAccountsComponent, canActivate: [AuthGuard] },
+          { path: "cards/:cardId", component: CardDetailsComponent, canActivate: [AuthGuard] },
+          { path: "transactions", component: WorkflowTransactionsComponent, canActivate: [AuthGuard] },
+          { path: "transactions/mobile", component: MobilePaymentComponent, canActivate: [AuthGuard] },
+          { path: "transactions/transfer", component: MoneyTransferComponent, canActivate: [AuthGuard] }
         ]
       },
       { path: "**", redirectTo: "/login" }

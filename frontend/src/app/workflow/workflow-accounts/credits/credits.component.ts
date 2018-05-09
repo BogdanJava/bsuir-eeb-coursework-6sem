@@ -22,12 +22,8 @@ export class CreditsComponent implements OnInit {
 
   credits: Account[] = null;
   newAccount: Account = new Account();
-  cards: Card[];
 
-  cardCurrentSum: number;
-  sumIncorrect: boolean = false;
   transactionSuccess: boolean = null;
-  cardSelectElement: any;
   formInvalid: boolean = false;
 
   constructor(private accountService: AccountService,
@@ -43,30 +39,8 @@ export class CreditsComponent implements OnInit {
             }
           });
         });
-        if (this.credits.length == 0) {
-          cardService.getAllCards().subscribe(result => {
-            if (result.ok) {
-              this.cards = result.json();
-            }
-          });
-        }
       }
     });
-  }
-
-  onCardChange() {
-    if (!this.cardSelectElement) {
-      this.cardSelectElement = document.getElementById("cardSelect");
-    }
-    var cardId = this.cardSelectElement.options[this.cardSelectElement.selectedIndex].value;
-    this.newAccount.card = this.cards.find(card => card.id == cardId);
-    this.cardCurrentSum = null;
-    this.cardService.getCardBalance(cardId).subscribe(result => {
-      if (result.ok) {
-        console.log(result);
-        this.cardCurrentSum = result.json().balance;
-      }
-    })
   }
 
   ngOnInit() {
@@ -81,7 +55,7 @@ export class CreditsComponent implements OnInit {
       let today = new Date();
       today.setHours(0, 0, 0, 0);
       this.newAccount.openDate = new Date();
-      if (this.newAccount.closeDate.getTime() <= today || this.newAccount.startSum > this.cardCurrentSum) {
+      if (this.newAccount.closeDate.getTime() <= today) {
         this.makeFormInvalid();
         return;
       }
@@ -101,20 +75,6 @@ export class CreditsComponent implements OnInit {
     setTimeout(() => {
       this.formInvalid = false;
     }, 3000);
-  }
-
-  currencySelect: any;
-  onCurrencyChange() {
-    if (!this.currencySelect) {
-      this.currencySelect = document.getElementById('currencySelect');
-    }
-    if (this.currencySelect.value) {
-      this.cardService.getAllCardsByCurrency(this.currencySelect.value).subscribe(result => {
-        if (result.ok) {
-          this.cards = result.json();
-        }
-      })
-    }
   }
 
 }
