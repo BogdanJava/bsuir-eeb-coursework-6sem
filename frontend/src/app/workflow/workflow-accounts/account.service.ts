@@ -4,6 +4,7 @@ import { JwtService } from '../../jwt.service';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Account } from '../../model/account.model';
+import { AccountTransaction } from '../../model/accountTransaction.model';
 
 @Injectable()
 export class AccountService {
@@ -32,6 +33,10 @@ export class AccountService {
 
   getAccountById(accountId: number): Observable<any> {
     return this.http.get(this.baseUrl + `/api/accounts/${accountId}`, this.authService.getOptions());
+  }
+
+  payoffCredit(transaction: AccountTransaction): Observable<any> {
+    return this.http.post(this.baseUrl + '/api/accounts/payoff', transaction, this.authService.getOptions());
   }
 
 }

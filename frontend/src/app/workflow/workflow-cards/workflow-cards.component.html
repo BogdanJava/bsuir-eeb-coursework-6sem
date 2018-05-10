@@ -2,6 +2,7 @@
   <div class="page-label">
     <h1>Cards management</h1>
     <p>You don't have any cards yet! Get one right now</p>
+    <hr>
   </div>
   <a [routerLink]="['registration']" class="btn btn-default btn-circle">
     <span id="card-icon" class="glyphicon glyphicon-credit-card card-main-area" aria-hidden="true">
@@ -13,9 +14,9 @@
   <div class="page-label">
     <h1>Cards list</h1>
     <p>Your cards. Click to see details</p>
+    <hr>
   </div>
   <div class="container">
-    <hr>
     <div *ngFor="let card of cardList">
       <div class="col-sm-4">
         <div class="card" [routerLink]="[card.id]">

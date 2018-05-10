@@ -3,12 +3,17 @@ package by.bsuir.eeb.rsoicoursework.service.impl;
 import by.bsuir.eeb.rsoicoursework.dao.AccountDAO;
 import by.bsuir.eeb.rsoicoursework.dao.AccountTransactionDAO;
 import by.bsuir.eeb.rsoicoursework.exceptions.AccountActionException;
+import by.bsuir.eeb.rsoicoursework.exceptions.NotEnoughMoneyException;
 import by.bsuir.eeb.rsoicoursework.model.Account;
 import by.bsuir.eeb.rsoicoursework.model.AccountTransaction;
+import by.bsuir.eeb.rsoicoursework.model.Card;
+import by.bsuir.eeb.rsoicoursework.model.CardTransaction;
 import by.bsuir.eeb.rsoicoursework.model.enums.AccountStatus;
 import by.bsuir.eeb.rsoicoursework.model.enums.AccountType;
 import by.bsuir.eeb.rsoicoursework.model.enums.Currency;
+import by.bsuir.eeb.rsoicoursework.model.enums.TransactionType;
 import by.bsuir.eeb.rsoicoursework.service.AccountManagementService;
+import by.bsuir.eeb.rsoicoursework.service.CardManagementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +34,9 @@ public class AccountManagementServiceImpl implements AccountManagementService {
 
     @Autowired
     private AccountTransactionDAO accountTransactionDAO;
+
+    @Autowired
+    private CardManagementService cardManagementService;
 
     @Override
     public List<Account> getAllUserAccounts(long userId, AccountType accountType) {
@@ -57,12 +65,6 @@ public class AccountManagementServiceImpl implements AccountManagementService {
     }
 
     @Override
-    public void makePaymentForCredit(AccountTransaction accountTransaction) {
-        if (accountTransaction.getDiff() < 0) throw new AccountActionException("Sum can't be negative value");
-        accountTransactionDAO.save(accountTransaction);
-    }
-
-    @Override
     public double getAccountBalance(long accountId) {
         Account account = accountDAO.getOne(accountId);
         return account.getAccountTransactions()
@@ -75,6 +77,27 @@ public class AccountManagementServiceImpl implements AccountManagementService {
     @Override
     public Account getById(long id) {
         return accountDAO.getOne(id);
+    }
+
+    @Override
+    public boolean payoffCredit(AccountTransaction accountTransaction) {
+        Account account = accountTransaction.getAccount();
+        Card card = accountTransaction.getCard();
+        double toPaySum = account.getStartSum() + (account.getStartSum() * account.getInterestRate() / 100);
+        Double cardBalance = cardManagementService.calculateCardBalance(card.getId());
+        if(cardBalance < toPaySum) throw new NotEnoughMoneyException();
+        accountTransaction.setDiff(-toPaySum);
+        accountTransactionDAO.save(accountTransaction);
+        CardTransaction cardTransaction = new CardTransaction();
+        cardTransaction.setCard(card);
+        cardTransaction.setDiff(-toPaySum);
+        cardTransaction.setDate(accountTransaction.getDate());
+        cardTransaction.setName("Credit payoff");
+        cardTransaction.setDescription("Payment for credit#" + account.getId());
+        cardTransaction.setTransactionType(TransactionType.OTHER);
+        cardManagementService.executeTransaction(cardTransaction);
+        closeAccount(account.getId());
+        return true;
     }
 
 

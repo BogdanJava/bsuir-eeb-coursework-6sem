@@ -42,7 +42,6 @@ public class User {
     @GeneratedValue
     private long id;
 
-    @Past
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthday;
 

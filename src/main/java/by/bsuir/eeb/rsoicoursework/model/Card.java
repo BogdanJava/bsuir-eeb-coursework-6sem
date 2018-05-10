@@ -25,7 +25,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString(exclude = {"cardTransactions", "user"})
 @Table(name = "card")
-@EqualsAndHashCode(exclude = {"user", "cardTransactions"})
+@EqualsAndHashCode(exclude = {"user", "cardTransactions", "accountTransactions"})
 public class Card {
 
     @Id
@@ -53,5 +53,9 @@ public class Card {
     @JsonIgnore
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
     private Set<CardTransaction> cardTransactions;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
+    private Set<AccountTransaction> accountTransactions;
 
 }

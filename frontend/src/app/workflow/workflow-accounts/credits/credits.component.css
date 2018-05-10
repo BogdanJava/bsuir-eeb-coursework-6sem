@@ -1,5 +1,5 @@
 .card-text {
-    font-size: 30px !important;
+    font-size: 20px !important;
 }
 
 label {
@@ -10,4 +10,12 @@ label {
     margin-top: 20px;
     margin-bottom: 0;
     text-align: center;
+}
+
+.account-closed {
+    background-color: rgb(211, 135, 125);
+}
+
+.account-open {
+    background-color: rgb(102, 177, 96);
 }

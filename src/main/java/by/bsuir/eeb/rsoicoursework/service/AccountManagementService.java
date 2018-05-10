@@ -10,7 +10,7 @@ public interface AccountManagementService {
     List<Account> getAllUserAccounts(long userId, AccountType accountType);
     void createAccount(Account account);
     void closeAccount(long id);
-    void makePaymentForCredit(AccountTransaction accountTransaction);
     double getAccountBalance(long accountId);
     Account getById(long id);
+    boolean payoffCredit(AccountTransaction accountTransaction);
 }

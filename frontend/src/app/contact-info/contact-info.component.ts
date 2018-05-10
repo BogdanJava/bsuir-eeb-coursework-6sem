@@ -54,13 +54,7 @@ export class ContactInfoComponent {
   deletePhone(phone: any) {
     this.phoneServise.deletePhone(phone.phone.id).subscribe(result => {
       if (result.ok) {
-        this.phones.splice(phone.index - 1, 1);
-        this.deleteSuccess = true;
-        setTimeout(() => { this.deleteSuccess = false; }, 3000);
-        this.hasError = false;
-      } else {
-        this.deleteSuccess = false;
-        this.hasError = true;
+        window.location.reload();
       }
     });
   }

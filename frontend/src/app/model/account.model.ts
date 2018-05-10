@@ -5,7 +5,6 @@ export class Account {
     public accountType: string;
     public currency: string;
     public accountStatus: string;
-    public sumRecountPeriod: string;
     public interestRate: number;
     public startSum: number;
     public openDate: any;

@@ -1,17 +1,16 @@
 package by.bsuir.eeb.rsoicoursework.controller.secured;
 
 import by.bsuir.eeb.rsoicoursework.model.Account;
+import by.bsuir.eeb.rsoicoursework.model.AccountTransaction;
 import by.bsuir.eeb.rsoicoursework.model.enums.AccountType;
 import by.bsuir.eeb.rsoicoursework.security.ResourceAccessResolver;
 import by.bsuir.eeb.rsoicoursework.security.config.UserContextHolder;
 import by.bsuir.eeb.rsoicoursework.service.AccountManagementService;
-import by.bsuir.eeb.rsoicoursework.service.CardManagementService;
 import by.bsuir.eeb.rsoicoursework.service.UserService;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -54,6 +53,15 @@ public class AccountRestController {
         double interestRate = balance * accountService.getById(accountId).getInterestRate() / 100;
         return ResponseEntity.ok(ImmutableMap.of("balance", balance,
                 "interestRate", interestRate));
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/payoff")
+    public ResponseEntity payoffCredit(@RequestBody AccountTransaction accountTransaction) {
+        if (!accessResolver.checkUserSpecificResourceAccess(accountTransaction.getAccount().getUser().getId())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        boolean success = accountService.payoffCredit(accountTransaction);
+        return ResponseEntity.ok(ImmutableMap.of("success", success));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{accountId}")

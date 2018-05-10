@@ -28,4 +28,8 @@ public class AccountTransaction {
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
+
+    @ManyToOne
+    @JoinColumn(name = "card_id")
+    private Card card;
 }

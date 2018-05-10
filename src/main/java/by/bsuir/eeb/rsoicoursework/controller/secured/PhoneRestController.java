@@ -4,6 +4,7 @@ import by.bsuir.eeb.rsoicoursework.model.Phone;
 import by.bsuir.eeb.rsoicoursework.model.User;
 import by.bsuir.eeb.rsoicoursework.model.dto.PhoneDTO;
 import by.bsuir.eeb.rsoicoursework.service.PhoneService;
+import by.bsuir.eeb.rsoicoursework.service.UserService;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,9 @@ public class PhoneRestController {
 
     @Autowired
     private PhoneService phoneService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity getPhone(@PathVariable long id) {
@@ -32,7 +36,7 @@ public class PhoneRestController {
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity editPhone(@RequestBody PhoneDTO phoneDTO) {
         Phone fromDTO = phoneDTO.getPhone();
-        fromDTO.setUser(new User(phoneDTO.getUserId()));
+        fromDTO.setUser(userService.findById(phoneDTO.getUserId()));
         Phone updatedPhone = phoneService.update(fromDTO);
         return updatedPhone != null ? ResponseEntity.ok(updatedPhone) :
                 ResponseEntity.badRequest().body(ImmutableMap.of("error", "No phone with such id found"));

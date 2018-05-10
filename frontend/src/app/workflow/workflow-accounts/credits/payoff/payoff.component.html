@@ -50,9 +50,54 @@
       <p class="title">Summary</p>
     </div>
     <div class="col-sm-9">
-      <p class="content">
+      <p class="content" *ngIf="credit.accountStatus == 'OPEN'">
         {{credit.balance}} + {{interestRate}}({{credit.interestRate}}%)
+      </p>
+      <p class="content" *ngIf="credit.accountStatus == 'CLOSED'">
+        Paid off
       </p>
     </div>
   </div>
+  <div class="row" *ngIf="cards && cards.length == 0">
+    <div class="alert alert-warning">
+      You don't have cards with such currency
+    </div>
+  </div>
+  <div class="row" *ngIf="cards && cards.length > 0 && credit.accountStatus == 'OPEN'">
+    <h2>Pay off</h2>
+    <form #form="ngForm" id="form" class="form-horizontal" (ngSubmit)="onSubmit(form)">
+      <div class="form-group">
+        <label for="card" class="col-sm-3 control-label">Card</label>
+        <div class="col-sm-9">
+          <select class="form-control" name="card" (change)="onCardChange()" #cardSelect id="cardSelect" required>
+            <option value="" selected disabled hidden>Select your card</option>
+            <option *ngFor="let card of cards" value="{{card.id}}">{{card.cardNumber}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="card != null">
+        <label for="cardInfo" class="col-sm-3 control-label">Card info</label>
+        <div class="col-sm-9">
+          <p class="form-control-static">
+            {{card.currency}} {{card.cardType}} {{card.cardNumber}}
+          </p>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="balance != null">
+        <label for="balance" class="col-sm-3 control-label">Card balance</label>
+        <div class="col-sm-9">
+          <p class="form-control-static">
+            {{balance}} {{card.currency}}
+          </p>
+        </div>
+      </div>
+      <div class="form-group" *ngIf="balance >= indebtedness">
+        <button type="submit" class="btn btn-success">Pay off</button>
+      </div>
+    </form>
+    <div class="alert alert-info" *ngIf="balance < indebtedness">
+      You don't have enough money on this card
+    </div>
+  </div>
+  <button class="btn btn-danger back-button" (click)="goBack()">Back</button>
 </div>

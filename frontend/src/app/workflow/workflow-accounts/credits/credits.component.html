@@ -30,13 +30,15 @@
         <tr *ngFor="let account of credits">
           <td>{{account.id}}</td>
           <td>{{account.currency}}</td>
-          <td>{{account.balance}}</td>
+          <td *ngIf="account.accountStatus == 'OPEN'">{{account.balance}}</td>
+          <td *ngIf="account.accountStatus == 'CLOSED'">—</td>
           <td>{{account.interestRate}}%</td>
           <td>{{account.openDate}}</td>
           <td>{{account.closeDate}}</td>
           <td>{{account.accountStatus}}</td>
           <td>
-            <a class="btn btn-success" [routerLink]="['payoff', account.id]">Pay off</a>
+            <a *ngIf="account.accountStatus == 'OPEN'" class="btn btn-success" [routerLink]="['payoff', account.id]">Pay off</a>
+            <a *ngIf="account.accountStatus == 'CLOSED'" class="btn btn-warning" [routerLink]="['payoff', account.id]">View detils</a>
           </td>
         </tr>
       </tbody>
