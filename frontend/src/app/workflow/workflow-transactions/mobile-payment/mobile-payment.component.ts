@@ -33,7 +33,7 @@ export class MobilePaymentComponent implements OnInit {
   }
 
   onSubmit() {
-    this.sumIncorrect = this.transaction.diff > this.cardCurrentSum;
+    if(!this.cardCurrentSum || !this.transaction.diff || this.cardCurrentSum < this.transaction.diff) return;
     this.transaction.name = "Mobile payment";
     this.transaction.description = `Payment for mobile phone ${this.phone} from card`;
     this.transaction.card = this.selectedCard;

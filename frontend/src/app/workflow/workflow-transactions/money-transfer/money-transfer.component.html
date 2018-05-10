@@ -61,5 +61,8 @@
     <div class="alert alert-success" role="alert" *ngIf="transactionSuccess">
       Transaction success
     </div>
+    <div class="alert alert-info" role="alert" *ngIf="cardCurrentSum < transaction.diff">
+      Not enough money on card
+    </div>
   </form>
 </div>

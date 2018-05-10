@@ -38,6 +38,7 @@ export class MoneyTransferComponent implements OnInit {
   }
 
   onSubmit() {
+    if(!this.cardCurrentSum || !this.transaction.diff || this.cardCurrentSum < this.transaction.diff) return;
     this.cardService.isPasswordCorrect(this.password, this.selectedCard.id).subscribe(result => {
       if (result.ok) {
         if (result.json().passwordCorrect) {

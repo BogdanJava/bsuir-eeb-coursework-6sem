@@ -16,3 +16,7 @@ button {
     max-width: 60%;
     margin: 0 auto;
 }
+
+.alert {
+    margin-top: 20px;
+}
