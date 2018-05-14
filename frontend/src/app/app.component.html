@@ -8,30 +8,33 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Banking system</a>
+      <div class="navbar-brand">
+        <img src="../assets/img/bank_logo.jpg" alt="Bank logo">
+        <p>Банковский клиент</p>
+      </div>
       <div class="navbar-collapse collapse" *ngIf="authService.isAuthenticated() && authenticatedUser != null">
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <a [routerLink]="['/home']">Home</a>
+            <a [routerLink]="['/home']">Главная</a>
           </li>
           <li>
-            <a [routerLink]="['/about']">About</a>
+            <a [routerLink]="['/about']">О банке</a>
           </li>
           <li>
-            <a [routerLink]="['/workflow']">Workflow</a>
+            <a [routerLink]="['/workflow']">Рабочий процесс</a>
           </li>
           <li>
-            <button type="button" class="btn nav-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button id="menu-button" type="button" class="btn nav-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{this.authenticatedUser.firstName + ' ' + this.authenticatedUser.lastName}}
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
               <li>
-                <a [routerLink]="['/profile']">My profile</a>
+                <a [routerLink]="['/profile']">Мой профиль</a>
               </li>
               <li role="separator" class="divider"></li>
               <li>
-                <a [routerLink]="['/login']" (click)="logout()">Logout</a>
+                <a [routerLink]="['/login']" (click)="logout()">Выйти</a>
               </li>
             </ul>
           </li>
@@ -43,13 +46,35 @@
 
 <router-outlet></router-outlet>
 
-<div id="footer">
+<div class="footer">
   <div class="container">
-    <div class="row centered">
-      <h3>Shishkin Bogdan banking system</h3>
-      <h5>BSUIR 2018</h5>
-      <h6>Distibuted systems of data processing course work</h6>
-      <p>私は牛肉が好きです</p>
+    <div class="row">
+      <div class="bank-info">
+        <div class="col-lg-4">
+          <div class="bank-info__licence">
+            Лицензия № 27 от 26.04.2013 выдана НБРБ УНП 807000015, г. Минск, ул. Тимирязева, 72
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="bank-info__socials">
+            <div class="bank-info__socials_fb">
+              <a target="_blank" href="https://www.facebook.com/deltabankbelarus">
+                <img src="../assets/img/socials_fb_logo.png">
+              </a>
+            </div>
+            <div class="bank-info__socials_ok">
+              <a target="_blank" href="https://ok.ru/group/53110801039584">
+                <img src="../assets/img/socials_ok_logo.png">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="bank-info__additional">
+            © 2006 — 2014 ЗАО «Дельта Банк» <a target="_blank" href="https://vk.com/id74422070">Разработка сайта</a> — Шишкин Богдан
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

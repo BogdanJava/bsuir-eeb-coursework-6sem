@@ -1,18 +1,14 @@
 <div class="container login-form">
 
-  <div class="alert alert-danger" *ngIf="errorMessage != null">
-    {{errorMessage}}
-  </div>
-
   <form class="form-signin" #form="ngForm">
-    <h2 class="form-signin-heading">Please login</h2>
+    <h2 class="form-signin-heading">Вход в профиль</h2>
 
     <label for="email" class="sr-only">Email address</label>
     <input [(ngModel)]="email" #eMail="ngModel" type="email" id="email" name="email" class="form-control" placeholder="Email"
       required autofocus>
 
     <span class="text-danger" *ngIf="submitted && eMail.invalid">
-      Please enter correct email
+      Введите корректный email
     </span>
 
     <label for="inputPassword" class="sr-only">Password</label>
@@ -20,17 +16,21 @@
       required>
 
     <span class="text-danger" *ngIf="submitted && pass.invalid">
-      Please enter password
+      Введите пароль
     </span>
 
     <div class="row">
       <div class="col-lg-6">
-        <button class="btn btn-success btn-block" type="button" (click)="login(form)">Login</button>
+        <button class="btn btn-success btn-block" type="button" (click)="login(form)">Войти</button>
       </div>
       <div class="col-lg-6">
-        <button class="btn btn-primary btn-block" type="button" [routerLink]="['/signup']">Registration</button>
+        <button class="btn btn-primary btn-block" type="button" [routerLink]="['/signup']">Регистрация</button>
       </div>
     </div>
   </form>
+
+  <div class="alert alert-danger" *ngIf="errorMessage != null">
+    {{errorMessage}}
+  </div>
 
 </div>

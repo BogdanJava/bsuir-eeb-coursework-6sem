@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Lato|Raleway');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
 /*
     Main style
 */
@@ -6,6 +7,14 @@
 html {
   min-height: 100%;
   position: relative;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
 }
 
 * {
@@ -93,28 +102,6 @@ header nav {
 
 .advantages_item {
   width: 30%;
-}
-
-footer {
-  width: 100%;
-  height: auto;
-  background: #000;
-  margin: 0 auto;
-  text-align: center;
-  padding-top: 25px;
-}
-
-footer a {
-  color: #FFFFFF;
-  font-size: 14px;
-  margin-left: 10px;
-}
-footer p {
-  color: white;
-  padding-bottom: 10px;
-}
-footer nav a:hover {
-  border-bottom: 1px solid white;
 }
 
 .social img {
@@ -421,7 +408,7 @@ textarea {
 }
 
 body {
-  background-color: #f2f2f2;
+  background-color: rgb(236, 236, 236);
   font-family: "Raleway", sans-serif;
   font-weight: 300;
   font-size: 16px;
@@ -449,16 +436,6 @@ p {
   text-align: center;
 }
 
-a {
-  color: #f85c37;
-}
-
-a:hover, a:focus {
-  color: #7b7b7b;
-  text-decoration: none;
-  outline: 0;
-}
-
 hr {
   display: block;
   height: 1px;
@@ -469,7 +446,7 @@ hr {
 }
 
 .navbar {
-  font-weight: 800;
+  font-weight: 400;
   font-size: 14px;
   padding-top: 15px;
   padding-bottom: 15px;
@@ -485,7 +462,7 @@ hr {
 }
 
 .navbar-inverse .navbar-nav > .active > a {
-  background-color: #7878;
+  background-color: rgb(255, 255, 255);
 }
 
 .navbar-inverse .navbar-brand {

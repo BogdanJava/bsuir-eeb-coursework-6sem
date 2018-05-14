@@ -10,3 +10,22 @@
     margin-bottom: 20%;
 }
 
+.page-label {
+    width: fit-content;
+    margin: 0 auto;
+    background-color: #0000006e;
+    padding: 10px 60px;
+}
+
+.page-label h1 {
+    color: #ffcaca !important;
+}
+
+.page-label p {
+    color: #fff !important;
+    font-weight: 600;
+}
+
+.container {
+    padding-top: 80px;
+}

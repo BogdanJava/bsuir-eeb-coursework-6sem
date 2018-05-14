@@ -10,3 +10,7 @@
 .form-horizontal label {
     text-align: left;
 }
+
+form {
+    margin-bottom: 150px !important;
+}

@@ -44,10 +44,10 @@ export class LoginComponent {
         },
         err => {
           console.log(err);
-          this.errorMessage = 'Failed to Authenticate';
+          this.errorMessage = 'Ошибка аутентификации';
         });
     } else {
-      this.errorMessage = 'Form Data Invalid';
+      this.errorMessage = 'Данные формы некорректны';
     }
   }
 
