@@ -1,28 +1,28 @@
-<div class="container">
+<div class="container accounts-label">
   <div class="page-label">
     <h1>Deposits</h1>
-    <p *ngIf="!deposits || deposits.length == 0">You don't have any deposits yet</p>
-    <p *ngIf="deposits && deposits.length > 0">Your deposits</p>
+    <p *ngIf="!deposits || deposits.length == 0">У вас нет депозитных вкладов</p>
+    <p *ngIf="deposits && deposits.length > 0">Ваши депозиты</p>
   </div>
   <hr>
   <div *ngIf="!deposits || deposits.length == 0">
     <a class="btn btn-default btn-circle" data-toggle="modal" data-target="#newAccount">
       <span id="card-icon" class="glyphicon glyphicon-briefcase card-main-area" aria-hidden="true">
       </span>
-      <p class="card-text">Open an account</p>
+      <p class="card-text">Открыть счёт</p>
     </a>
   </div>
   <div *ngIf="deposits && deposits.length > 0">
-    <table class="table table-striped">
+    <table class="table table-striped accounts-table">
       <thead>
         <tr>
           <td>Id</td>
-          <td>Currency</td>
-          <td>Balance</td>
-          <td>Interest rate</td>
-          <td>Open date</td>
-          <td>Close date</td>
-          <td>Status</td>
+          <td>Валюта</td>
+          <td>Баланс</td>
+          <td>Процентная ставка</td>
+          <td>Дата открытия</td>
+          <td>Дата закрытия</td>
+          <td>Статус</td>
         </tr>
       </thead>
       <tbody>
@@ -37,7 +37,7 @@
         </tr>
       </tbody>
     </table>
-    <button class="btn btn-primary"data-toggle="modal" data-target="#newAccount">Open an account</button>
+    <button class="btn btn-primary"data-toggle="modal" data-target="#newAccount">Открыть счёт</button>
   </div>
 
 </div>
@@ -49,18 +49,18 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" id="myModalLabel">Open an account</h4>
+        <h4 class="modal-title" id="myModalLabel">Открыть счёт</h4>
       </div>
       <div class="modal-body">
         <form #form="ngForm" id="form" class="form-horizontal" (ngSubmit)="onSubmit(form)">
           <div class="form-group">
-            <label class="col-sm-3 control-label">Account type</label>
+            <label class="col-sm-3 control-label">Тип счёта</label>
             <div class="col-sm-9">
               <p class="form-control-static">{{newAccount.accountType}}</p>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-3 control-label">Currency</label>
+            <label class="col-sm-3 control-label">Валюта</label>
             <div class="col-sm-9">
               <select class="form-control" [(ngModel)]="newAccount.currency" id="currencySelect" (change)="onCurrencyChange()" name="currency"
                 required>
@@ -70,29 +70,23 @@
             </div>
           </div>
           <div class="form-group" *ngIf="newAccount.currency">
-            <label class="col-sm-3 control-label">Interest rate</label>
+            <label class="col-sm-3 control-label">Процентная ставка</label>
             <div class="col-sm-9">
               <p class="form-control-static" *ngIf="newAccount.currency == 'USD'">3%</p>
               <p class="form-control-static" *ngIf="newAccount.currency == 'BYN'">10%</p>
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label">Recount period</label>
-            <div class="col-sm-9">
-              <p class="form-control-static">1 month</p>
-            </div>
-          </div>
           <div class="form-group" *ngIf="newAccount.currency">
-            <label for="card" class="col-sm-3 control-label">Your card</label>
+            <label for="card" class="col-sm-3 control-label">Ваша карта</label>
             <div class="col-sm-9">
               <select class="form-control" name="newAccount.card" (change)="onCardChange()" #cardSelect id="cardSelect" required>
-                <option value="" selected disabled hidden>Select your card</option>
+                <option value="" selected disabled hidden>Выберите карту</option>
                 <option *ngFor="let card of cards" value="{{card.id}}">{{card.cardNumber}}</option>
               </select>
             </div>
           </div>
           <div class="form-group" [class.has-error]="submitted && birthday.invalid">
-            <label for="depositEndDate" class="col-sm-3 control-label">Up to (money retrieving date)</label>
+            <label for="depositEndDate" class="col-sm-3 control-label">Дата закрытия счёта</label>
             <div class='col-sm-9'>
               <my-date-picker name="mydate" id="depositEndDate" #depositEndDate="ngModel" [options]="myDatePickerOptions" [(ngModel)]="newAccount.closeDate"
                 required></my-date-picker>
@@ -100,30 +94,30 @@
           </div>
 
           <div class="form-group" *ngIf="cardCurrentSum">
-            <label for="balance" class="col-sm-3 form-control-static">Balance</label>
+            <label for="balance" class="col-sm-3 form-control-static">Баланс</label>
             <div class="col-sm-9">
               <p class="form-control-static">{{cardCurrentSum}} {{newAccount.card.currency}}</p>
             </div>
           </div>
 
           <div class="form-group" *ngIf="newAccount.currency">
-            <label class="col-sm-3 control-label">Deposit sum</label>
+            <label class="col-sm-3 control-label">Сумма депозита</label>
             <div class="col-sm-9">
               <input [(ngModel)]="newAccount.startSum" name="startSum" class="form-control">
             </div>
           </div>
 
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Open</button>
-            <button type="button" id="closeButton" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Открыть</button>
+            <button type="button" id="closeButton" class="btn btn-default" data-dismiss="modal">Закрыть</button>
             <div class="alert alert-danger" *ngIf="formInvalid">
-              Form is invalid
+              Форма невалидна
             </div>
             <div class="alert alert-warning" *ngIf="cards && cards.length == 0">
-              You don't have cards with {{currencySelect.value}} currency
+              У вас нет карты с валютой {{currencySelect.value}}
             </div>
             <div class="alert alert-info" *ngIf="this.cardCurrentSum < newAccount.startSum ">
-              You don't have enough money on this card
+              Недостаточно средств на карте
             </div>
           </div>
         </form>

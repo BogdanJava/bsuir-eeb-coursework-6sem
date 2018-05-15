@@ -4,7 +4,7 @@
 }
 
 .row-colored {
-    background-color: #b1afbd;
+    background-color: #f1f1e5d9;
 }
 
 hr {
@@ -23,7 +23,7 @@ hr {
 }
 
 .container {
-    max-width: 50%;
+    max-width: 45%;
 }
 
 .title {
@@ -37,9 +37,10 @@ hr {
 }
 
 p.content, p.title {
-    font-weight: 300;
     padding: 10px;
     width: fit-content;
+    color: #fff;
+    font-weight: 700;
 }
 
 .control-label {
@@ -54,4 +55,16 @@ h2 {
     margin-top: 20px;
     font-size: 18px;
     margin-left: -15px;
+}
+
+.payoff .page-label {
+    font-size: 70%;
+}
+
+.payoff button {
+    margin-left: 10px;
+}
+
+.payoff {
+    margin-top: 80px;
 }

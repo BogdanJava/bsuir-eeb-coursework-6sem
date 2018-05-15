@@ -1,45 +1,45 @@
 <form class="form-horizontal" (ngSubmit)="onSubmit(form)" #form="ngForm">
-  <h1>Registration</h1>
+  <h1>Регистрация</h1>
   <br>
   <hr>
-  <h3>Common info</h3>
+  <h3>Общая информация</h3>
   <br>
 
   <div class="form-group" [class.has-error]="submitted && firstName.invalid">
-    <label for="firstName" class="col-sm-3 control-label">First name</label>
+    <label for="firstName" class="col-sm-3 control-label">Имя</label>
     <div class="col-sm-9">
       <input [(ngModel)]="this.user.firstName" #firstName="ngModel" name="firstName" class="form-control" id="firstName" placeholder="First name"
         required autofocus>
       <span class="text-danger" *ngIf="submitted && firstName.invalid">
-        Please enter first name
+        Введите имя.
       </span>
     </div>
   </div>
 
   <div class="form-group" [class.has-error]="submitted && lastName.invalid">
-    <label for="lastName" class="col-sm-3 control-label">Last name</label>
+    <label for="lastName" class="col-sm-3 control-label">Фамилия</label>
     <div class="col-sm-9">
       <input [(ngModel)]="this.user.lastName" #lastName="ngModel" name="lastName" class="form-control" id="lastName" placeholder="Last name"
         required>
       <span class="text-danger" *ngIf="submitted && lastName.invalid">
-        Please enter last name
+        Введите фамилию.
       </span>
     </div>
   </div>
 
   <div class="form-group" [class.has-error]="submitted && email.invalid">
-    <label for="email" class="col-sm-3 control-label">Email</label>
+    <label for="email" class="col-sm-3 control-label">Электронная почта</label>
     <div class="col-sm-9">
       <input [(ngModel)]="this.user.email" name="email" #email="ngModel" class="form-control" id="email" placeholder="example@mail.org"
         required>
       <span class="text-danger" *ngIf="submitted && email.invalid">
-        Please enter correct email
+        Некорректный ввод электронной почты
       </span>
     </div>
   </div>
 
   <div class="form-group" [class.has-error]="submitted && birthday.invalid">
-    <label for="birthday" class="col-sm-3 control-label">Birthday</label>
+    <label for="birthday" class="col-sm-3 control-label">Дата рождения</label>
     <div class='col-sm-9'>
       <my-date-picker name="mydate" id="birthday" #birthday="ngModel" [options]="myDatePickerOptions" [(ngModel)]="user.birthday"
         required></my-date-picker>
@@ -47,43 +47,43 @@
   </div>
 
   <div class="form-group" [class.has-error]="submitted && gender.invalid">
-    <label class="col-sm-3 control-label">Gender</label>
+    <label class="col-sm-3 control-label">Пол</label>
     <div class="col-sm-9">
       <div class="radio">
-        <input type="radio" name="optradio" #gender="ngModel" value="male" [(ngModel)]="user.gender" required>Male
+        <input type="radio" name="optradio" #gender="ngModel" value="male" [(ngModel)]="user.gender" required>Мужской
       </div>
       <div class="radio">
-        <input type="radio" name="optradio" value="female" [(ngModel)]="user.gender">Female
+        <input type="radio" name="optradio" value="female" [(ngModel)]="user.gender">Женский
       </div>
     </div>
   </div>
 
-  <h3>Passport info</h3>
+  <h3>Пасспорт</h3>
   <br>
 
   <div class="form-group" [class.has-error]="submitted && passportId.invalid">
-    <label for="passportId" class="col-sm-3 control-label">Passport ID</label>
+    <label for="passportId" class="col-sm-3 control-label">Регистрационный номер</label>
     <div class="col-sm-9">
       <input [(ngModel)]="this.user.passport.number" #passportId="ngModel" name="passportId" class="form-control" id="passportId"
         placeholder="Enter your passport's ID number" required>
       <span class="text-danger" *ngIf="submitted && passportId.invalid">
-        Please enter correct passport id
+        Некорректный регистрационный номер.
       </span>
     </div>
   </div>
 
   <div class="form-group" [class.has-error]="submitted && givenBy.invalid">
-    <label for="givenBy" class="col-sm-3 control-label">Given by</label>
+    <label for="givenBy" class="col-sm-3 control-label">Выдан</label>
     <div class="col-sm-9">
       <input [(ngModel)]="this.user.passport.givenBy" name="givenBy" #givenBy="ngModel" class="form-control" id="givenBy" placeholder="Name of the instance that gave you the passport"
         required>
       <span class="text-danger" *ngIf="submitted && givenBy.invalid">
-        Please enter correct "Given by"
+        Некорректный ввод.
       </span>
     </div>
   </div>
 
-  <h3>Security</h3>
+  <h3>Безопасность</h3>
   <br>
 
   <div class="alert alert-warning" *ngIf="passwordNoMatch">
@@ -91,7 +91,7 @@
   </div>
 
   <div class="form-group" [class.has-error]="submitted && password.invalid">
-    <label for="password" class="col-sm-3 control-label">Password</label>
+    <label for="password" class="col-sm-3 control-label">Пароль</label>
     <div class="col-sm-9">
       <input [(ngModel)]="this.user.password" #password="ngModel" name="password" type="password" class="form-control" id="password" (input)="onPasswordInput()"
         placeholder="Password" required>
@@ -99,7 +99,7 @@
   </div>
 
   <div class="form-group" [class.has-error]="submitted && rePasswordInput.invalid">
-    <label for="password" class="col-sm-3 control-label">Repeat password</label>
+    <label for="password" class="col-sm-3 control-label">Повторите пароль</label>
     <div class="col-sm-9">
       <input [(ngModel)]="rePassword" #rePasswordInput="ngModel" name="rePassword" type="password" class="form-control" id="rePassword"
         placeholder="Repeat password" required>
@@ -114,10 +114,10 @@
 
   <div class="form-group" style="margin: 30px 20%;">
     <div class="col-sm-6">
-      <button class="btn btn-success btn-block" type="submit">Signup</button>
+      <button class="btn btn-success btn-block" type="submit">Зарегестрироваться</button>
     </div>
     <div class="col-sm-6">
-      <button class="btn btn-danger btn-block" type="button" [routerLink]="['/login']">Back</button>
+      <button class="btn btn-danger btn-block" type="button" [routerLink]="['/login']">Назад</button>
     </div>
   </div>
 

@@ -1,20 +1,20 @@
 <form class="form-horizontal" (ngSubmit)="onSubmit()" *ngIf="user != null" >
-  <h1>User details</h1>
+  <h1>Данные пользователя</h1>
   <hr>
   <div class="form-group">
-    <label for="userFirstName" class="col-sm-3 control-label">First name</label>
+    <label for="userFirstName" class="col-sm-3 control-label">Имя</label>
     <div class="col-sm-9">
       <input [(ngModel)]="this.user.firstName" name="firstName" class="form-control" id="userFirstName" placeholder="First name">
     </div>
   </div>
   <div class="form-group">
-    <label for="userLastName" class="col-sm-3 control-label">Last name</label>
+    <label for="userLastName" class="col-sm-3 control-label">Фамилия</label>
     <div class="col-sm-9">
       <input [(ngModel)]="this.user.lastName" name="lastName" class="form-control" id="userLastName" placeholder="Last name">
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-3 control-label">Email</label>
+    <label class="col-sm-3 control-label">Электронная почта</label>
     <div class="col-sm-9">
       <p class="form-control-static">{{this.user.email}}</p>
     </div>
@@ -25,35 +25,35 @@
       <p class="form-control-static">{{this.user.id}}</p>
     </div>
   </div>
-  <button type="button" type="submit" class="btn btn-primary">Submit</button>
-  <h4>Change password</h4>
+  <button type="button" type="submit" class="btn btn-primary">Готово</button>
+  <h4>Изменить пароль</h4>
   <hr>
   <div class="alert alert-danger" *ngIf="passwordIncorrect">
-    Old password is incorrect
+    Старый пароль введён неверно.
   </div>
   <div class="alert alert-success" *ngIf="passwordChanged">
-    Password has been successfully changed!
+    Пароль был успешно изменён.
   </div>
   <div class="alert alert-warning" *ngIf="passwordsNotMatch">
-    Passwords don't match
+    Пароли не совпадают.
   </div>
   <div class="form-group">
-    <label for="oldPassword" class="col-sm-3 control-label">Old password</label>
+    <label for="oldPassword" class="col-sm-3 control-label">Старый пароль</label>
     <div class="col-sm-9">
       <input type="password" [(ngModel)]="oldPassword" name="oldPassword" class="form-control" id="oldPassword" placeholder="Enter old password">
     </div>
   </div>
   <div class="form-group">
-    <label for="newPassword" class="col-sm-3 control-label">New password</label>
+    <label for="newPassword" class="col-sm-3 control-label">Новый пароль</label>
     <div class="col-sm-9">
       <input type="password" [(ngModel)]="newPassword" name="newPassword" class="form-control" id="newPassword" placeholder="Enter new password">
     </div>
   </div>
   <div class="form-group">
-    <label for="reNewPassword" class="col-sm-3 control-label">New password again</label>
+    <label for="reNewPassword" class="col-sm-3 control-label">Повторите новый пароль</label>
     <div class="col-sm-9">
       <input type="password" [(ngModel)]="repeatedNewPassword" name="reNewPassword" class="form-control" id="reNewPassword" placeholder="Re-enter new password">
     </div>
   </div>
-  <button type="button" class="btn btn-success" type="button" (click)="updatePassword()" >Change password</button>
+  <button type="button" class="btn btn-success" type="button" (click)="updatePassword()" >Изменить</button>
 </form>

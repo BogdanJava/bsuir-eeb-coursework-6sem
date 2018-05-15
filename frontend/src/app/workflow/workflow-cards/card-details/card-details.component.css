@@ -1,5 +1,7 @@
 .container {
     max-width: 50%;
+    color: #fff;
+    font-weight: 600;
 }
 
 table {

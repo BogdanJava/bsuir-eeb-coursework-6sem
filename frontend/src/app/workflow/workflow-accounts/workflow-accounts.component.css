@@ -25,15 +25,3 @@
 .btn-circle {
     margin: 0 auto;
 }
-
-#accounts {
-    max-width: 70%;
-    display: block;
-    margin: 0 auto -5% auto;    
-}
-
-#accounts > h1 {
-    display: block;
-    margin: 3% auto;
-    max-width: 90%;
-}

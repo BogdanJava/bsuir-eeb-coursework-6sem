@@ -18,7 +18,7 @@ export class RegistrationComponent implements OnInit {
   errors: string[];
   rePassword: string;
   passwordNoMatch: boolean = false;
-  passwordNoMatchMessage: string = "Passwords don't match";
+  passwordNoMatchMessage: string = "Пароли не совпадают";
   passwordStrength: string;
   passwordStrengthBarWidth: number = 0;
   progressBar: Element = null;

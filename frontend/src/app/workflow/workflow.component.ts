@@ -31,4 +31,12 @@ export class WorkflowComponent implements OnInit {
     }
   }
 
+  closeSideBar() {
+    console.log('here');
+    if (this.isOpen) {
+      this.wrapperDiv.className = "";
+      this.arrow.className = "glyphicon glyphicon-chevron-right";
+    }
+  }
+
 }

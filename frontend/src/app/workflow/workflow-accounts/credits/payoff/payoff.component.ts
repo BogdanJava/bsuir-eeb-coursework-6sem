@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CardsService } from '../../../cards.service';
 import { AccountService } from '../../account.service';
 import { ActivatedRoute } from '@angular/router';
@@ -13,7 +13,7 @@ import { Location } from '@angular/common';
   templateUrl: './payoff.component.html',
   styleUrls: ['./payoff.component.css']
 })
-export class PayoffComponent implements OnInit {
+export class PayoffComponent implements OnInit, OnDestroy {
 
   credit: Account;
   cards: Card[];
@@ -43,6 +43,7 @@ export class PayoffComponent implements OnInit {
         });
       }
       this.setStatusClass();
+      this.increaseHeight();
     });
   }
 
@@ -62,6 +63,11 @@ export class PayoffComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy(): void {
+    let wrapper = document.getElementById('wrapper');
+    wrapper.style.height = this.oldHeight;
   }
 
   goBack() {
@@ -92,6 +98,14 @@ export class PayoffComponent implements OnInit {
         status.className += " status-closed";
       }
     }, 100);
+  }
+
+  private oldHeight: string;
+
+  private increaseHeight() {
+    let wrapper = document.getElementById('wrapper');
+    this.oldHeight = wrapper.style.height;
+    wrapper.style.height = '1250px';
   }
 
 }

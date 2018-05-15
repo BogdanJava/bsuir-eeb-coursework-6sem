@@ -2,20 +2,20 @@
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li class="sidebar-brand">
-        <a [routerLink]="['/workflow']">Menu</a>
+        <a [routerLink]="['/workflow']">Меню</a>
       </li>
       <li>
-        <a [routerLink]="['accounts']">Accounts</a>
-        <a [routerLink]="['cards']">Cards</a>
-        <a [routerLink]="['transactions']">Transactions</a>
+        <a [routerLink]="['accounts']">Счета</a>
+        <a [routerLink]="['cards']">Карточки</a>
+        <a [routerLink]="['transactions']">Операции</a>
       </li>
     </ul>
   </div>
-  <div id="page-content-wrapper">
+  <button class="btn sidebar-btn" (click)="openSideBar()">
+    <span id="arrow" class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+  </button>
+  <div id="page-content-wrapper" (click)="closeSideBar()">
     <div class="container-fluid">
-      <button class="btn" (click)="openSideBar()">
-        <span id="arrow" class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      </button>
       <router-outlet></router-outlet>
     </div>
   </div>

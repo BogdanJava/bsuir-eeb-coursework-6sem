@@ -1,12 +1,12 @@
-<div class="container" *ngIf="credit">
+<div class="container payoff accounts-label" *ngIf="credit">
   <div class="page-label">
-    <h1>Credit #{{credit.id}}</h1>
-    <p>Credit details</p>
+    <h1>Кредит #{{credit.id}}</h1>
+    <p>Информация</p>
   </div>
   <hr>
   <div class="row row-colored">
     <div class="col-sm-3">
-      <p class="title">Currency</p>
+      <p class="title">Валюта</p>
     </div>
     <div class="col-sm-9">
       <p class="content">{{credit.currency}}</p>
@@ -14,7 +14,7 @@
   </div>
   <div class="row">
     <div class="col-sm-3">
-      <p class="title">Status</p>
+      <p class="title">Статус</p>
     </div>
     <div class="col-sm-9">
       <p class="content" id="status">
@@ -23,7 +23,7 @@
   </div>
   <div class="row row-colored">
     <div class="col-sm-3">
-      <p class="title">Interest rate</p>
+      <p class="title">Процентная ставка</p>
     </div>
     <div class="col-sm-9">
       <p class="content">{{credit.interestRate}}%</p>
@@ -31,7 +31,7 @@
   </div>
   <div class="row">
     <div class="col-sm-3">
-      <p class="title">Open date</p>
+      <p class="title">Дата открытия</p>
     </div>
     <div class="col-sm-9">
       <p class="content">{{credit.openDate}}</p>
@@ -39,7 +39,7 @@
   </div>
   <div class="row row-colored">
     <div class="col-sm-3">
-      <p class="title">Close date</p>
+      <p class="title">Дата закрытия</p>
     </div>
     <div class="col-sm-9">
       <p class="content">{{credit.closeDate}}</p>
@@ -47,30 +47,30 @@
   </div>
   <div class="row">
     <div class="col-sm-3">
-      <p class="title">Summary</p>
+      <p class="title">Итого</p>
     </div>
     <div class="col-sm-9">
       <p class="content" *ngIf="credit.accountStatus == 'OPEN'">
         {{credit.balance}} + {{interestRate}}({{credit.interestRate}}%)
       </p>
       <p class="content" *ngIf="credit.accountStatus == 'CLOSED'">
-        Paid off
+        Погашен
       </p>
     </div>
   </div>
   <div class="row" *ngIf="cards && cards.length == 0">
     <div class="alert alert-warning">
-      You don't have cards with such currency
+      Вы не можете погасить кредит, т.к. у вас нет подходящей карты
     </div>
   </div>
   <div class="row" *ngIf="cards && cards.length > 0 && credit.accountStatus == 'OPEN'">
-    <h2>Pay off</h2>
+    <h2>Погашение</h2>
     <form #form="ngForm" id="form" class="form-horizontal" (ngSubmit)="onSubmit(form)">
       <div class="form-group">
-        <label for="card" class="col-sm-3 control-label">Card</label>
+        <label for="card" class="col-sm-3 control-label">Карта</label>
         <div class="col-sm-9">
           <select class="form-control" name="card" (change)="onCardChange()" #cardSelect id="cardSelect" required>
-            <option value="" selected disabled hidden>Select your card</option>
+            <option value="" selected disabled hidden>Выберите карту</option>
             <option *ngFor="let card of cards" value="{{card.id}}">{{card.cardNumber}}</option>
           </select>
         </div>
@@ -84,7 +84,7 @@
         </div>
       </div>
       <div class="form-group" *ngIf="balance != null">
-        <label for="balance" class="col-sm-3 control-label">Card balance</label>
+        <label for="balance" class="col-sm-3 control-label">Баланс карты</label>
         <div class="col-sm-9">
           <p class="form-control-static">
             {{balance}} {{card.currency}}
@@ -92,12 +92,12 @@
         </div>
       </div>
       <div class="form-group" *ngIf="balance >= indebtedness">
-        <button type="submit" class="btn btn-success">Pay off</button>
+        <button type="submit" class="btn btn-success">Погасить</button>
       </div>
     </form>
     <div class="alert alert-info" *ngIf="balance < indebtedness">
-      You don't have enough money on this card
+      На вашей карте недостаточно средств
     </div>
   </div>
-  <button class="btn btn-danger back-button" (click)="goBack()">Back</button>
+  <button class="btn btn-danger back-button" (click)="goBack()">Назад</button>
 </div>

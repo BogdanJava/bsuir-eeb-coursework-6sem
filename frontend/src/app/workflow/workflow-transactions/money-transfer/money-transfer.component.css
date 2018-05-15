@@ -20,3 +20,12 @@ button {
 .alert {
     margin-top: 20px;
 }
+
+form p {
+    color: #ffffffb0;
+    font-weight: 600;
+}
+
+form label {
+    color: #fff;
+}

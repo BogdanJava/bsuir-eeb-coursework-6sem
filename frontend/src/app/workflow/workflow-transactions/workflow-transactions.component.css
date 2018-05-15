@@ -2,7 +2,7 @@
     display: block;
     margin: 0 auto;
     max-width: 60%;
-    height: 300px;
+    height: 200px;
 }
 
 .transaction .btn {
@@ -11,4 +11,14 @@
     margin: 0 auto;
 }
 
+.transaction p {
+    color: #000000b0;
+    font-weight: 600;
+}
 
+.transaction h2 {
+    font-weight: 600;
+    color: #ffffffd1;
+    width: 400px;
+    margin-left: -60px;
+}

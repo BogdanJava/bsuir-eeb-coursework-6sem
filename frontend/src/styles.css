@@ -663,3 +663,32 @@ h4 {
   font-weight: 200;
 }
 
+.accounts-label {
+  max-width: 70%;
+  display: block;
+  margin: 0 auto -5% auto;    
+  margin-top: 50px;
+  background-color: #b594948c;
+  padding-bottom: 50px;
+}
+
+.accounts-label > h1 {
+  display: block;
+  margin: 3% auto;
+  max-width: 90%;
+  color: #000;
+}
+
+.accounts-label .page-label p {
+  color: #ffffffc9;
+}
+
+.accounts-table td {
+  border-top: 1px solid #fff;
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+
+.accounts-table tr {
+  background-color: #0000005c !important;
+}

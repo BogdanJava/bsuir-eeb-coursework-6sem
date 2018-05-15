@@ -1,11 +1,11 @@
-<h1>Contact info</h1>
+<h1>Телефоны</h1>
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
       <td>#</td>
-      <td>Number</td>
-      <td>Type</td>
-      <td>Actions</td>
+      <td>Номер</td>
+      <td>Тип</td>
+      <td>Действия</td>
     </tr>
   </thead>
   <tbody *ngFor="let phone of phones">
@@ -15,44 +15,44 @@
       <td>{{phone.phone.type}} </td>
       <td style="width: 30%;">
         <button class="btn btn-danger" (click)="deletePhone(phone)">
-          <i class="fa fa-trash"></i> Delete</button>
+          <i class="fa fa-trash"></i> Удалить</button>
         <button class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)="setEditPhone(phone)">
-          <i class="fa fa-pencil"></i> Edit</button>
+          <i class="fa fa-pencil"></i> Изменить</button>
       </td>
     </tr>
     <tr *ngIf="phones == null || phones.length == 0">
-      Add something
+      Добавьте что-нибудь
     </tr>
   </tbody>
 </table>
 <form class="form-inline" (ngSubmit)="addPhone(phoneAdd)" #phoneAdd id="phoneAdd" >
   <div class="form-group">
-    <label class="sr-only" for="newPhone">New phone</label>
+    <label class="sr-only" for="newPhone">Добавьте что-нибудь</label>
     <div class="input-group">
       <div class="input-group-addon">+</div>
       <input type="text" class="form-control" id="newPhone" placeholder="Phone number" height="inherit" [(ngModel)]="newPhone.number"
         name="number" required>
       <div class="input-group-addon" id="phoneType">
         <select class="form-control" [(ngModel)]="newPhone.type" name="type">
-          <option value="mobile">Mobile</option>
-          <option value="home">Home</option>
-          <option value="work">Work</option>
+          <option value="mobile">Мобильный</option>
+          <option value="home">Домашний</option>
+          <option value="work">Рабочий</option>
         </select>
       </div>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">Add</button>
+  <button type="submit" class="btn btn-primary">Добавить</button>
   <div class="alert alert-danger" *ngIf="hasError">
-    Some error occurred
+    Ошибка
   </div>
   <div class="alert alert-success" role="alert" *ngIf="deleteSuccess">
-    Successfully deleted
+    Успешно удалён
   </div>
   <div class="alert alert-success" role="alert" *ngIf="edited">
-    A phone has been successfully edited
+    Успешно изменён
   </div>
   <div class="alert alert-success" role="alert" *ngIf="added">
-    A new phone has been added!
+    Новый телефон добавлен
   </div>
 </form>
 
@@ -63,31 +63,31 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title" id="myModalLabel">Edit</h4>
+        <h4 class="modal-title" id="myModalLabel">Изменить</h4>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
           <div class="form-group">
-            <label for="phoneNumber" class="col-sm-3 control-label">Number</label>
+            <label for="phoneNumber" class="col-sm-3 control-label">Номер</label>
             <div class="col-sm-9">
               <input [(ngModel)]="this.editPhone.phone.number" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="1234567890123">
             </div>
           </div>
           <div class="form-group" id="editPhoneType">
-            <label for="phoneType" class="col-sm-3 control-label">Type</label>
+            <label for="phoneType" class="col-sm-3 control-label">Тип</label>
             <div class="col-sm-9">
               <select class="form-control" [(ngModel)]="this.editPhone.phone.type" name="editType">
-                <option value="mobile">Mobile</option>
-                <option value="home">Home</option>
-                <option value="work">Work</option>
+                <option value="mobile">Мобильный</option>
+                <option value="home">Добашний</option>
+                <option value="work">Рабочий</option>
               </select>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" id="closeButton" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" (click)="editSelectedPhone()" data-dismiss="modal" >Save changes</button>
+        <button type="button" id="closeButton" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        <button type="submit" class="btn btn-primary" (click)="editSelectedPhone()" data-dismiss="modal" >Сохранить</button>
       </div>
     </div>
   </div>

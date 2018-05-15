@@ -1,19 +1,19 @@
-<div class="container" *ngIf="cardList.length == 0">
+<div class="container accounts-label" *ngIf="cardList.length == 0">
   <div class="page-label">
-    <h1>Cards management</h1>
-    <p>You don't have any cards yet! Get one right now</p>
+    <h1>Банковские карты</h1>
+    <p>Секция менеджмента банковских карт</p>
     <hr>
   </div>
   <a [routerLink]="['registration']" class="btn btn-default btn-circle">
     <span id="card-icon" class="glyphicon glyphicon-credit-card card-main-area" aria-hidden="true">
     </span>
-    <p class="card-text">Get</p>
+    <p class="card-text">Зарегистрировать</p>
   </a>
 </div>
-<div *ngIf="cardList.length != 0">
+<div *ngIf="cardList.length != 0" class="accounts-label">
   <div class="page-label">
-    <h1>Cards list</h1>
-    <p>Your cards. Click to see details</p>
+    <h1>Список карт</h1>
+    <p>Ваши карты. Нажмите, чтобы посмотреть детали</p>
     <hr>
   </div>
   <div class="container">
@@ -28,9 +28,9 @@
     </div>
     <div class="col-sm-4">
       <div class="card" [routerLink]="['registration']">
-        <h3>Add a new one</h3>
+        <h3>Добавить новую карту</h3>
         <span class="glyphicon glyphicon-plus card-add"></span>
-        <p>New card</p>
+        <p>Регистрация</p>
       </div>
     </div>
   </div>
